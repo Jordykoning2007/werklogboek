@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -19,8 +19,8 @@
       --font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
       --safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px);
     }
-    html,body{height:100%;overflow:hidden;background:var(--bg);font-family:var(--font);color:var(--dark)}
-    #app{display:flex;flex-direction:column;height:100vh;height:100dvh}
+    html,body{height:100%;background:var(--bg);font-family:var(--font);color:var(--dark)}
+    #app{position:fixed;inset:0;display:flex;flex-direction:column;overflow:hidden}
     .spin-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:14px}
     .spin{width:38px;height:38px;border:3px solid #e8e2d8;border-top-color:var(--accent);border-radius:50%;animation:sp .75s linear infinite}
     @keyframes sp{to{transform:rotate(360deg)}}

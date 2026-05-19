@@ -15,6 +15,7 @@
       --bg:#f5f2ee;--white:#fff;--dark:#1a1a1a;--accent:#e8650a;
       --accent-light:#fff3ec;--border:#e8e2d8;--muted:#888;
       --card:#faf8f5;--green:#2d6a4f;--green-light:#edf7f2;--blue:#1d6fa5;--blue-light:#e8f3fb;
+      --purple:#7209b7;--purple-light:#f3e8ff;
       --font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
       --safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px);
     }
@@ -77,8 +78,10 @@
     .ecard{border:1px solid var(--border);border-radius:12px;padding:13px;background:var(--card);margin-bottom:12px}
     .etop{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px}
     .etop-left{display:flex;flex-direction:column;gap:5px}
+    .etop-badges{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
     .cbadge{font-size:12px;font-weight:600;padding:3px 11px;border-radius:20px;border:1px solid;display:inline-block}
     .ekm-badge{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--blue);background:var(--blue-light);border:1px solid #b8d9ef;border-radius:20px;padding:3px 10px}
+    .eknr-badge{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--purple);background:var(--purple-light);border:1px solid #d8b4fe;border-radius:20px;padding:3px 10px}
     .etop-right{display:flex;flex-direction:column;align-items:flex-end;gap:2px}
     .ehours{font-size:22px;font-weight:700}
     .enotes{font-size:13px;color:#555;line-height:1.6;margin-bottom:9px}
@@ -93,6 +96,7 @@
     .finput:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px #e8650a18}
     textarea.finput{height:80px;resize:vertical}
     .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
     .photo-box{border:2px dashed var(--border);border-radius:9px;padding:14px;text-align:center;cursor:pointer;min-height:64px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:var(--card)}
     .photo-prev{max-height:90px;border-radius:6px;object-fit:contain}
     .photo-hint{font-size:13px;color:#aaa}
@@ -111,11 +115,11 @@
     .cearn{font-size:13px;font-weight:700;color:var(--green)}
     .ckm{font-size:12px;font-weight:700;color:var(--blue)}
     .print-btn{padding:6px 12px;border:1px solid var(--border);border-radius:8px;background:var(--white);cursor:pointer;font-size:12px;font-family:var(--font);color:#555;display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0}
-    .print-btn:hover{border-color:var(--accent);color:var(--accent)}
     .ov-entry{display:flex;align-items:center;gap:8px;padding:9px 17px;border-bottom:1px solid #f8f5f1;font-size:14px}
     .ov-date{font-weight:700;color:#888;width:52px;flex-shrink:0}
     .ov-hrs{font-weight:700;width:30px;flex-shrink:0}
-    .ov-km{font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;flex-shrink:0;min-width:40px}
+    .ov-km{font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;flex-shrink:0;min-width:36px}
+    .ov-knr{font-size:11px;font-weight:700;color:var(--purple);white-space:nowrap;flex-shrink:0;background:var(--purple-light);padding:2px 7px;border-radius:10px}
     .ov-note{color:#777;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
     .ov-earn{font-size:12px;font-weight:700;color:var(--green);flex-shrink:0;white-space:nowrap}
     .ov-thumb{width:28px;height:28px;border-radius:6px;object-fit:cover;cursor:zoom-in;flex-shrink:0;border:1px solid var(--border)}
@@ -125,7 +129,7 @@
     .hint-row{text-align:center;color:var(--muted);font-size:13px;padding:0 0 24px;line-height:1.6}
     .empty{text-align:center;color:#ccc;padding:36px 0;font-size:14px;line-height:1.7}
     .modal-overlay{position:fixed;inset:0;background:#0007;z-index:200;display:flex;align-items:flex-end}
-    .modal{background:var(--white);border-radius:20px 20px 0 0;width:100%;max-height:85vh;display:flex;flex-direction:column;padding-bottom:var(--safe-bottom)}
+    .modal{background:var(--white);border-radius:20px 20px 0 0;width:100%;max-height:88vh;display:flex;flex-direction:column;padding-bottom:var(--safe-bottom)}
     .modal-handle{width:36px;height:4px;background:#ddd;border-radius:2px;margin:12px auto 0;flex-shrink:0}
     .modal-hdr{padding:16px 20px 14px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
     .modal-title{font-size:18px;font-weight:700}
@@ -142,10 +146,9 @@
     .modal-note{font-size:13px;color:var(--muted);margin-top:16px;padding:12px 14px;background:var(--card);border-radius:10px;line-height:1.6}
     .no-cos{color:var(--muted);font-size:14px;text-align:center;padding:24px 0}
     .opt-row{display:flex;align-items:center;padding:11px 0;border-bottom:1px solid var(--border)}
-    .opt-row:last-of-type{border-bottom:none}
     .opt-lbl{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:500;cursor:pointer;flex:1}
     .opt-lbl input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent);cursor:pointer;flex-shrink:0}
-    .sig-fields{margin-top:10px;padding:14px;background:var(--card);border-radius:10px;border:1px solid var(--border)}
+    .sig-sub{margin-top:10px;padding:14px;background:var(--card);border-radius:10px;border:1px solid var(--border)}
     .lightbox{position:fixed;inset:0;background:#000b;z-index:300;display:none;align-items:center;justify-content:center}
     .lightbox.on{display:flex}
     .lightbox img{max-width:92vw;max-height:88vh;border-radius:12px}
@@ -175,10 +178,10 @@ let S={
   loading:true,err:null,
   view:'cal',y:NOW.getFullYear(),m:NOW.getMonth(),
   sel:null,panel:false,showForm:false,editId:null,showRates:false,
-  showPrint:false,printCo:null,printOpts:{notes:true,amounts:true,sigs:false,sig1:'Jordy Koning',sig2:'Stage begeleider'},
-  form:{co:'',hrs:'',km:'',notes:'',photo:null,pname:''},
-  entries:[],rates:{},kmRate:0,
-  userName:'',userNum:''
+  showPrint:false,printCo:null,
+  printOpts:{notes:true,amounts:true,uurtarief:false,sig1Active:false,sig2Active:false,sig1:'Jordy Koning',sig2:'Stage begeleider'},
+  form:{co:'',hrs:'',km:'',klantnr:'',notes:'',photo:null,pname:''},
+  entries:[],rates:{},kmRate:0,userName:'',userNum:''
 };
 
 async function loadData(){
@@ -187,9 +190,9 @@ async function loadData(){
       dbGet('entries','select=*&order=date.asc'),
       dbGet('settings','select=*')
     ]);
-    S.entries=entries.map(e=>({...e,hrs:Number(e.hrs),km:Number(e.km||0)}));
+    S.entries=entries.map(e=>({...e,hrs:Number(e.hrs),km:Number(e.km||0),klantnr:e.klantnr||''}));
     const cfg=settings.find(s=>s.key==='config');
-    if(cfg){try{const c=JSON.parse(cfg.value);S.rates=c.rates||{};S.kmRate=c.kmRate||0;S.userName=c.userName||'';S.userNum=c.userNum||'';}catch{}}
+    if(cfg){try{const c=JSON.parse(cfg.value);S.rates=c.rates||{};S.kmRate=c.kmRate||0;S.userName=c.userName||'';S.userNum=c.userNum||'';if(c.printOpts)S.printOpts={...S.printOpts,...c.printOpts};}catch{}}
     S.err=null;
   }catch(e){S.err='Kon geen verbinding maken.\nCheck je internet en probeer opnieuw.';console.error(e);}
   S.loading=false;R();
@@ -197,7 +200,7 @@ async function loadData(){
 
 async function saveSettings(){
   setSyncing(true);
-  try{await dbUpsert('settings',{key:'config',value:JSON.stringify({rates:S.rates,kmRate:S.kmRate,userName:S.userName,userNum:S.userNum})});}
+  try{await dbUpsert('settings',{key:'config',value:JSON.stringify({rates:S.rates,kmRate:S.kmRate,userName:S.userName,userNum:S.userNum,printOpts:S.printOpts})});}
   catch(e){console.error(e);}
   setSyncing(false);
 }
@@ -233,16 +236,16 @@ function prevM(){if(S.m===0){S.y--;S.m=11;}else S.m--;S.sel=null;S.panel=false;R
 function nextM(){if(S.m===11){S.y++;S.m=0;}else S.m++;S.sel=null;S.panel=false;R();}
 function pickDay(day){S.sel=fd(S.y,S.m,day);S.panel=true;S.showForm=false;S.editId=null;R();}
 function closePanel(){S.panel=false;S.sel=null;S.showForm=false;R();}
-function openAdd(){S.form={co:'',hrs:'',km:'',notes:'',photo:null,pname:''};S.editId=null;S.showForm=true;R();setTimeout(()=>{const f=document.querySelector('.fsec');if(f)f.scrollIntoView({behavior:'smooth'});},80);}
-function openEdit(id){const e=S.entries.find(e=>e.id===id);if(!e)return;S.form={co:e.co,hrs:String(e.hrs),km:e.km?String(e.km):'',notes:e.notes||'',photo:e.photo||null,pname:e.pname||''};S.editId=id;S.showForm=true;R();}
+function openAdd(){S.form={co:'',hrs:'',km:'',klantnr:'',notes:'',photo:null,pname:''};S.editId=null;S.showForm=true;R();setTimeout(()=>{const f=document.querySelector('.fsec');if(f)f.scrollIntoView({behavior:'smooth'});},80);}
+function openEdit(id){const e=S.entries.find(e=>e.id===id);if(!e)return;S.form={co:e.co,hrs:String(e.hrs),km:e.km?String(e.km):'',klantnr:e.klantnr||'',notes:e.notes||'',photo:e.photo||null,pname:e.pname||''};S.editId=id;S.showForm=true;R();}
 function cancelForm(){S.showForm=false;S.editId=null;R();}
 
 async function doSave(){
-  const{co,hrs,km,notes,photo,pname}=S.form;
+  const{co,hrs,km,klantnr,notes,photo,pname}=S.form;
   if(!co.trim()||!hrs){alert('Vul bedrijf en uren in.');return;}
-  const entry={id:S.editId||String(Date.now()),date:S.sel,co:co.trim(),hrs:parseFloat(hrs),km:km?parseFloat(km):0,notes:notes||'',photo:photo||null,pname:pname||''};
+  const entry={id:S.editId||String(Date.now()),date:S.sel,co:co.trim(),hrs:parseFloat(hrs),km:km?parseFloat(km):0,klantnr:klantnr||'',notes:notes||'',photo:photo||null,pname:pname||''};
   if(S.editId)S.entries=S.entries.map(e=>e.id===S.editId?entry:e);else S.entries.push(entry);
-  S.showForm=false;S.editId=null;S.form={co:'',hrs:'',km:'',notes:'',photo:null,pname:''};R();
+  S.showForm=false;S.editId=null;S.form={co:'',hrs:'',km:'',klantnr:'',notes:'',photo:null,pname:''};R();
   setSyncing(true);
   try{await dbUpsert('entries',entry);showToast('✓ Opgeslagen');}
   catch(e){alert('Fout bij opslaan.');console.error(e);}
@@ -271,10 +274,7 @@ function closeRates(){
   S.showRates=false;R();saveSettings();
 }
 
-/* ── Print ── */
-function openPrint(co){
-  S.printCo=co;S.showPrint=true;S.showRates=false;R();
-}
+function openPrint(co){S.printCo=co;S.showPrint=true;S.showRates=false;R();}
 function closePrint(){S.showPrint=false;S.printCo=null;R();}
 
 function doPrint(){
@@ -284,7 +284,9 @@ function doPrint(){
   const opts={
     notes:document.getElementById('opt-notes')?.checked??true,
     amounts:document.getElementById('opt-amounts')?.checked??true,
-    sigs:document.getElementById('opt-sigs')?.checked??false,
+    uurtarief:document.getElementById('opt-uurtarief')?.checked??false,
+    sig1Active:document.getElementById('opt-sig1-active')?.checked??false,
+    sig2Active:document.getElementById('opt-sig2-active')?.checked??false,
     sig1:(document.getElementById('opt-sig1')?.value||'Jordy Koning').trim(),
     sig2:(document.getElementById('opt-sig2')?.value||'Stage begeleider').trim()
   };
@@ -298,7 +300,8 @@ function doPrint(){
   S.showPrint=false;R();
 }
 
-function buildPrintHTML(co,name,num){
+function buildPrintHTML(co,name,num,opts){
+  const o=opts||S.printOpts;
   const data=monthData()[co]||{hrs:0,km:0,entries:[]};
   const entries=data.entries.slice().sort((a,b)=>a.date.localeCompare(b.date));
   const rate=S.rates[co];
@@ -308,37 +311,42 @@ function buildPrintHTML(co,name,num){
   const c=coColor(co);
   const period=`${MN[S.m]} ${S.y}`;
   const today=new Date().toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'});
+  const showEarnCol=o.amounts&&(rate!=null||S.kmRate>0);
+  const hasKlantnr=entries.some(e=>e.klantnr);
 
   const rows=entries.map(e=>{
     const er=S.rates[e.co];
     const ee=(er?e.hrs*er:0)+(e.km&&S.kmRate?e.km*S.kmRate:0);
     return`<tr>
       <td>${fmtLong(e.date)}</td>
+      ${hasKlantnr?`<td style="color:#7209b7;font-weight:600;font-size:13px">${e.klantnr||'—'}</td>`:''}
       <td style="text-align:center;font-weight:700">${e.hrs}</td>
       <td style="text-align:center;font-weight:700;color:#1d6fa5">${e.km||'—'}</td>
-      <td style="color:#555">${e.notes?esc(e.notes):'—'}</td>
-      ${(er!=null||(e.km&&S.kmRate))?`<td style="text-align:right;font-weight:700;color:#2d6a4f">${ee>0?euro(ee):'—'}</td>`:''}
+      ${o.notes?`<td style="color:#555;font-size:13px">${e.notes?esc(e.notes):'—'}</td>`:''}
+      ${showEarnCol?`<td style="text-align:right;font-weight:700;color:#2d6a4f">${ee>0?euro(ee):'—'}</td>`:''}
     </tr>`;
   }).join('');
 
-  const showEarnCol=rate!=null||S.kmRate>0;
+  const sigBlocks=[];
+  if(o.sig1Active)sigBlocks.push(`<div class="sig-item"><div class="sig-line"></div><div class="sig-lbl">Akkoord ${esc(o.sig1)}</div></div>`);
+  if(o.sig2Active)sigBlocks.push(`<div class="sig-item"><div class="sig-line"></div><div class="sig-lbl">Akkoord ${esc(o.sig2)}</div></div>`);
 
   return`<!DOCTYPE html><html lang="nl"><head><meta charset="UTF-8">
   <title>Urenoverzicht ${esc(co)} – ${period}</title>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:Arial,Helvetica,sans-serif;color:#1a1a1a;padding:0;background:#fff}
+    body{font-family:Arial,Helvetica,sans-serif;color:#1a1a1a;background:#fff}
     @page{margin:18mm 20mm}
     @media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
     .wrap{max-width:780px;margin:0 auto;padding:32px 0}
     .hdr{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:20px;border-bottom:3px solid ${c};margin-bottom:28px}
-    .hdr-left{}
     .co-name{font-size:26px;font-weight:800;color:${c};letter-spacing:-.5px}
     .period{font-size:15px;color:#888;margin-top:5px}
     .hdr-right{text-align:right}
     .info-row{margin-bottom:6px}
     .info-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:#aaa;font-weight:700}
     .info-val{font-size:15px;font-weight:700;color:#1a1a1a}
+    ${o.uurtarief&&rate?`.rate-pill{display:inline-block;background:${c}15;color:${c};border:1px solid ${c}30;border-radius:20px;padding:4px 12px;font-size:13px;font-weight:700;margin-top:8px}`:''}
     table{width:100%;border-collapse:collapse;margin-bottom:24px;font-size:14px}
     thead tr{background:${c}18}
     th{padding:10px 12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:${c};font-weight:700;border-bottom:2px solid ${c}30}
@@ -353,49 +361,44 @@ function buildPrintHTML(co,name,num){
     .tot-row.earn .tot-val{color:#2d6a4f;font-weight:800}
     .tot-lbl{color:#555;font-weight:500}
     .tot-val{font-weight:700}
-    .footer{margin-top:36px;padding-top:14px;border-top:1px solid #e8e2d8;display:flex;justify-content:space-between;font-size:11px;color:#aaa}
-    .sig-block{margin-top:48px;display:flex;gap:60px}
+    .sig-block{margin-top:48px;display:flex;gap:48px}
     .sig-item{flex:1}
-    .sig-line{border-bottom:1px solid #ccc;margin-bottom:6px;height:36px}
-    .sig-lbl{font-size:11px;color:#aaa}
+    .sig-line{border-bottom:1px solid #ccc;margin-bottom:8px;height:40px}
+    .sig-lbl{font-size:12px;color:#888;font-weight:600}
+    .footer{margin-top:36px;padding-top:14px;border-top:1px solid #e8e2d8;display:flex;justify-content:space-between;font-size:11px;color:#aaa}
   </style></head><body><div class="wrap">
   <div class="hdr">
-    <div class="hdr-left">
+    <div>
       <div class="co-name">${esc(co)}</div>
       <div class="period">Urenoverzicht – ${period}</div>
+      ${o.uurtarief&&rate?`<div class="rate-pill">Uurtarief: ${euro(rate)}/u</div>`:''}
     </div>
     <div class="hdr-right">
       <div class="info-row"><div class="info-lbl">Naam</div><div class="info-val">${esc(name)}</div></div>
-      ${num?`<div class="info-row" style="margin-top:10px"><div class="info-lbl">Personeelsnummer</div><div class="info-val">${esc(num)}</div></div>`:''}
+      ${num?`<div class="info-row" style="margin-top:8px"><div class="info-lbl">Personeelsnummer</div><div class="info-val">${esc(num)}</div></div>`:''}
     </div>
   </div>
-  <table>
-    <thead><tr>
-      <th>Datum</th>
-      <th style="text-align:center">Uren</th>
-      <th style="text-align:center">Km</th>
-      <th>Notitie</th>
-      ${showEarnCol?'<th style="text-align:right">Bedrag</th>':''}
-    </tr></thead>
-    <tbody>${rows}</tbody>
-  </table>
+  <table><thead><tr>
+    <th>Datum</th>
+    ${hasKlantnr?'<th>Klant/Werknr.</th>':''}
+    <th style="text-align:center">Uren</th>
+    <th style="text-align:center">Km</th>
+    ${o.notes?'<th>Notitie</th>':''}
+    ${showEarnCol?'<th style="text-align:right">Bedrag</th>':''}
+  </tr></thead><tbody>${rows}</tbody></table>
   <div class="totals">
     <div class="tot-title">Totaaloverzicht ${period}</div>
     <div class="tot-row big"><span class="tot-lbl">Totaal uren</span><span class="tot-val">${data.hrs} uur</span></div>
     ${data.km?`<div class="tot-row"><span class="tot-lbl">Totaal kilometers</span><span class="tot-val" style="color:#1d6fa5">${data.km} km</span></div>`:''}
-    ${earnHrs!=null?`<div class="tot-row"><span class="tot-lbl">Uren (${rate} €/u × ${data.hrs}u)</span><span class="tot-val">${euro(earnHrs)}</span></div>`:''}
-    ${earnKm!=null?`<div class="tot-row"><span class="tot-lbl">Km-vergoeding (${S.kmRate} €/km × ${data.km}km)</span><span class="tot-val">${euro(earnKm)}</span></div>`:''}
-    ${earnTotal!=null?`<div class="tot-row earn"><span class="tot-lbl" style="font-weight:700">Totaal te ontvangen</span><span class="tot-val">${euro(earnTotal)}</span></div>`:''}
+    ${o.amounts&&earnHrs!=null?`<div class="tot-row"><span class="tot-lbl">Uren (${rate} €/u × ${data.hrs}u)</span><span class="tot-val">${euro(earnHrs)}</span></div>`:''}
+    ${o.amounts&&earnKm!=null?`<div class="tot-row"><span class="tot-lbl">Km-vergoeding (${S.kmRate} €/km × ${data.km}km)</span><span class="tot-val">${euro(earnKm)}</span></div>`:''}
+    ${o.amounts&&earnTotal!=null?`<div class="tot-row earn"><span class="tot-lbl" style="font-weight:700">Totaal te ontvangen</span><span class="tot-val">${euro(earnTotal)}</span></div>`:''}
   </div>
-  <div class="sig-block">
-    <div class="sig-item"><div class="sig-line"></div><div class="sig-lbl">Handtekening werknemer – ${esc(name)}</div></div>
-    <div class="sig-item"><div class="sig-line"></div><div class="sig-lbl">Handtekening werkgever – ${esc(co)}</div></div>
-  </div>
+  ${sigBlocks.length?`<div class="sig-block">${sigBlocks.join('')}</div>`:''}
   <div class="footer"><span>Gegenereerd op ${today}</span><span>Werklogboek</span></div>
   </div></body></html>`;
 }
 
-/* ── Render ── */
 function R(){document.getElementById('app').innerHTML=buildApp();attachSwipe();}
 
 function buildApp(){
@@ -432,9 +435,26 @@ function buildSheet(){
   const th=de.reduce((s,e)=>s+e.hrs,0),tkm=de.reduce((s,e)=>s+e.km,0);
   const cards=de.length===0&&!S.showForm?`<div class="empty">📝<br>Nog geen registraties.<br>Klik op '+ Toevoegen'.</div>`
     :de.map(e=>{const rate=S.rates[e.co];const earn=(rate?e.hrs*rate:0)+(e.km&&S.kmRate?e.km*S.kmRate:0);const showEarn=(rate!=null)||(e.km&&S.kmRate);
-      return`<div class="ecard"><div class="etop"><div class="etop-left"><span class="cbadge" style="background:${coColor(e.co)}18;color:${coColor(e.co)};border-color:${coColor(e.co)}30">${esc(e.co)}</span>${e.km?`<span class="ekm-badge">🚗 ${e.km} km</span>`:''}</div><div class="etop-right"><span class="ehours">${e.hrs}u</span>${showEarn&&earn>0?`<div style="font-size:13px;font-weight:700;color:var(--green)">${euro(earn)}</div>`:''}</div></div>${e.notes?`<p class="enotes">${esc(e.notes)}</p>`:''}${e.photo?`<img class="ephoto" src="${e.photo}" onclick="openLb('${e.id}')">`:''}<div class="eacts"><button class="edit-btn" onclick="openEdit('${e.id}')">✎ Bewerken</button><button class="del-btn" onclick="doDelete('${e.id}')">Verwijderen</button></div></div>`;
+      return`<div class="ecard"><div class="etop"><div class="etop-left"><span class="cbadge" style="background:${coColor(e.co)}18;color:${coColor(e.co)};border-color:${coColor(e.co)}30">${esc(e.co)}</span><div class="etop-badges">${e.klantnr?`<span class="eknr-badge">🔢 ${esc(e.klantnr)}</span>`:''} ${e.km?`<span class="ekm-badge">🚗 ${e.km} km</span>`:''}</div></div><div class="etop-right"><span class="ehours">${e.hrs}u</span>${showEarn&&earn>0?`<div style="font-size:13px;font-weight:700;color:var(--green)">${euro(earn)}</div>`:''}</div></div>${e.notes?`<p class="enotes">${esc(e.notes)}</p>`:''}${e.photo?`<img class="ephoto" src="${e.photo}" onclick="openLb('${e.id}')">`:''}<div class="eacts"><button class="edit-btn" onclick="openEdit('${e.id}')">✎ Bewerken</button><button class="del-btn" onclick="doDelete('${e.id}')">Verwijderen</button></div></div>`;
     }).join('');
-  const form=S.showForm?`<div class="fsec"><div class="ftitle">${S.editId?'Registratie bewerken':'Nieuwe registratie'}</div><label class="flbl">Bedrijf</label><input class="finput" list="cl" type="text" placeholder="Bedrijfsnaam" value="${esc(S.form.co)}" oninput="S.form.co=this.value"><datalist id="cl">${allCo().map(c=>`<option value="${esc(c)}">`).join('')}</datalist><div class="row2"><div><label class="flbl">Uren</label><input class="finput" type="number" step="0.5" min="0" placeholder="7.5" value="${esc(S.form.hrs)}" oninput="S.form.hrs=this.value"></div><div><label class="flbl">Kilometers</label><input class="finput" type="number" step="1" min="0" placeholder="42" value="${esc(S.form.km)}" oninput="S.form.km=this.value"></div></div><label class="flbl">Notitie</label><textarea class="finput" placeholder="Optionele notitie..." oninput="S.form.notes=this.value">${esc(S.form.notes)}</textarea><label class="flbl">Foto</label><div class="photo-box" onclick="document.getElementById('fp').click()">${S.form.photo?`<img class="photo-prev" src="${S.form.photo}">`:`<span style="font-size:22px">📎</span><span class="photo-hint">Klik om foto toe te voegen</span>`}</div><button class="rm-photo" onclick="rmPhoto()" style="display:${S.form.photo?'block':'none'}">✕ Foto verwijderen</button><input type="file" id="fp" accept="image/*" style="display:none" onchange="onPhoto(event)"><div class="fbtns"><button class="save-btn" onclick="doSave()">Opslaan</button><button class="cancel-btn" onclick="cancelForm()">Annuleren</button></div></div>`:'';
+  const form=S.showForm?`<div class="fsec"><div class="ftitle">${S.editId?'Registratie bewerken':'Nieuwe registratie'}</div>
+    <label class="flbl">Bedrijf</label>
+    <input class="finput" list="cl" type="text" placeholder="Bedrijfsnaam" value="${esc(S.form.co)}" oninput="S.form.co=this.value">
+    <datalist id="cl">${allCo().map(c=>`<option value="${esc(c)}">`).join('')}</datalist>
+    <label class="flbl">Klant / Werknummer <span style="font-weight:400;color:#bbb">(optioneel)</span></label>
+    <input class="finput" type="text" placeholder="Bijv. KL-1234 of WO-5678" value="${esc(S.form.klantnr)}" oninput="S.form.klantnr=this.value">
+    <div class="row2">
+      <div><label class="flbl">Uren</label><input class="finput" type="number" step="0.5" min="0" placeholder="7.5" value="${esc(S.form.hrs)}" oninput="S.form.hrs=this.value"></div>
+      <div><label class="flbl">Kilometers</label><input class="finput" type="number" step="1" min="0" placeholder="42" value="${esc(S.form.km)}" oninput="S.form.km=this.value"></div>
+    </div>
+    <label class="flbl">Notitie</label>
+    <textarea class="finput" placeholder="Optionele notitie..." oninput="S.form.notes=this.value">${esc(S.form.notes)}</textarea>
+    <label class="flbl">Foto</label>
+    <div class="photo-box" onclick="document.getElementById('fp').click()">${S.form.photo?`<img class="photo-prev" src="${S.form.photo}">`:`<span style="font-size:22px">📎</span><span class="photo-hint">Klik om foto toe te voegen</span>`}</div>
+    <button class="rm-photo" onclick="rmPhoto()" style="display:${S.form.photo?'block':'none'}">✕ Foto verwijderen</button>
+    <input type="file" id="fp" accept="image/*" style="display:none" onchange="onPhoto(event)">
+    <div class="fbtns"><button class="save-btn" onclick="doSave()">Opslaan</button><button class="cancel-btn" onclick="cancelForm()">Annuleren</button></div>
+  </div>`:'';
   return`<div class="sheet ${S.panel?'on':''}" id="sheet"><div class="sheet-handle"></div><div class="sheet-hdr"><div><div class="sheet-date">${d} ${MN[m]} ${y}</div><div class="sheet-sub">${th}u gewerkt${tkm?` · ${tkm} km`:''} · ${de.length} registratie${de.length!==1?'s':''}</div></div><div class="sheet-hdr-right"><button class="add-btn" onclick="openAdd()">+ Toevoegen</button><button class="x-btn" onclick="closePanel()">✕</button></div></div><div class="sheet-body">${cards}${form}</div></div>`;
 }
 
@@ -445,14 +465,49 @@ function buildOv(){
     const{hrs,km,entries}=data[co],c=coColor(co),rate=S.rates[co];
     const earnHrs=rate!=null?hrs*rate:null;const earnKm=km&&S.kmRate?km*S.kmRate:null;
     const earnTotal=(earnHrs!=null||earnKm!=null)?((earnHrs||0)+(earnKm||0)):null;
-    return`<div class="cblock"><div class="cblock-hdr"><div class="cblock-left"><span class="cdot" style="background:${c}"></span><span class="cname">${esc(co)}</span></div><div class="cblock-center"><span class="ctotal" style="color:${c}">${hrs}u</span>${km?`<span class="ckm">🚗 ${km} km</span>`:''}${earnTotal!=null?`<span class="cearn">${euro(earnTotal)}</span>`:''}</div><button class="print-btn" onclick="openPrint('${esc(co)}')">🖨 Afdrukken</button></div>${entries.slice().sort((a,b)=>a.date.localeCompare(b.date)).map(e=>{const er=S.rates[e.co];const ee=(er?e.hrs*er:0)+(e.km&&S.kmRate?e.km*S.kmRate:0);const showEe=er!=null||(e.km&&S.kmRate);return`<div class="ov-entry"><span class="ov-date">${fmtShort(e.date)}</span><span class="ov-hrs">${e.hrs}u</span><span class="ov-km">${e.km?'🚗 '+e.km:''}</span><span class="ov-note">${e.notes?esc(e.notes):'<span style="color:#ccc">—</span>'}</span>${showEe&&ee>0?`<span class="ov-earn">${euro(ee)}</span>`:''}${e.photo?`<img class="ov-thumb" src="${e.photo}" onclick="openLb('${e.id}')">`:''}</div>`;}).join('')}</div>`;
+    return`<div class="cblock"><div class="cblock-hdr"><div class="cblock-left"><span class="cdot" style="background:${c}"></span><span class="cname">${esc(co)}</span></div><div class="cblock-center"><span class="ctotal" style="color:${c}">${hrs}u</span>${km?`<span class="ckm">🚗 ${km} km</span>`:''}${earnTotal!=null?`<span class="cearn">${euro(earnTotal)}</span>`:''}</div><button class="print-btn" onclick="openPrint('${esc(co)}')">🖨 Afdrukken</button></div>
+    ${entries.slice().sort((a,b)=>a.date.localeCompare(b.date)).map(e=>{const er=S.rates[e.co];const ee=(er?e.hrs*er:0)+(e.km&&S.kmRate?e.km*S.kmRate:0);const showEe=er!=null||(e.km&&S.kmRate);
+      return`<div class="ov-entry"><span class="ov-date">${fmtShort(e.date)}</span><span class="ov-hrs">${e.hrs}u</span><span class="ov-km">${e.km?'🚗 '+e.km:''}</span>${e.klantnr?`<span class="ov-knr">${esc(e.klantnr)}</span>`:''}<span class="ov-note">${e.notes?esc(e.notes):'<span style="color:#ccc">—</span>'}</span>${showEe&&ee>0?`<span class="ov-earn">${euro(ee)}</span>`:''}${e.photo?`<img class="ov-thumb" src="${e.photo}" onclick="openLb('${e.id}')">`:''}</div>`;
+    }).join('')}</div>`;
   }).join('');
   const th=totalHrs(),tkm=totalKm(),te=totalEarn();
   return`<div class="ov-pane">${blocks}<div class="stat-row" style="border-color:#e8650a30;background:var(--accent-light)"><span class="stat-lbl">Totaal uren ${MN[S.m]}</span><span class="stat-num" style="color:var(--accent)">${th}u</span></div>${tkm?`<div class="stat-row" style="border-color:#b8d9ef;background:var(--blue-light)"><span class="stat-lbl">🚗 Totaal km ${MN[S.m]}</span><span class="stat-num" style="color:var(--blue)">${tkm} km</span></div>`:''}${te>0?`<div class="stat-row" style="border-color:#2d6a4f30;background:var(--green-light)"><span class="stat-lbl">💶 Totaal inkomen ${MN[S.m]}</span><span class="stat-num" style="color:var(--green)">${euro(te)}</span></div>`:''}${!hasRate()?`<div class="hint-row">Stel een uurtarief in via 💶 Tarieven<br>om je inkomen automatisch te berekenen.</div>`:''}</div>`;
 }
 
 function buildPrintModal(){
-  return`<div class="modal-overlay" onclick="if(event.target===this)closePrint()"><div class="modal"><div class="modal-handle"></div><div class="modal-hdr"><div class="modal-title">🖨 Afdrukken – ${esc(S.printCo)}</div><button class="x-btn" onclick="closePrint()">✕</button></div><div class="modal-body"><div style="font-size:14px;color:var(--muted);padding:14px 0 4px">Overzicht voor <strong>${esc(S.printCo)}</strong> – ${MN[S.m]} ${S.y}</div><label class="flbl" style="margin-top:16px">Jouw naam</label><input id="print-name" class="finput" type="text" placeholder="Voor- en achternaam" value="${esc(S.userName)}"><label class="flbl">Personeelsnummer <span style="font-weight:400;color:#bbb">(optioneel)</span></label><input id="print-num" class="finput" type="text" placeholder="Bijv. 12345" value="${esc(S.userNum)}"><div class="modal-note">💡 Je naam en nummer worden onthouden voor een volgende keer. Het PDF bevat ook een handtekeningveld.</div><div class="fbtns"><button class="save-btn" onclick="doPrint()">🖨 Openen & afdrukken</button><button class="cancel-btn" onclick="closePrint()">Annuleren</button></div></div></div></div>`;
+  const o=S.printOpts;
+  return`<div class="modal-overlay" onclick="if(event.target===this)closePrint()"><div class="modal"><div class="modal-handle"></div>
+    <div class="modal-hdr"><div class="modal-title">🖨 Afdrukken – ${esc(S.printCo)}</div><button class="x-btn" onclick="closePrint()">✕</button></div>
+    <div class="modal-body">
+      <div style="font-size:14px;color:var(--muted);padding:14px 0 4px">Overzicht voor <strong>${esc(S.printCo)}</strong> – ${MN[S.m]} ${S.y}</div>
+      <label class="flbl" style="margin-top:16px">Jouw naam</label>
+      <input id="print-name" class="finput" type="text" placeholder="Voor- en achternaam" value="${esc(S.userName)}">
+      <label class="flbl">Personeelsnummer <span style="font-weight:400;color:#bbb">(optioneel)</span></label>
+      <input id="print-num" class="finput" type="text" placeholder="Bijv. 12345" value="${esc(S.userNum)}">
+
+      <label class="flbl" style="margin-top:20px">Wat wil je weergeven?</label>
+      <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-notes" ${o.notes?'checked':''}> Notities weergeven</label></div>
+      <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-amounts" ${o.amounts?'checked':''}> Bedragen weergeven</label></div>
+      <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-uurtarief" ${o.uurtarief?'checked':''}> Uurtarief weergeven</label></div>
+
+      <label class="flbl" style="margin-top:20px">Handtekeningen</label>
+      <div class="opt-row">
+        <label class="opt-lbl"><input type="checkbox" id="opt-sig1-active" ${o.sig1Active?'checked':''} onchange="document.getElementById('sig1-name').style.display=this.checked?'block':'none'"> Handtekening 1 toevoegen</label>
+      </div>
+      <div id="sig1-name" style="display:${o.sig1Active?'block':'none'}">
+        <div class="sig-sub"><label class="flbl" style="margin-top:0">Naam</label><input id="opt-sig1" class="finput" type="text" placeholder="Bijv. Jordy Koning" value="${esc(o.sig1)}"></div>
+      </div>
+      <div class="opt-row">
+        <label class="opt-lbl"><input type="checkbox" id="opt-sig2-active" ${o.sig2Active?'checked':''} onchange="document.getElementById('sig2-name').style.display=this.checked?'block':'none'"> Handtekening 2 toevoegen</label>
+      </div>
+      <div id="sig2-name" style="display:${o.sig2Active?'block':'none'}">
+        <div class="sig-sub"><label class="flbl" style="margin-top:0">Naam</label><input id="opt-sig2" class="finput" type="text" placeholder="Bijv. Stage begeleider" value="${esc(o.sig2)}"></div>
+      </div>
+
+      <div class="modal-note">💡 Je keuzes worden onthouden voor de volgende keer.</div>
+      <div class="fbtns"><button class="save-btn" onclick="doPrint()">🖨 Openen & afdrukken</button><button class="cancel-btn" onclick="closePrint()">Annuleren</button></div>
+    </div>
+  </div></div>`;
 }
 
 function buildRatesModal(){

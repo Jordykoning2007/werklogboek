@@ -96,7 +96,6 @@
     .finput:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px #e8650a18}
     textarea.finput{height:80px;resize:vertical}
     .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
     .photo-box{border:2px dashed var(--border);border-radius:9px;padding:14px;text-align:center;cursor:pointer;min-height:64px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:var(--card)}
     .photo-prev{max-height:90px;border-radius:6px;object-fit:contain}
     .photo-hint{font-size:13px;color:#aaa}
@@ -135,14 +134,18 @@
     .modal-title{font-size:18px;font-weight:700}
     .modal-body{overflow-y:auto;padding:4px 20px 16px;-webkit-overflow-scrolling:touch}
     .rate-section{font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.5px;padding:14px 0 6px}
-    .rate-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
-    .rate-left{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
-    .rate-name{font-weight:600;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .rate-wrap{display:flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:9px 12px;flex-shrink:0}
+    .co-card{border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px;background:var(--card)}
+    .co-card-top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+    .co-card-name{font-weight:700;font-size:15px;flex:1}
+    .rate-wrap{display:flex;align-items:center;gap:5px;background:var(--white);border:1px solid var(--border);border-radius:9px;padding:9px 12px}
     .rate-sym{font-size:14px;color:var(--muted);font-weight:700}
     .rate-inp{border:none;background:transparent;font-size:15px;font-family:var(--font);width:68px;text-align:right;color:var(--dark);font-weight:700}
     .rate-inp:focus{outline:none}
     .rate-unit{font-size:12px;color:var(--muted)}
+    .logo-row{display:flex;align-items:center;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+    .logo-preview{height:36px;max-width:100px;object-fit:contain;border-radius:4px;border:1px solid var(--border)}
+    .logo-upload-btn{padding:7px 12px;border:1px dashed var(--border);border-radius:8px;background:var(--white);cursor:pointer;font-size:12px;font-family:var(--font);color:var(--muted);white-space:nowrap}
+    .logo-rm-btn{padding:5px 10px;border:1px solid #fcc;border-radius:7px;background:var(--white);cursor:pointer;font-size:12px;font-family:var(--font);color:#c0392b}
     .modal-note{font-size:13px;color:var(--muted);margin-top:16px;padding:12px 14px;background:var(--card);border-radius:10px;line-height:1.6}
     .no-cos{color:var(--muted);font-size:14px;text-align:center;padding:24px 0}
     .opt-row{display:flex;align-items:center;padding:11px 0;border-bottom:1px solid var(--border)}
@@ -181,7 +184,7 @@ let S={
   showPrint:false,printCo:null,
   printOpts:{notes:true,amounts:true,uurtarief:false,sig1Active:false,sig2Active:false,sig1:'Jordy Koning',sig2:'Stage begeleider'},
   form:{co:'',hrs:'',km:'',klantnr:'',notes:'',photo:null,pname:''},
-  entries:[],rates:{},kmRate:0,userName:'',userNum:''
+  entries:[],rates:{},kmRate:0,userName:'',userNum:'',logos:{}
 };
 
 async function loadData(){
@@ -192,7 +195,7 @@ async function loadData(){
     ]);
     S.entries=entries.map(e=>({...e,hrs:Number(e.hrs),km:Number(e.km||0),klantnr:e.klantnr||''}));
     const cfg=settings.find(s=>s.key==='config');
-    if(cfg){try{const c=JSON.parse(cfg.value);S.rates=c.rates||{};S.kmRate=c.kmRate||0;S.userName=c.userName||'';S.userNum=c.userNum||'';if(c.printOpts)S.printOpts={...S.printOpts,...c.printOpts};}catch{}}
+    if(cfg){try{const c=JSON.parse(cfg.value);S.rates=c.rates||{};S.kmRate=c.kmRate||0;S.userName=c.userName||'';S.userNum=c.userNum||'';S.logos=c.logos||{};if(c.printOpts)S.printOpts={...S.printOpts,...c.printOpts};}catch{}}
     S.err=null;
   }catch(e){S.err='Kon geen verbinding maken.\nCheck je internet en probeer opnieuw.';console.error(e);}
   S.loading=false;R();
@@ -200,7 +203,7 @@ async function loadData(){
 
 async function saveSettings(){
   setSyncing(true);
-  try{await dbUpsert('settings',{key:'config',value:JSON.stringify({rates:S.rates,kmRate:S.kmRate,userName:S.userName,userNum:S.userNum,printOpts:S.printOpts})});}
+  try{await dbUpsert('settings',{key:'config',value:JSON.stringify({rates:S.rates,kmRate:S.kmRate,userName:S.userName,userNum:S.userNum,printOpts:S.printOpts,logos:S.logos})});}
   catch(e){console.error(e);}
   setSyncing(false);
 }
@@ -213,6 +216,7 @@ function pd(s){const[y,m,d]=s.split('-').map(Number);return{y,m:m-1,d};}
 function dim(y,m){return new Date(y,m+1,0).getDate();}
 function fdm(y,m){const d=new Date(y,m,1).getDay();return d===0?6:d-1;}
 function allCo(){return[...new Set(S.entries.map(e=>e.co))].filter(Boolean);}
+function allKlantnr(){return[...new Set(S.entries.map(e=>e.klantnr).filter(Boolean))];}
 function coColor(c){const a=allCo();return CLR[Math.max(0,a.indexOf(c))%CLR.length];}
 function deForDay(ds){return S.entries.filter(e=>e.date===ds);}
 function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
@@ -261,9 +265,40 @@ async function doDelete(id){
   setSyncing(false);
 }
 
-function compressImage(dataUrl){return new Promise(res=>{const img=new Image();img.onload=()=>{const MAX=900,ratio=Math.min(MAX/img.width,MAX/img.height,1);const c=document.createElement('canvas');c.width=Math.round(img.width*ratio);c.height=Math.round(img.height*ratio);c.getContext('2d').drawImage(img,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.72));};img.src=dataUrl;});}
-function onPhoto(ev){const file=ev.target.files[0];if(!file)return;const r=new FileReader();r.onload=async e=>{const comp=await compressImage(e.target.result);S.form.photo=comp;S.form.pname=file.name;const box=document.querySelector('.photo-box');if(box)box.innerHTML=`<img class="photo-prev" src="${comp}">`;const rb=document.querySelector('.rm-photo');if(rb)rb.style.display='block';};r.readAsDataURL(file);}
+function compressImg(dataUrl,maxW,maxH,q){return new Promise(res=>{const img=new Image();img.onload=()=>{const rw=Math.min(maxW/img.width,1),rh=Math.min(maxH/img.height,1),ratio=Math.min(rw,rh);const c=document.createElement('canvas');c.width=Math.round(img.width*ratio);c.height=Math.round(img.height*ratio);c.getContext('2d').drawImage(img,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',q));};img.src=dataUrl;});}
+
+function onPhoto(ev){const file=ev.target.files[0];if(!file)return;const r=new FileReader();r.onload=async e=>{const comp=await compressImg(e.target.result,900,900,.72);S.form.photo=comp;S.form.pname=file.name;const box=document.querySelector('.photo-box');if(box)box.innerHTML=`<img class="photo-prev" src="${comp}">`;const rb=document.querySelector('.rm-photo');if(rb)rb.style.display='block';};r.readAsDataURL(file);}
 function rmPhoto(){S.form.photo=null;S.form.pname='';const box=document.querySelector('.photo-box');if(box)box.innerHTML=`<span style="font-size:22px">📎</span><span class="photo-hint">Klik om foto toe te voegen</span>`;const rb=document.querySelector('.rm-photo');if(rb)rb.style.display='none';}
+
+function onLogoUpload(co,ev){
+  const file=ev.target.files[0];if(!file)return;
+  const r=new FileReader();
+  r.onload=async e=>{
+    const comp=await compressImg(e.target.result,400,160,.85);
+    S.logos[co]=comp;
+    const prev=document.getElementById(`logo-prev-${btoa(co).replace(/[^a-zA-Z0-9]/g,'')}`);
+    const hint=document.getElementById(`logo-hint-${btoa(co).replace(/[^a-zA-Z0-9]/g,'')}`);
+    const rmBtn=document.getElementById(`logo-rm-${btoa(co).replace(/[^a-zA-Z0-9]/g,'')}`);
+    if(prev){prev.src=comp;prev.style.display='block';}
+    if(hint)hint.style.display='none';
+    if(rmBtn)rmBtn.style.display='inline-block';
+    showToast('✓ Logo opgeslagen');
+    saveSettings();
+  };
+  r.readAsDataURL(file);
+}
+function removeLogo(co){
+  delete S.logos[co];
+  const id=btoa(co).replace(/[^a-zA-Z0-9]/g,'');
+  const prev=document.getElementById(`logo-prev-${id}`);
+  const hint=document.getElementById(`logo-hint-${id}`);
+  const rmBtn=document.getElementById(`logo-rm-${id}`);
+  if(prev){prev.src='';prev.style.display='none';}
+  if(hint)hint.style.display='inline-block';
+  if(rmBtn)rmBtn.style.display='none';
+  saveSettings();
+}
+
 function openLb(id){const e=S.entries.find(e=>e.id===id);if(!e||!e.photo)return;document.getElementById('lb-img').src=e.photo;document.getElementById('lb').classList.add('on');}
 function closeLb(){document.getElementById('lb').classList.remove('on');}
 
@@ -313,6 +348,7 @@ function buildPrintHTML(co,name,num,opts){
   const today=new Date().toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'});
   const showEarnCol=o.amounts&&(rate!=null||S.kmRate>0);
   const hasKlantnr=entries.some(e=>e.klantnr);
+  const logo=S.logos[co]||null;
 
   const rows=entries.map(e=>{
     const er=S.rates[e.co];
@@ -340,13 +376,15 @@ function buildPrintHTML(co,name,num,opts){
     @media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
     .wrap{max-width:780px;margin:0 auto;padding:32px 0}
     .hdr{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:20px;border-bottom:3px solid ${c};margin-bottom:28px}
-    .co-name{font-size:26px;font-weight:800;color:${c};letter-spacing:-.5px}
-    .period{font-size:15px;color:#888;margin-top:5px}
+    .hdr-left{display:flex;flex-direction:column;gap:10px}
+    .logo-img{max-height:52px;max-width:180px;object-fit:contain}
+    .co-name{font-size:${logo?'18px':'26px'};font-weight:800;color:${c};letter-spacing:-.5px}
+    .period{font-size:14px;color:#888;margin-top:3px}
+    .rate-pill{display:inline-block;background:${c}15;color:${c};border:1px solid ${c}30;border-radius:20px;padding:3px 11px;font-size:12px;font-weight:700;margin-top:6px}
     .hdr-right{text-align:right}
     .info-row{margin-bottom:6px}
     .info-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:#aaa;font-weight:700}
     .info-val{font-size:15px;font-weight:700;color:#1a1a1a}
-    ${o.uurtarief&&rate?`.rate-pill{display:inline-block;background:${c}15;color:${c};border:1px solid ${c}30;border-radius:20px;padding:4px 12px;font-size:13px;font-weight:700;margin-top:8px}`:''}
     table{width:100%;border-collapse:collapse;margin-bottom:24px;font-size:14px}
     thead tr{background:${c}18}
     th{padding:10px 12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:${c};font-weight:700;border-bottom:2px solid ${c}30}
@@ -368,10 +406,13 @@ function buildPrintHTML(co,name,num,opts){
     .footer{margin-top:36px;padding-top:14px;border-top:1px solid #e8e2d8;display:flex;justify-content:space-between;font-size:11px;color:#aaa}
   </style></head><body><div class="wrap">
   <div class="hdr">
-    <div>
-      <div class="co-name">${esc(co)}</div>
-      <div class="period">Urenoverzicht – ${period}</div>
-      ${o.uurtarief&&rate?`<div class="rate-pill">Uurtarief: ${euro(rate)}/u</div>`:''}
+    <div class="hdr-left">
+      ${logo?`<img class="logo-img" src="${logo}" alt="${esc(co)}">`:'' }
+      <div>
+        <div class="co-name">${esc(co)}</div>
+        <div class="period">Urenoverzicht – ${period}</div>
+        ${o.uurtarief&&rate?`<div class="rate-pill">Uurtarief: ${euro(rate)}/u</div>`:''}
+      </div>
     </div>
     <div class="hdr-right">
       <div class="info-row"><div class="info-lbl">Naam</div><div class="info-val">${esc(name)}</div></div>
@@ -412,7 +453,6 @@ function buildApp(){
 }
 
 function buildHdr(){return`<header class="hdr"><div class="hdr-left"><div class="logo">⏱</div><div><div class="app-name">Werklogboek</div><div class="app-sub"><span class="sync-dot${syncBusy?' busy':''}"></span>${syncBusy?'Opslaan...':'Gesynchroniseerd'}</div></div></div><div class="hdr-right"><button class="rates-btn" onclick="openRates()">💶 Tarieven</button><div class="tabs"><button class="tab ${S.view==='cal'?'on':''}" onclick="setView('cal')">Kalender</button><button class="tab ${S.view==='ov'?'on':''}" onclick="setView('ov')">Overzicht</button></div></div></header>`;}
-
 function buildMnav(){return`<div class="mnav"><button class="nbtn" onclick="prevM()">‹</button><div class="mtitle">${MN[S.m]} ${S.y}</div><button class="nbtn" onclick="nextM()">›</button>${S.view==='ov'?`<div class="total-badge">${totalHrs()}u</div>`:''}</div>`;}
 
 function buildCal(){
@@ -437,12 +477,14 @@ function buildSheet(){
     :de.map(e=>{const rate=S.rates[e.co];const earn=(rate?e.hrs*rate:0)+(e.km&&S.kmRate?e.km*S.kmRate:0);const showEarn=(rate!=null)||(e.km&&S.kmRate);
       return`<div class="ecard"><div class="etop"><div class="etop-left"><span class="cbadge" style="background:${coColor(e.co)}18;color:${coColor(e.co)};border-color:${coColor(e.co)}30">${esc(e.co)}</span><div class="etop-badges">${e.klantnr?`<span class="eknr-badge">🔢 ${esc(e.klantnr)}</span>`:''} ${e.km?`<span class="ekm-badge">🚗 ${e.km} km</span>`:''}</div></div><div class="etop-right"><span class="ehours">${e.hrs}u</span>${showEarn&&earn>0?`<div style="font-size:13px;font-weight:700;color:var(--green)">${euro(earn)}</div>`:''}</div></div>${e.notes?`<p class="enotes">${esc(e.notes)}</p>`:''}${e.photo?`<img class="ephoto" src="${e.photo}" onclick="openLb('${e.id}')">`:''}<div class="eacts"><button class="edit-btn" onclick="openEdit('${e.id}')">✎ Bewerken</button><button class="del-btn" onclick="doDelete('${e.id}')">Verwijderen</button></div></div>`;
     }).join('');
+  const knrList=allKlantnr();
   const form=S.showForm?`<div class="fsec"><div class="ftitle">${S.editId?'Registratie bewerken':'Nieuwe registratie'}</div>
     <label class="flbl">Bedrijf</label>
     <input class="finput" list="cl" type="text" placeholder="Bedrijfsnaam" value="${esc(S.form.co)}" oninput="S.form.co=this.value">
     <datalist id="cl">${allCo().map(c=>`<option value="${esc(c)}">`).join('')}</datalist>
     <label class="flbl">Klant / Werknummer <span style="font-weight:400;color:#bbb">(optioneel)</span></label>
-    <input class="finput" type="text" placeholder="Bijv. KL-1234 of WO-5678" value="${esc(S.form.klantnr)}" oninput="S.form.klantnr=this.value">
+    <input class="finput" list="knrl" type="text" placeholder="Bijv. KL-1234" value="${esc(S.form.klantnr)}" oninput="S.form.klantnr=this.value">
+    <datalist id="knrl">${knrList.map(k=>`<option value="${esc(k)}">`).join('')}</datalist>
     <div class="row2">
       <div><label class="flbl">Uren</label><input class="finput" type="number" step="0.5" min="0" placeholder="7.5" value="${esc(S.form.hrs)}" oninput="S.form.hrs=this.value"></div>
       <div><label class="flbl">Kilometers</label><input class="finput" type="number" step="1" min="0" placeholder="42" value="${esc(S.form.km)}" oninput="S.form.km=this.value"></div>
@@ -484,26 +526,15 @@ function buildPrintModal(){
       <input id="print-name" class="finput" type="text" placeholder="Voor- en achternaam" value="${esc(S.userName)}">
       <label class="flbl">Personeelsnummer <span style="font-weight:400;color:#bbb">(optioneel)</span></label>
       <input id="print-num" class="finput" type="text" placeholder="Bijv. 12345" value="${esc(S.userNum)}">
-
       <label class="flbl" style="margin-top:20px">Wat wil je weergeven?</label>
       <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-notes" ${o.notes?'checked':''}> Notities weergeven</label></div>
       <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-amounts" ${o.amounts?'checked':''}> Bedragen weergeven</label></div>
       <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-uurtarief" ${o.uurtarief?'checked':''}> Uurtarief weergeven</label></div>
-
       <label class="flbl" style="margin-top:20px">Handtekeningen</label>
-      <div class="opt-row">
-        <label class="opt-lbl"><input type="checkbox" id="opt-sig1-active" ${o.sig1Active?'checked':''} onchange="document.getElementById('sig1-name').style.display=this.checked?'block':'none'"> Handtekening 1 toevoegen</label>
-      </div>
-      <div id="sig1-name" style="display:${o.sig1Active?'block':'none'}">
-        <div class="sig-sub"><label class="flbl" style="margin-top:0">Naam</label><input id="opt-sig1" class="finput" type="text" placeholder="Bijv. Jordy Koning" value="${esc(o.sig1)}"></div>
-      </div>
-      <div class="opt-row">
-        <label class="opt-lbl"><input type="checkbox" id="opt-sig2-active" ${o.sig2Active?'checked':''} onchange="document.getElementById('sig2-name').style.display=this.checked?'block':'none'"> Handtekening 2 toevoegen</label>
-      </div>
-      <div id="sig2-name" style="display:${o.sig2Active?'block':'none'}">
-        <div class="sig-sub"><label class="flbl" style="margin-top:0">Naam</label><input id="opt-sig2" class="finput" type="text" placeholder="Bijv. Stage begeleider" value="${esc(o.sig2)}"></div>
-      </div>
-
+      <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-sig1-active" ${o.sig1Active?'checked':''} onchange="document.getElementById('sig1-name').style.display=this.checked?'block':'none'"> Handtekening 1 toevoegen</label></div>
+      <div id="sig1-name" style="display:${o.sig1Active?'block':'none'}"><div class="sig-sub"><label class="flbl" style="margin-top:0">Naam</label><input id="opt-sig1" class="finput" type="text" placeholder="Bijv. Jordy Koning" value="${esc(o.sig1)}"></div></div>
+      <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-sig2-active" ${o.sig2Active?'checked':''} onchange="document.getElementById('sig2-name').style.display=this.checked?'block':'none'"> Handtekening 2 toevoegen</label></div>
+      <div id="sig2-name" style="display:${o.sig2Active?'block':'none'}"><div class="sig-sub"><label class="flbl" style="margin-top:0">Naam</label><input id="opt-sig2" class="finput" type="text" placeholder="Bijv. Stage begeleider" value="${esc(o.sig2)}"></div></div>
       <div class="modal-note">💡 Je keuzes worden onthouden voor de volgende keer.</div>
       <div class="fbtns"><button class="save-btn" onclick="doPrint()">🖨 Openen & afdrukken</button><button class="cancel-btn" onclick="closePrint()">Annuleren</button></div>
     </div>
@@ -512,11 +543,42 @@ function buildPrintModal(){
 
 function buildRatesModal(){
   const cos=allCo();
-  return`<div class="modal-overlay" onclick="if(event.target===this)closeRates()"><div class="modal"><div class="modal-handle"></div><div class="modal-hdr"><div class="modal-title">💶 Tarieven instellen</div><button class="x-btn" onclick="closeRates()">✕</button></div><div class="modal-body"><div class="rate-section">Uurtarieven per bedrijf</div>${cos.length===0?`<div class="no-cos">Voeg eerst registraties toe.</div>`:cos.map(co=>`<div class="rate-row"><div class="rate-left"><span class="dot" style="background:${coColor(co)}"></span><span class="rate-name">${esc(co)}</span></div><div class="rate-wrap"><span class="rate-sym">€</span><input class="rate-inp" type="number" step="0.50" min="0" placeholder="0.00" data-co="${esc(co)}" value="${S.rates[co]||''}"><span class="rate-unit">/u</span></div></div>`).join('')}<div class="rate-section">Kilometertarief</div><div class="rate-row"><div class="rate-left"><span style="font-size:18px">🚗</span><span class="rate-name">Per kilometer</span></div><div class="rate-wrap"><span class="rate-sym">€</span><input id="km-rate-inp" class="rate-inp" type="number" step="0.01" min="0" placeholder="0.23" value="${S.kmRate||''}"><span class="rate-unit">/km</span></div></div><div class="modal-note">💡 Standaard belastingvrij km-tarief in NL is € 0,23 per km.</div><div style="margin-top:16px;padding-bottom:8px"><button class="save-btn" onclick="closeRates()">Opslaan & sluiten</button></div></div></div></div>`;
+  return`<div class="modal-overlay" onclick="if(event.target===this)closeRates()"><div class="modal"><div class="modal-handle"></div>
+    <div class="modal-hdr"><div class="modal-title">💶 Tarieven & logo's</div><button class="x-btn" onclick="closeRates()">✕</button></div>
+    <div class="modal-body">
+      <div class="rate-section">Per bedrijf</div>
+      ${cos.length===0?`<div class="no-cos">Voeg eerst registraties toe.</div>`:cos.map(co=>{
+        const id=btoa(co).replace(/[^a-zA-Z0-9]/g,'');
+        const hasLogo=!!S.logos[co];
+        return`<div class="co-card">
+          <div class="co-card-top">
+            <span class="dot" style="background:${coColor(co)};width:12px;height:12px;border-radius:50%;flex-shrink:0"></span>
+            <span class="co-card-name">${esc(co)}</span>
+            <div class="rate-wrap"><span class="rate-sym">€</span><input class="rate-inp" type="number" step="0.50" min="0" placeholder="0.00" data-co="${esc(co)}" value="${S.rates[co]||''}"><span class="rate-unit">/u</span></div>
+          </div>
+          <div class="logo-row">
+            <span style="font-size:12px;color:var(--muted);font-weight:600">Logo:</span>
+            ${hasLogo?`<img id="logo-prev-${id}" class="logo-preview" src="${S.logos[co]}" style="display:block">`:
+              `<img id="logo-prev-${id}" class="logo-preview" src="" style="display:none">`}
+            <button id="logo-hint-${id}" class="logo-upload-btn" style="display:${hasLogo?'none':'inline-block'}" onclick="document.getElementById('lf-${id}').click()">📷 Logo uploaden</button>
+            <button id="logo-rm-${id}" class="logo-rm-btn" style="display:${hasLogo?'inline-block':'none'}" onclick="removeLogo('${esc(co)}')">✕ Verwijderen</button>
+            <input type="file" id="lf-${id}" accept="image/*" style="display:none" onchange="onLogoUpload('${esc(co)}',event)">
+            ${hasLogo?`<button class="logo-upload-btn" onclick="document.getElementById('lf-${id}').click()">↺ Wijzigen</button>`:''}
+          </div>
+        </div>`;
+      }).join('')}
+      <div class="rate-section">Kilometertarief</div>
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
+        <span style="font-size:18px">🚗</span><span style="font-weight:600;font-size:15px;flex:1">Per kilometer</span>
+        <div class="rate-wrap"><span class="rate-sym">€</span><input id="km-rate-inp" class="rate-inp" type="number" step="0.01" min="0" placeholder="0.23" value="${S.kmRate||''}"><span class="rate-unit">/km</span></div>
+      </div>
+      <div class="modal-note">💡 Logo's verschijnen automatisch bovenin de PDF. Standaard belastingvrij km-tarief in NL is € 0,23 per km.</div>
+      <div style="margin-top:16px;padding-bottom:8px"><button class="save-btn" onclick="closeRates()">Opslaan & sluiten</button></div>
+    </div>
+  </div></div>`;
 }
 
 function attachSwipe(){const sheet=document.getElementById('sheet');if(!sheet)return;let sy=0;sheet.addEventListener('touchstart',e=>{sy=e.touches[0].clientY;},{passive:true});sheet.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-sy>80)closePanel();},{passive:true});}
-
 loadData();
 </script>
 </body>

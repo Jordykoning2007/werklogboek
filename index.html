@@ -33,7 +33,7 @@
     .sync-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;flex-shrink:0;box-shadow:0 0 0 2px #1a1a1a}
     .sync-dot.busy{background:#facc15;animation:pulse 1s ease-in-out infinite}
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-    .hdr{background:var(--dark);color:#f5f2ee;padding:calc(var(--safe-top) + 13px) 18px 13px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+    .hdr{background:var(--dark);color:#f5f2ee;padding:calc(var(--safe-top)+13px) 18px 13px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
     .hdr-left{display:flex;align-items:center;gap:10px}
     .logo{width:38px;height:38px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
     .app-name{font-size:17px;font-weight:700;letter-spacing:-.3px}
@@ -55,8 +55,7 @@
     .dcell.wknd{background:#faf8f5}
     .dcell.today{border-color:var(--accent);background:var(--accent-light)}
     .dcell.sel{border-color:var(--accent);background:var(--accent-light);box-shadow:0 0 0 2px #e8650a28}
-    .dnum{font-size:12px;font-weight:700}
-    .dnum.today{color:var(--accent)}
+    .dnum{font-size:12px;font-weight:700}.dnum.today{color:var(--accent)}
     .dhours{font-size:10px;font-weight:700;color:var(--muted)}
     .ddots{margin-top:4px;display:flex;flex-direction:column;gap:2px}
     .ddot-row{display:flex;align-items:center;gap:3px}
@@ -136,16 +135,20 @@
     .rate-section{font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.5px;padding:14px 0 6px}
     .co-card{border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px;background:var(--card)}
     .co-card-top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-    .co-card-name{font-weight:700;font-size:15px;flex:1}
-    .rate-wrap{display:flex;align-items:center;gap:5px;background:var(--white);border:1px solid var(--border);border-radius:9px;padding:9px 12px}
+    .co-card-name{font-weight:700;font-size:15px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .rate-wrap{display:flex;align-items:center;gap:5px;background:var(--white);border:1px solid var(--border);border-radius:9px;padding:9px 12px;flex-shrink:0}
     .rate-sym{font-size:14px;color:var(--muted);font-weight:700}
     .rate-inp{border:none;background:transparent;font-size:15px;font-family:var(--font);width:68px;text-align:right;color:var(--dark);font-weight:700}
     .rate-inp:focus{outline:none}
     .rate-unit{font-size:12px;color:var(--muted)}
-    .logo-row{display:flex;align-items:center;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
-    .logo-preview{height:36px;max-width:100px;object-fit:contain;border-radius:4px;border:1px solid var(--border)}
-    .logo-upload-btn{padding:7px 12px;border:1px dashed var(--border);border-radius:8px;background:var(--white);cursor:pointer;font-size:12px;font-family:var(--font);color:var(--muted);white-space:nowrap}
-    .logo-rm-btn{padding:5px 10px;border:1px solid #fcc;border-radius:7px;background:var(--white);cursor:pointer;font-size:12px;font-family:var(--font);color:#c0392b}
+    .co-detail-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--border)}
+    .co-detail-lbl{font-size:12px;color:var(--muted);font-weight:600;width:52px;flex-shrink:0}
+    .logo-preview{height:32px;max-width:90px;object-fit:contain;border-radius:4px;border:1px solid var(--border)}
+    .sm-btn{padding:6px 11px;border:1px dashed var(--border);border-radius:7px;background:var(--white);cursor:pointer;font-size:12px;font-family:var(--font);color:var(--muted);white-space:nowrap}
+    .sm-btn-red{padding:6px 11px;border:1px solid #fcc;border-radius:7px;background:var(--white);cursor:pointer;font-size:12px;font-family:var(--font);color:#c0392b;white-space:nowrap}
+    .color-picker-wrap{display:flex;align-items:center;gap:8px;flex:1}
+    .color-swatch{width:28px;height:28px;border-radius:6px;border:2px solid var(--border);cursor:pointer;padding:0;overflow:hidden;flex-shrink:0}
+    .color-hint{font-size:11px;color:var(--muted)}
     .modal-note{font-size:13px;color:var(--muted);margin-top:16px;padding:12px 14px;background:var(--card);border-radius:10px;line-height:1.6}
     .no-cos{color:var(--muted);font-size:14px;text-align:center;padding:24px 0}
     .opt-row{display:flex;align-items:center;padding:11px 0;border-bottom:1px solid var(--border)}
@@ -184,7 +187,7 @@ let S={
   showPrint:false,printCo:null,
   printOpts:{notes:true,amounts:true,uurtarief:false,sig1Active:false,sig2Active:false,sig1:'Jordy Koning',sig2:'Stage begeleider'},
   form:{co:'',hrs:'',km:'',klantnr:'',notes:'',photo:null,pname:''},
-  entries:[],rates:{},kmRate:0,userName:'',userNum:'',logos:{}
+  entries:[],rates:{},kmRate:0,userName:'',userNum:'',logos:{},brandColors:{}
 };
 
 async function loadData(){
@@ -195,7 +198,7 @@ async function loadData(){
     ]);
     S.entries=entries.map(e=>({...e,hrs:Number(e.hrs),km:Number(e.km||0),klantnr:e.klantnr||''}));
     const cfg=settings.find(s=>s.key==='config');
-    if(cfg){try{const c=JSON.parse(cfg.value);S.rates=c.rates||{};S.kmRate=c.kmRate||0;S.userName=c.userName||'';S.userNum=c.userNum||'';S.logos=c.logos||{};if(c.printOpts)S.printOpts={...S.printOpts,...c.printOpts};}catch{}}
+    if(cfg){try{const c=JSON.parse(cfg.value);S.rates=c.rates||{};S.kmRate=c.kmRate||0;S.userName=c.userName||'';S.userNum=c.userNum||'';S.logos=c.logos||{};S.brandColors=c.brandColors||{};if(c.printOpts)S.printOpts={...S.printOpts,...c.printOpts};}catch{}}
     S.err=null;
   }catch(e){S.err='Kon geen verbinding maken.\nCheck je internet en probeer opnieuw.';console.error(e);}
   S.loading=false;R();
@@ -203,7 +206,7 @@ async function loadData(){
 
 async function saveSettings(){
   setSyncing(true);
-  try{await dbUpsert('settings',{key:'config',value:JSON.stringify({rates:S.rates,kmRate:S.kmRate,userName:S.userName,userNum:S.userNum,printOpts:S.printOpts,logos:S.logos})});}
+  try{await dbUpsert('settings',{key:'config',value:JSON.stringify({rates:S.rates,kmRate:S.kmRate,userName:S.userName,userNum:S.userNum,printOpts:S.printOpts,logos:S.logos,brandColors:S.brandColors})});}
   catch(e){console.error(e);}
   setSyncing(false);
 }
@@ -211,13 +214,14 @@ async function saveSettings(){
 function setSyncing(v){syncBusy=v;const d=document.querySelector('.sync-dot');if(d)d.classList.toggle('busy',v);}
 function showToast(msg){const t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2200);}
 
+function coId(co){let h=0;for(let i=0;i<co.length;i++)h=((h<<5)-h+co.charCodeAt(i))|0;return'co'+Math.abs(h);}
 function fd(y,m,d){return`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;}
 function pd(s){const[y,m,d]=s.split('-').map(Number);return{y,m:m-1,d};}
 function dim(y,m){return new Date(y,m+1,0).getDate();}
 function fdm(y,m){const d=new Date(y,m,1).getDay();return d===0?6:d-1;}
 function allCo(){return[...new Set(S.entries.map(e=>e.co))].filter(Boolean);}
 function allKlantnr(){return[...new Set(S.entries.map(e=>e.klantnr).filter(Boolean))];}
-function coColor(c){const a=allCo();return CLR[Math.max(0,a.indexOf(c))%CLR.length];}
+function coColor(c){return(S.brandColors&&S.brandColors[c])||CLR[Math.max(0,allCo().indexOf(c))%CLR.length];}
 function deForDay(ds){return S.entries.filter(e=>e.date===ds);}
 function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function fmtShort(ds){const{m,d}=pd(ds);return`${d} ${MN[m].slice(0,3)}`;}
@@ -234,6 +238,36 @@ function totalHrs(){return Object.values(monthData()).reduce((s,v)=>s+v.hrs,0);}
 function totalKm(){return S.entries.filter(e=>{const{y,m}=pd(e.date);return y===S.y&&m===S.m;}).reduce((s,e)=>s+e.km,0);}
 function totalEarn(){const d=monthData();return Object.entries(d).reduce((s,[co,v])=>s+(S.rates[co]?v.hrs*S.rates[co]:0),0)+(S.kmRate?totalKm()*S.kmRate:0);}
 function hasRate(){return allCo().some(c=>S.rates[c])||S.kmRate>0;}
+
+/* ── Kleur extractie uit logo ── */
+async function extractColor(imgSrc){
+  return new Promise(res=>{
+    const img=new Image();
+    img.onload=()=>{
+      try{
+        const cv=document.createElement('canvas');cv.width=cv.height=64;
+        const ctx=cv.getContext('2d');ctx.drawImage(img,0,0,64,64);
+        const d=ctx.getImageData(0,0,64,64).data;
+        const map={};
+        for(let i=0;i<d.length;i+=4){
+          const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3];
+          if(a<100)continue;
+          if(r>235&&g>235&&b>235)continue; // wit
+          if(r<20&&g<20&&b<20)continue;    // zwart
+          if(Math.max(r,g,b)-Math.min(r,g,b)<45)continue; // grijs
+          const k=`${Math.round(r/28)*28},${Math.round(g/28)*28},${Math.round(b/28)*28}`;
+          map[k]=(map[k]||0)+1;
+        }
+        const top=Object.entries(map).sort((a,b)=>b[1]-a[1])[0];
+        if(!top){res(null);return;}
+        const[r,g,b]=top[0].split(',').map(Number);
+        res('#'+[r,g,b].map(v=>Math.min(255,v).toString(16).padStart(2,'0')).join(''));
+      }catch{res(null);}
+    };
+    img.onerror=()=>res(null);
+    img.src=imgSrc;
+  });
+}
 
 function setView(v){S.view=v;S.panel=false;S.sel=null;S.showRates=false;S.showPrint=false;R();}
 function prevM(){if(S.m===0){S.y--;S.m=11;}else S.m--;S.sel=null;S.panel=false;R();}
@@ -265,39 +299,27 @@ async function doDelete(id){
   setSyncing(false);
 }
 
-function compressImg(dataUrl,maxW,maxH,q){return new Promise(res=>{const img=new Image();img.onload=()=>{const rw=Math.min(maxW/img.width,1),rh=Math.min(maxH/img.height,1),ratio=Math.min(rw,rh);const c=document.createElement('canvas');c.width=Math.round(img.width*ratio);c.height=Math.round(img.height*ratio);c.getContext('2d').drawImage(img,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',q));};img.src=dataUrl;});}
+function compressImg(dataUrl,mw,mh,q){return new Promise(res=>{const img=new Image();img.onload=()=>{const rr=Math.min(mw/img.width,mh/img.height,1);const c=document.createElement('canvas');c.width=Math.round(img.width*rr);c.height=Math.round(img.height*rr);c.getContext('2d').drawImage(img,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',q));};img.src=dataUrl;});}
 
 function onPhoto(ev){const file=ev.target.files[0];if(!file)return;const r=new FileReader();r.onload=async e=>{const comp=await compressImg(e.target.result,900,900,.72);S.form.photo=comp;S.form.pname=file.name;const box=document.querySelector('.photo-box');if(box)box.innerHTML=`<img class="photo-prev" src="${comp}">`;const rb=document.querySelector('.rm-photo');if(rb)rb.style.display='block';};r.readAsDataURL(file);}
 function rmPhoto(){S.form.photo=null;S.form.pname='';const box=document.querySelector('.photo-box');if(box)box.innerHTML=`<span style="font-size:22px">📎</span><span class="photo-hint">Klik om foto toe te voegen</span>`;const rb=document.querySelector('.rm-photo');if(rb)rb.style.display='none';}
 
-function onLogoUpload(co,ev){
+async function onLogoUpload(co,ev){
   const file=ev.target.files[0];if(!file)return;
   const r=new FileReader();
   r.onload=async e=>{
     const comp=await compressImg(e.target.result,400,160,.85);
     S.logos[co]=comp;
-    const prev=document.getElementById(`logo-prev-${btoa(co).replace(/[^a-zA-Z0-9]/g,'')}`);
-    const hint=document.getElementById(`logo-hint-${btoa(co).replace(/[^a-zA-Z0-9]/g,'')}`);
-    const rmBtn=document.getElementById(`logo-rm-${btoa(co).replace(/[^a-zA-Z0-9]/g,'')}`);
-    if(prev){prev.src=comp;prev.style.display='block';}
-    if(hint)hint.style.display='none';
-    if(rmBtn)rmBtn.style.display='inline-block';
-    showToast('✓ Logo opgeslagen');
+    // Auto-detecteer kleur
+    const color=await extractColor(comp);
+    if(color)S.brandColors[co]=color;
     saveSettings();
+    showToast('✓ Logo opgeslagen, kleur gedetecteerd');
+    R(); // herrender zodat kleur meteen zichtbaar is
   };
   r.readAsDataURL(file);
 }
-function removeLogo(co){
-  delete S.logos[co];
-  const id=btoa(co).replace(/[^a-zA-Z0-9]/g,'');
-  const prev=document.getElementById(`logo-prev-${id}`);
-  const hint=document.getElementById(`logo-hint-${id}`);
-  const rmBtn=document.getElementById(`logo-rm-${id}`);
-  if(prev){prev.src='';prev.style.display='none';}
-  if(hint)hint.style.display='inline-block';
-  if(rmBtn)rmBtn.style.display='none';
-  saveSettings();
-}
+function removeLogo(co){delete S.logos[co];saveSettings();R();}
 
 function openLb(id){const e=S.entries.find(e=>e.id===id);if(!e||!e.photo)return;document.getElementById('lb-img').src=e.photo;document.getElementById('lb').classList.add('on');}
 function closeLb(){document.getElementById('lb').classList.remove('on');}
@@ -305,6 +327,7 @@ function closeLb(){document.getElementById('lb').classList.remove('on');}
 function openRates(){S.showRates=true;S.showPrint=false;R();}
 function closeRates(){
   document.querySelectorAll('.rate-inp').forEach(inp=>{const co=inp.dataset.co;if(!co)return;const val=parseFloat(inp.value);if(!isNaN(val)&&val>0)S.rates[co]=val;else delete S.rates[co];});
+  document.querySelectorAll('.color-inp').forEach(inp=>{const co=inp.dataset.co;if(co)S.brandColors[co]=inp.value;});
   const ki=document.getElementById('km-rate-inp');if(ki){const v=parseFloat(ki.value);S.kmRate=isNaN(v)||v<=0?0:v;}
   S.showRates=false;R();saveSettings();
 }
@@ -335,6 +358,9 @@ function doPrint(){
   S.showPrint=false;R();
 }
 
+function hexToRgb(hex){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return{r,g,b};}
+function lighten(hex,pct){const{r,g,b}=hexToRgb(hex);const mix=v=>Math.round(v+(255-v)*pct);return`rgb(${mix(r)},${mix(g)},${mix(b)})`;}
+
 function buildPrintHTML(co,name,num,opts){
   const o=opts||S.printOpts;
   const data=monthData()[co]||{hrs:0,km:0,entries:[]};
@@ -344,6 +370,8 @@ function buildPrintHTML(co,name,num,opts){
   const earnKm=data.km&&S.kmRate?data.km*S.kmRate:null;
   const earnTotal=(earnHrs!=null||earnKm!=null)?((earnHrs||0)+(earnKm||0)):null;
   const c=coColor(co);
+  const cLight=lighten(c,.88);
+  const cMid=lighten(c,.6);
   const period=`${MN[S.m]} ${S.y}`;
   const today=new Date().toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'});
   const showEarnCol=o.amounts&&(rate!=null||S.kmRate>0);
@@ -351,8 +379,7 @@ function buildPrintHTML(co,name,num,opts){
   const logo=S.logos[co]||null;
 
   const rows=entries.map(e=>{
-    const er=S.rates[e.co];
-    const ee=(er?e.hrs*er:0)+(e.km&&S.kmRate?e.km*S.kmRate:0);
+    const er=S.rates[e.co];const ee=(er?e.hrs*er:0)+(e.km&&S.kmRate?e.km*S.kmRate:0);
     return`<tr>
       <td>${fmtLong(e.date)}</td>
       ${hasKlantnr?`<td style="color:#7209b7;font-weight:600;font-size:13px">${e.klantnr||'—'}</td>`:''}
@@ -376,24 +403,24 @@ function buildPrintHTML(co,name,num,opts){
     @media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
     .wrap{max-width:780px;margin:0 auto;padding:32px 0}
     .hdr{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:20px;border-bottom:3px solid ${c};margin-bottom:28px}
-    .hdr-left{display:flex;flex-direction:column;gap:10px}
-    .logo-img{max-height:52px;max-width:180px;object-fit:contain}
-    .co-name{font-size:${logo?'18px':'26px'};font-weight:800;color:${c};letter-spacing:-.5px}
-    .period{font-size:14px;color:#888;margin-top:3px}
-    .rate-pill{display:inline-block;background:${c}15;color:${c};border:1px solid ${c}30;border-radius:20px;padding:3px 11px;font-size:12px;font-weight:700;margin-top:6px}
+    .hdr-left{display:flex;flex-direction:column;gap:8px}
+    .logo-img{max-height:56px;max-width:200px;object-fit:contain}
+    .co-name{font-size:${logo?'17px':'26px'};font-weight:800;color:${c};letter-spacing:-.4px}
+    .period{font-size:14px;color:#888;margin-top:2px}
+    .rate-pill{display:inline-block;background:${cLight};color:${c};border:1px solid ${cMid};border-radius:20px;padding:3px 12px;font-size:12px;font-weight:700;margin-top:4px}
     .hdr-right{text-align:right}
     .info-row{margin-bottom:6px}
     .info-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:#aaa;font-weight:700}
     .info-val{font-size:15px;font-weight:700;color:#1a1a1a}
     table{width:100%;border-collapse:collapse;margin-bottom:24px;font-size:14px}
-    thead tr{background:${c}18}
-    th{padding:10px 12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:${c};font-weight:700;border-bottom:2px solid ${c}30}
+    thead tr{background:${cLight}}
+    th{padding:10px 12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:${c};font-weight:700;border-bottom:2px solid ${cMid}}
     td{padding:10px 12px;border-bottom:1px solid #f0ece6;vertical-align:top}
     tr:last-child td{border-bottom:none}
-    tr:nth-child(even){background:#faf8f5}
-    .totals{border:1px solid ${c}40;border-radius:10px;padding:18px 20px;background:${c}08;margin-top:8px}
+    tr:nth-child(even){background:${cLight}88}
+    .totals{border:1px solid ${cMid};border-radius:10px;padding:18px 20px;background:${cLight};margin-top:8px}
     .tot-title{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:${c};font-weight:700;margin-bottom:12px}
-    .tot-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid ${c}15;font-size:14px}
+    .tot-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid ${cMid};font-size:14px}
     .tot-row:last-child{border-bottom:none;padding-top:10px;margin-top:4px}
     .tot-row.big .tot-val{font-size:20px;font-weight:800;color:${c}}
     .tot-row.earn .tot-val{color:#2d6a4f;font-weight:800}
@@ -401,9 +428,9 @@ function buildPrintHTML(co,name,num,opts){
     .tot-val{font-weight:700}
     .sig-block{margin-top:48px;display:flex;gap:48px}
     .sig-item{flex:1}
-    .sig-line{border-bottom:1px solid #ccc;margin-bottom:8px;height:40px}
-    .sig-lbl{font-size:12px;color:#888;font-weight:600}
-    .footer{margin-top:36px;padding-top:14px;border-top:1px solid #e8e2d8;display:flex;justify-content:space-between;font-size:11px;color:#aaa}
+    .sig-line{border-bottom:2px solid ${cMid};margin-bottom:8px;height:40px}
+    .sig-lbl{font-size:12px;color:${c};font-weight:700}
+    .footer{margin-top:36px;padding-top:14px;border-top:2px solid ${cLight};display:flex;justify-content:space-between;font-size:11px;color:#aaa}
   </style></head><body><div class="wrap">
   <div class="hdr">
     <div class="hdr-left">
@@ -532,9 +559,9 @@ function buildPrintModal(){
       <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-uurtarief" ${o.uurtarief?'checked':''}> Uurtarief weergeven</label></div>
       <label class="flbl" style="margin-top:20px">Handtekeningen</label>
       <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-sig1-active" ${o.sig1Active?'checked':''} onchange="document.getElementById('sig1-name').style.display=this.checked?'block':'none'"> Handtekening 1 toevoegen</label></div>
-      <div id="sig1-name" style="display:${o.sig1Active?'block':'none'}"><div class="sig-sub"><label class="flbl" style="margin-top:0">Naam</label><input id="opt-sig1" class="finput" type="text" placeholder="Bijv. Jordy Koning" value="${esc(o.sig1)}"></div></div>
+      <div id="sig1-name" style="display:${o.sig1Active?'block':'none'}"><div class="sig-sub"><label class="flbl" style="margin-top:0">Naam</label><input id="opt-sig1" class="finput" type="text" value="${esc(o.sig1)}"></div></div>
       <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-sig2-active" ${o.sig2Active?'checked':''} onchange="document.getElementById('sig2-name').style.display=this.checked?'block':'none'"> Handtekening 2 toevoegen</label></div>
-      <div id="sig2-name" style="display:${o.sig2Active?'block':'none'}"><div class="sig-sub"><label class="flbl" style="margin-top:0">Naam</label><input id="opt-sig2" class="finput" type="text" placeholder="Bijv. Stage begeleider" value="${esc(o.sig2)}"></div></div>
+      <div id="sig2-name" style="display:${o.sig2Active?'block':'none'}"><div class="sig-sub"><label class="flbl" style="margin-top:0">Naam</label><input id="opt-sig2" class="finput" type="text" value="${esc(o.sig2)}"></div></div>
       <div class="modal-note">💡 Je keuzes worden onthouden voor de volgende keer.</div>
       <div class="fbtns"><button class="save-btn" onclick="doPrint()">🖨 Openen & afdrukken</button><button class="cancel-btn" onclick="closePrint()">Annuleren</button></div>
     </div>
@@ -544,26 +571,30 @@ function buildPrintModal(){
 function buildRatesModal(){
   const cos=allCo();
   return`<div class="modal-overlay" onclick="if(event.target===this)closeRates()"><div class="modal"><div class="modal-handle"></div>
-    <div class="modal-hdr"><div class="modal-title">💶 Tarieven & logo's</div><button class="x-btn" onclick="closeRates()">✕</button></div>
+    <div class="modal-hdr"><div class="modal-title">💶 Tarieven & huisstijl</div><button class="x-btn" onclick="closeRates()">✕</button></div>
     <div class="modal-body">
       <div class="rate-section">Per bedrijf</div>
       ${cos.length===0?`<div class="no-cos">Voeg eerst registraties toe.</div>`:cos.map(co=>{
-        const id=btoa(co).replace(/[^a-zA-Z0-9]/g,'');
-        const hasLogo=!!S.logos[co];
+        const id=coId(co);const c=coColor(co);const hasLogo=!!S.logos[co];
         return`<div class="co-card">
           <div class="co-card-top">
-            <span class="dot" style="background:${coColor(co)};width:12px;height:12px;border-radius:50%;flex-shrink:0"></span>
+            <span class="dot" style="background:${c};width:12px;height:12px;border-radius:50%;flex-shrink:0"></span>
             <span class="co-card-name">${esc(co)}</span>
             <div class="rate-wrap"><span class="rate-sym">€</span><input class="rate-inp" type="number" step="0.50" min="0" placeholder="0.00" data-co="${esc(co)}" value="${S.rates[co]||''}"><span class="rate-unit">/u</span></div>
           </div>
-          <div class="logo-row">
-            <span style="font-size:12px;color:var(--muted);font-weight:600">Logo:</span>
-            ${hasLogo?`<img id="logo-prev-${id}" class="logo-preview" src="${S.logos[co]}" style="display:block">`:
-              `<img id="logo-prev-${id}" class="logo-preview" src="" style="display:none">`}
-            <button id="logo-hint-${id}" class="logo-upload-btn" style="display:${hasLogo?'none':'inline-block'}" onclick="document.getElementById('lf-${id}').click()">📷 Logo uploaden</button>
-            <button id="logo-rm-${id}" class="logo-rm-btn" style="display:${hasLogo?'inline-block':'none'}" onclick="removeLogo('${esc(co)}')">✕ Verwijderen</button>
+          <div class="co-detail-row">
+            <span class="co-detail-lbl">Logo</span>
+            ${hasLogo?`<img class="logo-preview" src="${S.logos[co]}">`:'' }
+            <button class="sm-btn" onclick="document.getElementById('lf-${id}').click()">📷 ${hasLogo?'Wijzigen':'Uploaden'}</button>
+            ${hasLogo?`<button class="sm-btn-red" onclick="removeLogo('${esc(co)}')">✕</button>`:''}
             <input type="file" id="lf-${id}" accept="image/*" style="display:none" onchange="onLogoUpload('${esc(co)}',event)">
-            ${hasLogo?`<button class="logo-upload-btn" onclick="document.getElementById('lf-${id}').click()">↺ Wijzigen</button>`:''}
+          </div>
+          <div class="co-detail-row">
+            <span class="co-detail-lbl">Kleur</span>
+            <div class="color-picker-wrap">
+              <input type="color" class="color-swatch color-inp" data-co="${esc(co)}" value="${c}">
+              <span class="color-hint">Wordt auto-gedetecteerd bij logo upload. Handmatig aanpassen kan ook.</span>
+            </div>
           </div>
         </div>`;
       }).join('')}
@@ -572,7 +603,7 @@ function buildRatesModal(){
         <span style="font-size:18px">🚗</span><span style="font-weight:600;font-size:15px;flex:1">Per kilometer</span>
         <div class="rate-wrap"><span class="rate-sym">€</span><input id="km-rate-inp" class="rate-inp" type="number" step="0.01" min="0" placeholder="0.23" value="${S.kmRate||''}"><span class="rate-unit">/km</span></div>
       </div>
-      <div class="modal-note">💡 Logo's verschijnen automatisch bovenin de PDF. Standaard belastingvrij km-tarief in NL is € 0,23 per km.</div>
+      <div class="modal-note">💡 Upload een logo om de huisstijlkleur automatisch te detecteren. Standaard belastingvrij km-tarief in NL is € 0,23 per km.</div>
       <div style="margin-top:16px;padding-bottom:8px"><button class="save-btn" onclick="closeRates()">Opslaan & sluiten</button></div>
     </div>
   </div></div>`;

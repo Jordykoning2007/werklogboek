@@ -14,10 +14,10 @@
     :root{
       --bg:#f5f2ee;--white:#fff;--dark:#1a1a1a;--accent:#e8650a;
       --accent-light:#fff3ec;--border:#e8e2d8;--muted:#888;
-      --card:#faf8f5;--green:#2d6a4f;--green-light:#edf7f2;--blue:#1d6fa5;--blue-light:#e8f3fb;
-      --purple:#7209b7;--purple-light:#f3e8ff;
+      --card:#faf8f5;--green:#2d6a4f;--green-light:#edf7f2;
+      --blue:#1d6fa5;--blue-light:#e8f3fb;--purple:#7209b7;--purple-light:#f3e8ff;
       --font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-      --safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px);
+      --safe-top:env(safe-area-inset-top,20px);--safe-bottom:env(safe-area-inset-bottom,0px);
     }
     html,body{height:100%;background:var(--bg);font-family:var(--font);color:var(--dark)}
     #app{position:fixed;inset:0;display:flex;flex-direction:column;overflow:hidden}
@@ -26,16 +26,16 @@
     @keyframes sp{to{transform:rotate(360deg)}}
     .spin-txt{font-size:14px;color:var(--muted)}
     .err-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:12px;padding:32px;text-align:center}
-    .err-msg{font-size:15px;color:#c0392b;line-height:1.7}
+    .err-msg{font-size:15px;color:#c0392b;line-height:1.7;white-space:pre-line}
     .retry-btn{padding:11px 22px;background:var(--accent);color:#fff;border:none;border-radius:9px;cursor:pointer;font-size:14px;font-family:var(--font);font-weight:600}
     .toast{position:fixed;bottom:calc(var(--safe-bottom) + 14px);left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:9px 18px;border-radius:22px;font-size:13px;font-weight:600;z-index:500;opacity:0;transition:opacity .25s;pointer-events:none;white-space:nowrap}
     .toast.on{opacity:1}
     .sync-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;flex-shrink:0;box-shadow:0 0 0 2px #1a1a1a}
     .sync-dot.busy{background:#facc15;animation:pulse 1s ease-in-out infinite}
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-    .hdr{background:var(--dark);color:#f5f2ee;padding-top:calc(env(safe-area-inset-top, 20px) + 13px);padding-bottom:13px;padding-left:18px;padding-right:18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+    .hdr{background:var(--dark);color:#f5f2ee;padding-top:calc(var(--safe-top) + 13px);padding-bottom:13px;padding-left:18px;padding-right:18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
     .hdr-left{display:flex;align-items:center;gap:10px}
-    .logo{width:38px;height:38px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+    .logo-icon{width:38px;height:38px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
     .app-name{font-size:17px;font-weight:700;letter-spacing:-.3px}
     .app-sub{font-size:11px;color:#777;margin-top:1px;display:flex;align-items:center;gap:5px}
     .hdr-right{display:flex;align-items:center;gap:8px}
@@ -55,7 +55,8 @@
     .dcell.wknd{background:#faf8f5}
     .dcell.today{border-color:var(--accent);background:var(--accent-light)}
     .dcell.sel{border-color:var(--accent);background:var(--accent-light);box-shadow:0 0 0 2px #e8650a28}
-    .dnum{font-size:12px;font-weight:700}.dnum.today{color:var(--accent)}
+    .dnum{font-size:12px;font-weight:700}
+    .dnum.today{color:var(--accent)}
     .dhours{font-size:10px;font-weight:700;color:var(--muted)}
     .ddots{margin-top:4px;display:flex;flex-direction:column;gap:2px}
     .ddot-row{display:flex;align-items:center;gap:3px}
@@ -98,7 +99,7 @@
     .photo-box{border:2px dashed var(--border);border-radius:9px;padding:14px;text-align:center;cursor:pointer;min-height:64px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:var(--card)}
     .photo-prev{max-height:90px;border-radius:6px;object-fit:contain}
     .photo-hint{font-size:13px;color:#aaa}
-    .rm-photo{font-size:12px;color:#c0392b;background:none;border:none;cursor:pointer;font-family:var(--font);margin-top:5px;display:none}
+    .rm-photo{font-size:12px;color:#c0392b;background:none;border:none;cursor:pointer;font-family:var(--font);margin-top:5px}
     .fbtns{display:flex;gap:8px;margin-top:16px;padding-bottom:6px}
     .save-btn{flex:1;padding:13px;background:var(--accent);color:#fff;border:none;border-radius:10px;cursor:pointer;font-weight:600;font-family:var(--font);font-size:15px}
     .cancel-btn{padding:13px 15px;background:var(--white);color:var(--muted);border:1px solid var(--border);border-radius:10px;cursor:pointer;font-family:var(--font);font-size:15px}
@@ -146,8 +147,7 @@
     .logo-preview{height:32px;max-width:90px;object-fit:contain;border-radius:4px;border:1px solid var(--border)}
     .sm-btn{padding:6px 11px;border:1px dashed var(--border);border-radius:7px;background:var(--white);cursor:pointer;font-size:12px;font-family:var(--font);color:var(--muted);white-space:nowrap}
     .sm-btn-red{padding:6px 11px;border:1px solid #fcc;border-radius:7px;background:var(--white);cursor:pointer;font-size:12px;font-family:var(--font);color:#c0392b;white-space:nowrap}
-    .color-picker-wrap{display:flex;align-items:center;gap:8px;flex:1}
-    .color-swatch{width:28px;height:28px;border-radius:6px;border:2px solid var(--border);cursor:pointer;padding:0;overflow:hidden;flex-shrink:0}
+    .color-swatch{width:28px;height:28px;border-radius:6px;border:2px solid var(--border);cursor:pointer;padding:0;flex-shrink:0}
     .color-hint{font-size:11px;color:var(--muted)}
     .modal-note{font-size:13px;color:var(--muted);margin-top:16px;padding:12px 14px;background:var(--card);border-radius:10px;line-height:1.6}
     .no-cos{color:var(--muted);font-size:14px;text-align:center;padding:24px 0}
@@ -161,18 +161,34 @@
   </style>
 </head>
 <body>
-<div id="app"><div style="display:flex;flex-direction:column;height:100vh"><div class="spin-wrap"><div class="spin"></div><div class="spin-txt">Verbinden met cloud...</div></div></div></div>
+<div id="app">
+  <div style="display:flex;flex-direction:column;height:100vh">
+    <div class="spin-wrap"><div class="spin"></div><div class="spin-txt">Verbinden met cloud...</div></div>
+  </div>
+</div>
 <div class="lightbox" id="lb" onclick="closeLb()"><img id="lb-img" src="" alt="foto"></div>
 <div class="toast" id="toast"></div>
 <script>
+/* ── Supabase ── */
 const SB_URL='https://sbebkglrlopufsjixmos.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNiZWJrZ2xybG9wdWZzaml4bW9zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMjIwMTksImV4cCI6MjA5NDY5ODAxOX0.UWp0aCddXJPxOxIGXBNDm8eBvAqztCuQDbKloPa7wwE';
 const SBH={apikey:SB_KEY,Authorization:`Bearer ${SB_KEY}`,'Content-Type':'application/json'};
 
-async function dbGet(t,q=''){const r=await fetch(`${SB_URL}/rest/v1/${t}?${q}`,{headers:SBH});if(!r.ok)throw new Error(await r.text());return r.json();}
-async function dbUpsert(t,d){const r=await fetch(`${SB_URL}/rest/v1/${t}`,{method:'POST',headers:{...SBH,Prefer:'resolution=merge-duplicates'},body:JSON.stringify(d)});if(!r.ok)throw new Error(await r.text());}
-async function dbDel(t,id){const r=await fetch(`${SB_URL}/rest/v1/${t}?id=eq.${encodeURIComponent(id)}`,{method:'DELETE',headers:SBH});if(!r.ok)throw new Error(await r.text());}
+async function dbGet(t,q=''){
+  const r=await fetch(`${SB_URL}/rest/v1/${t}?${q}`,{headers:SBH});
+  if(!r.ok)throw new Error(await r.text());
+  return r.json();
+}
+async function dbUpsert(t,d){
+  const r=await fetch(`${SB_URL}/rest/v1/${t}`,{method:'POST',headers:{...SBH,Prefer:'resolution=merge-duplicates'},body:JSON.stringify(d)});
+  if(!r.ok)throw new Error(await r.text());
+}
+async function dbDel(t,id){
+  const r=await fetch(`${SB_URL}/rest/v1/${t}?id=eq.${encodeURIComponent(id)}`,{method:'DELETE',headers:SBH});
+  if(!r.ok)throw new Error(await r.text());
+}
 
+/* ── Constanten ── */
 const MN=["Januari","Februari","Maart","April","Mei","Juni","Juli","Augustus","September","Oktober","November","December"];
 const DN=["Ma","Di","Wo","Do","Vr","Za","Zo"];
 const CLR=["#e8650a","#2d6a4f","#4361ee","#9b2335","#7209b7","#0077b6","#b5838d","#457b9d","#e63946","#2a9d8f"];
@@ -180,16 +196,17 @@ const NOW=new Date();
 const todayStr=fd(NOW.getFullYear(),NOW.getMonth(),NOW.getDate());
 let syncBusy=false;
 
+/* ── State ── */
 let S={
   loading:true,err:null,
   view:'cal',y:NOW.getFullYear(),m:NOW.getMonth(),
-  sel:null,panel:false,showForm:false,editId:null,showRates:false,
-  showPrint:false,printCo:null,showWeeks:false,
+  sel:null,panel:false,showForm:false,editId:null,showRates:false,showPrint:false,printCo:null,showWeeks:false,
   printOpts:{notes:true,amounts:true,uurtarief:false,sig1Active:false,sig2Active:false,sig1:'Jordy Koning',sig2:'Stage begeleider'},
   form:{co:'',hrs:'',km:'',klantnr:'',notes:'',photo:null,pname:''},
   entries:[],rates:{},kmRate:0,userName:'',userNum:'',logos:{},brandColors:{}
 };
 
+/* ── Data ── */
 async function loadData(){
   try{
     const[entries,settings]=await Promise.all([
@@ -198,22 +215,41 @@ async function loadData(){
     ]);
     S.entries=entries.map(e=>({...e,hrs:Number(e.hrs),km:Number(e.km||0),klantnr:e.klantnr||''}));
     const cfg=settings.find(s=>s.key==='config');
-    if(cfg){try{const c=JSON.parse(cfg.value);S.rates=c.rates||{};S.kmRate=c.kmRate||0;S.userName=c.userName||'';S.userNum=c.userNum||'';S.logos=c.logos||{};S.brandColors=c.brandColors||{};if(c.printOpts)S.printOpts={...S.printOpts,...c.printOpts};}catch{}}
+    if(cfg){
+      try{
+        const c=JSON.parse(cfg.value);
+        S.rates=c.rates||{};
+        S.kmRate=c.kmRate||0;
+        S.userName=c.userName||'';
+        S.userNum=c.userNum||'';
+        S.logos=c.logos||{};
+        S.brandColors=c.brandColors||{};
+        if(c.printOpts)S.printOpts={...S.printOpts,...c.printOpts};
+      }catch(e){console.error('Config parse error',e);}
+    }
     S.err=null;
-  }catch(e){S.err='Kon geen verbinding maken.\nCheck je internet en probeer opnieuw.';console.error(e);}
-  S.loading=false;R();
+  }catch(e){
+    S.err='Kon geen verbinding maken.\nCheck je internet en probeer opnieuw.';
+    console.error(e);
+  }
+  S.loading=false;
+  R();
 }
 
 async function saveSettings(){
   setSyncing(true);
-  try{await dbUpsert('settings',{key:'config',value:JSON.stringify({rates:S.rates,kmRate:S.kmRate,userName:S.userName,userNum:S.userNum,printOpts:S.printOpts,logos:S.logos,brandColors:S.brandColors})});}
-  catch(e){console.error(e);}
+  try{
+    await dbUpsert('settings',{key:'config',value:JSON.stringify({
+      rates:S.rates,kmRate:S.kmRate,userName:S.userName,userNum:S.userNum,
+      printOpts:S.printOpts,logos:S.logos,brandColors:S.brandColors
+    })});
+  }catch(e){console.error(e);}
   setSyncing(false);
 }
 
+/* ── Helpers ── */
 function setSyncing(v){syncBusy=v;const d=document.querySelector('.sync-dot');if(d)d.classList.toggle('busy',v);}
 function showToast(msg){const t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2200);}
-
 function coId(co){let h=0;for(let i=0;i<co.length;i++)h=((h<<5)-h+co.charCodeAt(i))|0;return'co'+Math.abs(h);}
 function fd(y,m,d){return`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;}
 function pd(s){const[y,m,d]=s.split('-').map(Number);return{y,m:m-1,d};}
@@ -227,11 +263,14 @@ function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/<
 function fmtShort(ds){const{m,d}=pd(ds);return`${d} ${MN[m].slice(0,3)}`;}
 function fmtLong(ds){const{y,m,d}=pd(ds);return`${d} ${MN[m]} ${y}`;}
 function euro(n){return'€\u00a0'+Number(n).toLocaleString('nl-NL',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function hexToRgb(hex){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return{r,g,b};}
+function lighten(hex,p){const{r,g,b}=hexToRgb(hex);const m=v=>Math.round(v+(255-v)*p);return`rgb(${m(r)},${m(g)},${m(b)})`;}
 
+/* ── Maand/week data ── */
 function monthData(){
   const map={};
   S.entries.filter(e=>{const{y,m}=pd(e.date);return y===S.y&&m===S.m;})
-  .forEach(e=>{if(!map[e.co])map[e.co]={hrs:0,km:0,entries:[]};map[e.co].hrs+=e.hrs;map[e.co].km+=e.km;map[e.co].entries.push(e);});
+    .forEach(e=>{if(!map[e.co])map[e.co]={hrs:0,km:0,entries:[]};map[e.co].hrs+=e.hrs;map[e.co].km+=e.km;map[e.co].entries.push(e);});
   return map;
 }
 function totalHrs(){return Object.values(monthData()).reduce((s,v)=>s+v.hrs,0);}
@@ -239,7 +278,78 @@ function totalKm(){return S.entries.filter(e=>{const{y,m}=pd(e.date);return y===
 function totalEarn(){const d=monthData();return Object.entries(d).reduce((s,[co,v])=>s+(S.rates[co]?v.hrs*S.rates[co]:0),0)+(S.kmRate?totalKm()*S.kmRate:0);}
 function hasRate(){return allCo().some(c=>S.rates[c])||S.kmRate>0;}
 
-/* ── Kleur extractie uit logo ── */
+function isoWeek(dateStr){
+  const{y,m,d}=pd(dateStr);
+  const dt=new Date(Date.UTC(y,m,d));
+  const day=dt.getUTCDay()||7;
+  dt.setUTCDate(dt.getUTCDate()+4-day);
+  const y1=new Date(Date.UTC(dt.getUTCFullYear(),0,1));
+  return Math.ceil((((dt-y1)/86400000)+1)/7);
+}
+function weekRange(entries){
+  const dates=entries.map(e=>{const{y,m,d}=pd(e.date);return new Date(y,m,d);});
+  const mn=new Date(Math.min(...dates)),mx=new Date(Math.max(...dates));
+  if(mn.getMonth()===mx.getMonth())
+    return mn.getDate()===mx.getDate()?`${mn.getDate()} ${MN[mn.getMonth()].slice(0,3)}`:`${mn.getDate()}–${mx.getDate()} ${MN[mn.getMonth()].slice(0,3)}`;
+  return`${mn.getDate()} ${MN[mn.getMonth()].slice(0,3)} – ${mx.getDate()} ${MN[mx.getMonth()].slice(0,3)}`;
+}
+function weeklyData(){
+  const map={};
+  S.entries.filter(e=>{const{y,m}=pd(e.date);return y===S.y&&m===S.m;})
+    .forEach(e=>{const w=isoWeek(e.date);if(!map[w])map[w]={hrs:0,km:0,entries:[]};map[w].hrs+=e.hrs;map[w].km+=e.km;map[w].entries.push(e);});
+  return Object.entries(map).sort((a,b)=>Number(a[0])-Number(b[0]));
+}
+
+/* ── Acties ── */
+function setView(v){S.view=v;S.panel=false;S.sel=null;S.showRates=false;S.showPrint=false;R();}
+function prevM(){if(S.m===0){S.y--;S.m=11;}else S.m--;S.sel=null;S.panel=false;R();}
+function nextM(){if(S.m===11){S.y++;S.m=0;}else S.m++;S.sel=null;S.panel=false;R();}
+function pickDay(day){S.sel=fd(S.y,S.m,day);S.panel=true;S.showForm=false;S.editId=null;R();}
+function closePanel(){S.panel=false;S.sel=null;S.showForm=false;R();}
+function toggleWeeks(){S.showWeeks=!S.showWeeks;R();}
+function openAdd(){S.form={co:'',hrs:'',km:'',klantnr:'',notes:'',photo:null,pname:''};S.editId=null;S.showForm=true;R();setTimeout(()=>{const f=document.querySelector('.fsec');if(f)f.scrollIntoView({behavior:'smooth'});},80);}
+function openEdit(id){const e=S.entries.find(e=>e.id===id);if(!e)return;S.form={co:e.co,hrs:String(e.hrs),km:e.km?String(e.km):'',klantnr:e.klantnr||'',notes:e.notes||'',photo:e.photo||null,pname:e.pname||''};S.editId=id;S.showForm=true;R();}
+function cancelForm(){S.showForm=false;S.editId=null;R();}
+
+async function doSave(){
+  const{co,hrs,km,klantnr,notes,photo,pname}=S.form;
+  if(!co.trim()||!hrs){alert('Vul bedrijf en uren in.');return;}
+  const entry={id:S.editId||String(Date.now()),date:S.sel,co:co.trim(),hrs:parseFloat(hrs),km:km?parseFloat(km):0,klantnr:klantnr||'',notes:notes||'',photo:photo||null,pname:pname||''};
+  if(S.editId)S.entries=S.entries.map(e=>e.id===S.editId?entry:e);
+  else S.entries.push(entry);
+  S.showForm=false;S.editId=null;S.form={co:'',hrs:'',km:'',klantnr:'',notes:'',photo:null,pname:''};
+  R();
+  setSyncing(true);
+  try{await dbUpsert('entries',entry);showToast('✓ Opgeslagen');}
+  catch(e){alert('Fout bij opslaan.');console.error(e);}
+  setSyncing(false);
+}
+
+async function doDelete(id){
+  if(!confirm('Verwijderen?'))return;
+  S.entries=S.entries.filter(e=>e.id!==id);
+  R();
+  setSyncing(true);
+  try{await dbDel('entries',id);showToast('✓ Verwijderd');}
+  catch(e){alert('Fout bij verwijderen.');console.error(e);}
+  setSyncing(false);
+}
+
+/* ── Afbeeldingen ── */
+function compressImg(dataUrl,mw,mh,q){
+  return new Promise(res=>{
+    const img=new Image();
+    img.onload=()=>{
+      const rr=Math.min(mw/img.width,mh/img.height,1);
+      const c=document.createElement('canvas');
+      c.width=Math.round(img.width*rr);c.height=Math.round(img.height*rr);
+      c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+      res(c.toDataURL('image/jpeg',q));
+    };
+    img.src=dataUrl;
+  });
+}
+
 async function extractColor(imgSrc){
   return new Promise(res=>{
     const img=new Image();
@@ -251,10 +361,8 @@ async function extractColor(imgSrc){
         const map={};
         for(let i=0;i<d.length;i+=4){
           const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3];
-          if(a<100)continue;
-          if(r>235&&g>235&&b>235)continue; // wit
-          if(r<20&&g<20&&b<20)continue;    // zwart
-          if(Math.max(r,g,b)-Math.min(r,g,b)<45)continue; // grijs
+          if(a<100||r>235&&g>235&&b>235||r<20&&g<20&&b<20)continue;
+          if(Math.max(r,g,b)-Math.min(r,g,b)<45)continue;
           const k=`${Math.round(r/28)*28},${Math.round(g/28)*28},${Math.round(b/28)*28}`;
           map[k]=(map[k]||0)+1;
         }
@@ -269,63 +377,18 @@ async function extractColor(imgSrc){
   });
 }
 
-function toggleWeeks(){S.showWeeks=!S.showWeeks;R();}
-
-function isoWeek(dateStr){
-  const{y,m,d}=pd(dateStr);
-  const dt=new Date(Date.UTC(y,m,d));
-  const day=dt.getUTCDay()||7;
-  dt.setUTCDate(dt.getUTCDate()+4-day);
-  const y1=new Date(Date.UTC(dt.getUTCFullYear(),0,1));
-  return Math.ceil((((dt-y1)/86400000)+1)/7);
+function onPhoto(ev){
+  const file=ev.target.files[0];if(!file)return;
+  const r=new FileReader();
+  r.onload=async e=>{
+    const comp=await compressImg(e.target.result,900,900,.72);
+    S.form.photo=comp;S.form.pname=file.name;
+    const box=document.querySelector('.photo-box');
+    if(box)box.innerHTML=`<img class="photo-prev" src="${comp}">`;
+    const rb=document.querySelector('.rm-photo');if(rb)rb.style.display='block';
+  };
+  r.readAsDataURL(file);
 }
-
-function weekRange(entries){
-  const dates=entries.map(e=>{const{y,m,d}=pd(e.date);return new Date(y,m,d);});
-  const mn=new Date(Math.min(...dates)),mx=new Date(Math.max(...dates));
-  if(mn.getMonth()===mx.getMonth())
-    return mn.getDate()===mx.getDate()?`${mn.getDate()} ${MN[mn.getMonth()].slice(0,3)}`:`${mn.getDate()}–${mx.getDate()} ${MN[mn.getMonth()].slice(0,3)}`;
-  return`${mn.getDate()} ${MN[mn.getMonth()].slice(0,3)} – ${mx.getDate()} ${MN[mx.getMonth()].slice(0,3)}`;
-}
-
-function weeklyData(){
-  const map={};
-  S.entries.filter(e=>{const{y,m}=pd(e.date);return y===S.y&&m===S.m;})
-  .forEach(e=>{const w=isoWeek(e.date);if(!map[w])map[w]={hrs:0,km:0,entries:[]};map[w].hrs+=e.hrs;map[w].km+=e.km;map[w].entries.push(e);});
-  return Object.entries(map).sort((a,b)=>Number(a[0])-Number(b[0]));
-}S.view=v;S.panel=false;S.sel=null;S.showRates=false;S.showPrint=false;R();}
-function prevM(){if(S.m===0){S.y--;S.m=11;}else S.m--;S.sel=null;S.panel=false;R();}
-function nextM(){if(S.m===11){S.y++;S.m=0;}else S.m++;S.sel=null;S.panel=false;R();}
-function pickDay(day){S.sel=fd(S.y,S.m,day);S.panel=true;S.showForm=false;S.editId=null;R();}
-function closePanel(){S.panel=false;S.sel=null;S.showForm=false;R();}
-function openAdd(){S.form={co:'',hrs:'',km:'',klantnr:'',notes:'',photo:null,pname:''};S.editId=null;S.showForm=true;R();setTimeout(()=>{const f=document.querySelector('.fsec');if(f)f.scrollIntoView({behavior:'smooth'});},80);}
-function openEdit(id){const e=S.entries.find(e=>e.id===id);if(!e)return;S.form={co:e.co,hrs:String(e.hrs),km:e.km?String(e.km):'',klantnr:e.klantnr||'',notes:e.notes||'',photo:e.photo||null,pname:e.pname||''};S.editId=id;S.showForm=true;R();}
-function cancelForm(){S.showForm=false;S.editId=null;R();}
-
-async function doSave(){
-  const{co,hrs,km,klantnr,notes,photo,pname}=S.form;
-  if(!co.trim()||!hrs){alert('Vul bedrijf en uren in.');return;}
-  const entry={id:S.editId||String(Date.now()),date:S.sel,co:co.trim(),hrs:parseFloat(hrs),km:km?parseFloat(km):0,klantnr:klantnr||'',notes:notes||'',photo:photo||null,pname:pname||''};
-  if(S.editId)S.entries=S.entries.map(e=>e.id===S.editId?entry:e);else S.entries.push(entry);
-  S.showForm=false;S.editId=null;S.form={co:'',hrs:'',km:'',klantnr:'',notes:'',photo:null,pname:''};R();
-  setSyncing(true);
-  try{await dbUpsert('entries',entry);showToast('✓ Opgeslagen');}
-  catch(e){alert('Fout bij opslaan.');console.error(e);}
-  setSyncing(false);
-}
-
-async function doDelete(id){
-  if(!confirm('Verwijderen?'))return;
-  S.entries=S.entries.filter(e=>e.id!==id);R();
-  setSyncing(true);
-  try{await dbDel('entries',id);showToast('✓ Verwijderd');}
-  catch(e){alert('Fout bij verwijderen.');console.error(e);}
-  setSyncing(false);
-}
-
-function compressImg(dataUrl,mw,mh,q){return new Promise(res=>{const img=new Image();img.onload=()=>{const rr=Math.min(mw/img.width,mh/img.height,1);const c=document.createElement('canvas');c.width=Math.round(img.width*rr);c.height=Math.round(img.height*rr);c.getContext('2d').drawImage(img,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',q));};img.src=dataUrl;});}
-
-function onPhoto(ev){const file=ev.target.files[0];if(!file)return;const r=new FileReader();r.onload=async e=>{const comp=await compressImg(e.target.result,900,900,.72);S.form.photo=comp;S.form.pname=file.name;const box=document.querySelector('.photo-box');if(box)box.innerHTML=`<img class="photo-prev" src="${comp}">`;const rb=document.querySelector('.rm-photo');if(rb)rb.style.display='block';};r.readAsDataURL(file);}
 function rmPhoto(){S.form.photo=null;S.form.pname='';const box=document.querySelector('.photo-box');if(box)box.innerHTML=`<span style="font-size:22px">📎</span><span class="photo-hint">Klik om foto toe te voegen</span>`;const rb=document.querySelector('.rm-photo');if(rb)rb.style.display='none';}
 
 async function onLogoUpload(co,ev){
@@ -334,28 +397,35 @@ async function onLogoUpload(co,ev){
   r.onload=async e=>{
     const comp=await compressImg(e.target.result,200,100,.65);
     S.logos[co]=comp;
-    // Auto-detecteer kleur
     const color=await extractColor(comp);
     if(color)S.brandColors[co]=color;
     saveSettings();
-    showToast('✓ Logo opgeslagen, kleur gedetecteerd');
-    R(); // herrender zodat kleur meteen zichtbaar is
+    showToast('✓ Logo opgeslagen');
+    R();
   };
   r.readAsDataURL(file);
 }
 function removeLogo(co){delete S.logos[co];saveSettings();R();}
-
 function openLb(id){const e=S.entries.find(e=>e.id===id);if(!e||!e.photo)return;document.getElementById('lb-img').src=e.photo;document.getElementById('lb').classList.add('on');}
 function closeLb(){document.getElementById('lb').classList.remove('on');}
 
+/* ── Tarieven ── */
 function openRates(){S.showRates=true;S.showPrint=false;R();}
 function closeRates(){
-  document.querySelectorAll('.rate-inp').forEach(inp=>{const co=inp.dataset.co;if(!co)return;const val=parseFloat(inp.value);if(!isNaN(val)&&val>0)S.rates[co]=val;else delete S.rates[co];});
-  document.querySelectorAll('.color-inp').forEach(inp=>{const co=inp.dataset.co;if(co)S.brandColors[co]=inp.value;});
-  const ki=document.getElementById('km-rate-inp');if(ki){const v=parseFloat(ki.value);S.kmRate=isNaN(v)||v<=0?0:v;}
+  document.querySelectorAll('.rate-inp').forEach(inp=>{
+    const co=inp.dataset.co;if(!co)return;
+    const val=parseFloat(inp.value);
+    if(!isNaN(val)&&val>0)S.rates[co]=val;else delete S.rates[co];
+  });
+  document.querySelectorAll('.color-inp').forEach(inp=>{
+    const co=inp.dataset.co;if(co)S.brandColors[co]=inp.value;
+  });
+  const ki=document.getElementById('km-rate-inp');
+  if(ki){const v=parseFloat(ki.value);S.kmRate=isNaN(v)||v<=0?0:v;}
   S.showRates=false;R();saveSettings();
 }
 
+/* ── Afdrukken ── */
 function openPrint(co){S.printCo=co;S.showPrint=true;S.showRates=false;R();}
 function closePrint(){S.showPrint=false;S.printCo=null;R();}
 
@@ -376,14 +446,11 @@ function doPrint(){
   saveSettings();
   const html=buildPrintHTML(S.printCo,name,num,opts);
   const win=window.open('','_blank');
-  if(!win){alert('Sta pop-ups toe in je browser om af te drukken.');return;}
+  if(!win){alert('Sta pop-ups toe in je browser.');return;}
   win.document.write(html);win.document.close();win.focus();
   setTimeout(()=>win.print(),600);
   S.showPrint=false;R();
 }
-
-function hexToRgb(hex){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return{r,g,b};}
-function lighten(hex,pct){const{r,g,b}=hexToRgb(hex);const mix=v=>Math.round(v+(255-v)*pct);return`rgb(${mix(r)},${mix(g)},${mix(b)})`;}
 
 function buildPrintHTML(co,name,num,opts){
   const o=opts||S.printOpts;
@@ -403,7 +470,8 @@ function buildPrintHTML(co,name,num,opts){
   const logo=S.logos[co]||null;
 
   const rows=entries.map(e=>{
-    const er=S.rates[e.co];const ee=(er?e.hrs*er:0)+(e.km&&S.kmRate?e.km*S.kmRate:0);
+    const er=S.rates[e.co];
+    const ee=(er?e.hrs*er:0)+(e.km&&S.kmRate?e.km*S.kmRate:0);
     return`<tr>
       <td>${fmtLong(e.date)}</td>
       ${hasKlantnr?`<td style="color:#7209b7;font-weight:600;font-size:13px">${e.klantnr||'—'}</td>`:''}
@@ -433,15 +501,14 @@ function buildPrintHTML(co,name,num,opts){
     .period{font-size:14px;color:#888;margin-top:2px}
     .rate-pill{display:inline-block;background:${cLight};color:${c};border:1px solid ${cMid};border-radius:20px;padding:3px 12px;font-size:12px;font-weight:700;margin-top:4px}
     .hdr-right{text-align:right}
-    .info-row{margin-bottom:6px}
     .info-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:#aaa;font-weight:700}
-    .info-val{font-size:15px;font-weight:700;color:#1a1a1a}
+    .info-val{font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:6px}
     table{width:100%;border-collapse:collapse;margin-bottom:24px;font-size:14px}
     thead tr{background:${cLight}}
     th{padding:10px 12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:${c};font-weight:700;border-bottom:2px solid ${cMid}}
     td{padding:10px 12px;border-bottom:1px solid #f0ece6;vertical-align:top}
     tr:last-child td{border-bottom:none}
-    tr:nth-child(even){background:${cLight}88}
+    tr:nth-child(even){background:${cLight}}
     .totals{border:1px solid ${cMid};border-radius:10px;padding:18px 20px;background:${cLight};margin-top:8px}
     .tot-title{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:${c};font-weight:700;margin-bottom:12px}
     .tot-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid ${cMid};font-size:14px}
@@ -466,8 +533,8 @@ function buildPrintHTML(co,name,num,opts){
       </div>
     </div>
     <div class="hdr-right">
-      <div class="info-row"><div class="info-lbl">Naam</div><div class="info-val">${esc(name)}</div></div>
-      ${num?`<div class="info-row" style="margin-top:8px"><div class="info-lbl">Personeelsnummer</div><div class="info-val">${esc(num)}</div></div>`:''}
+      <div class="info-lbl">Naam</div><div class="info-val">${esc(name)}</div>
+      ${num?`<div class="info-lbl">Personeelsnummer</div><div class="info-val">${esc(num)}</div>`:''}
     </div>
   </div>
   <table><thead><tr>
@@ -491,20 +558,54 @@ function buildPrintHTML(co,name,num,opts){
   </div></body></html>`;
 }
 
-function R(){document.getElementById('app').innerHTML=buildApp();attachSwipe();}
+/* ── Render ── */
+function R(){
+  document.getElementById('app').innerHTML=buildApp();
+  attachSwipe();
+}
 
 function buildApp(){
-  if(S.loading)return`<div style="display:flex;flex-direction:column;height:100vh"><div class="spin-wrap"><div class="spin"></div><div class="spin-txt">Verbinden met cloud...</div></div></div>`;
-  if(S.err)return`<div style="display:flex;flex-direction:column;height:100vh"><div class="err-wrap"><div style="font-size:48px">⚠️</div><div class="err-msg">${esc(S.err)}</div><button class="retry-btn" onclick="S.loading=true;R();loadData()">Opnieuw proberen</button></div></div>`;
-  return buildHdr()+buildMnav()+`<div class="main">${S.view==='cal'?buildCal():buildOv()}</div>`
+  if(S.loading){
+    return`<div class="spin-wrap"><div class="spin"></div><div class="spin-txt">Verbinden met cloud...</div></div>`;
+  }
+  if(S.err){
+    return`<div class="err-wrap"><div style="font-size:48px">⚠️</div><div class="err-msg">${esc(S.err)}</div><button class="retry-btn" onclick="S.loading=true;R();loadData()">Opnieuw proberen</button></div>`;
+  }
+  return buildHdr()+buildMnav()
+    +`<div class="main">${S.view==='cal'?buildCal():buildOv()}</div>`
     +(S.view==='cal'?buildSheet():'')
     +(S.view==='cal'?`<div class="backdrop ${S.panel?'on':''}" onclick="closePanel()"></div>`:'')
     +(S.showRates?buildRatesModal():'')
     +(S.showPrint?buildPrintModal():'');
 }
 
-function buildHdr(){return`<header class="hdr"><div class="hdr-left"><div class="logo">⏱</div><div><div class="app-name">Werklogboek</div><div class="app-sub"><span class="sync-dot${syncBusy?' busy':''}"></span>${syncBusy?'Opslaan...':'Gesynchroniseerd'}</div></div></div><div class="hdr-right"><button class="rates-btn" onclick="openRates()">💶 Tarieven</button><div class="tabs"><button class="tab ${S.view==='cal'?'on':''}" onclick="setView('cal')">Kalender</button><button class="tab ${S.view==='ov'?'on':''}" onclick="setView('ov')">Overzicht</button></div></div></header>`;}
-function buildMnav(){return`<div class="mnav"><button class="nbtn" onclick="prevM()">‹</button><div class="mtitle">${MN[S.m]} ${S.y}</div><button class="nbtn" onclick="nextM()">›</button>${S.view==='ov'?`<div class="total-badge">${totalHrs()}u</div>`:''}</div>`;}
+function buildHdr(){
+  return`<header class="hdr">
+    <div class="hdr-left">
+      <div class="logo-icon">⏱</div>
+      <div>
+        <div class="app-name">Werklogboek</div>
+        <div class="app-sub"><span class="sync-dot${syncBusy?' busy':''}"></span>${syncBusy?'Opslaan...':'Gesynchroniseerd'}</div>
+      </div>
+    </div>
+    <div class="hdr-right">
+      <button class="rates-btn" onclick="openRates()">💶 Tarieven</button>
+      <div class="tabs">
+        <button class="tab ${S.view==='cal'?'on':''}" onclick="setView('cal')">Kalender</button>
+        <button class="tab ${S.view==='ov'?'on':''}" onclick="setView('ov')">Overzicht</button>
+      </div>
+    </div>
+  </header>`;
+}
+
+function buildMnav(){
+  return`<div class="mnav">
+    <button class="nbtn" onclick="prevM()">‹</button>
+    <div class="mtitle">${MN[S.m]} ${S.y}</div>
+    <button class="nbtn" onclick="nextM()">›</button>
+    ${S.view==='ov'?`<div class="total-badge">${totalHrs()}u</div>`:''}
+  </div>`;
+}
 
 function buildCal(){
   const d=dim(S.y,S.m),f=fdm(S.y,S.m);
@@ -515,21 +616,55 @@ function buildCal(){
     const th=de.reduce((s,e)=>s+e.hrs,0),tkm=de.reduce((s,e)=>s+e.km,0);
     const isT=ds===todayStr,isSel=ds===S.sel,dow=(f+day-1)%7,isW=dow===5||dow===6;
     const cos=[...new Set(de.map(e=>e.co))];
-    h+=`<div class="dcell${isW?' wknd':''}${isT?' today':''}${isSel?' sel':''}" onclick="pickDay(${day})"><div style="display:flex;justify-content:space-between;align-items:flex-start"><span class="dnum${isT?' today':''}">${day}</span>${th?`<span class="dhours">${th}u</span>`:''}</div>${tkm?`<div class="dkm">🚗 ${tkm}km</div>`:''}${cos.length?`<div class="ddots">${cos.slice(0,2).map(c=>`<div class="ddot-row"><span class="dot" style="background:${coColor(c)}"></span><span class="dlabel">${esc(c)}</span></div>`).join('')}</div>`:''}</div>`;
+    h+=`<div class="dcell${isW?' wknd':''}${isT?' today':''}${isSel?' sel':''}" onclick="pickDay(${day})">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <span class="dnum${isT?' today':''}">${day}</span>
+        ${th?`<span class="dhours">${th}u</span>`:''}
+      </div>
+      ${tkm?`<div class="dkm">🚗 ${tkm}km</div>`:''}
+      ${cos.length?`<div class="ddots">${cos.slice(0,2).map(c=>`<div class="ddot-row"><span class="dot" style="background:${coColor(c)}"></span><span class="dlabel">${esc(c)}</span></div>`).join('')}</div>`:''}
+    </div>`;
   }
   return`<div class="cal-pane"><div class="cal-grid">${h}</div></div>`;
 }
 
 function buildSheet(){
   if(!S.sel)return`<div class="sheet" id="sheet"></div>`;
-  const{y,m,d}=pd(S.sel);const de=deForDay(S.sel);
+  const{y,m,d}=pd(S.sel);
+  const de=deForDay(S.sel);
   const th=de.reduce((s,e)=>s+e.hrs,0),tkm=de.reduce((s,e)=>s+e.km,0);
-  const cards=de.length===0&&!S.showForm?`<div class="empty">📝<br>Nog geen registraties.<br>Klik op '+ Toevoegen'.</div>`
-    :de.map(e=>{const rate=S.rates[e.co];const earn=(rate?e.hrs*rate:0)+(e.km&&S.kmRate?e.km*S.kmRate:0);const showEarn=(rate!=null)||(e.km&&S.kmRate);
-      return`<div class="ecard"><div class="etop"><div class="etop-left"><span class="cbadge" style="background:${coColor(e.co)}18;color:${coColor(e.co)};border-color:${coColor(e.co)}30">${esc(e.co)}</span><div class="etop-badges">${e.klantnr?`<span class="eknr-badge">🔢 ${esc(e.klantnr)}</span>`:''} ${e.km?`<span class="ekm-badge">🚗 ${e.km} km</span>`:''}</div></div><div class="etop-right"><span class="ehours">${e.hrs}u</span>${showEarn&&earn>0?`<div style="font-size:13px;font-weight:700;color:var(--green)">${euro(earn)}</div>`:''}</div></div>${e.notes?`<p class="enotes">${esc(e.notes)}</p>`:''}${e.photo?`<img class="ephoto" src="${e.photo}" onclick="openLb('${e.id}')">`:''}<div class="eacts"><button class="edit-btn" onclick="openEdit('${e.id}')">✎ Bewerken</button><button class="del-btn" onclick="doDelete('${e.id}')">Verwijderen</button></div></div>`;
+  const cards=de.length===0&&!S.showForm
+    ?`<div class="empty">📝<br>Nog geen registraties.<br>Klik op '+ Toevoegen'.</div>`
+    :de.map(e=>{
+      const rate=S.rates[e.co];
+      const earn=(rate?e.hrs*rate:0)+(e.km&&S.kmRate?e.km*S.kmRate:0);
+      const showEarn=(rate!=null)||(e.km&&S.kmRate);
+      return`<div class="ecard">
+        <div class="etop">
+          <div class="etop-left">
+            <span class="cbadge" style="background:${coColor(e.co)}18;color:${coColor(e.co)};border-color:${coColor(e.co)}30">${esc(e.co)}</span>
+            <div class="etop-badges">
+              ${e.klantnr?`<span class="eknr-badge">🔢 ${esc(e.klantnr)}</span>`:''}
+              ${e.km?`<span class="ekm-badge">🚗 ${e.km} km</span>`:''}
+            </div>
+          </div>
+          <div class="etop-right">
+            <span class="ehours">${e.hrs}u</span>
+            ${showEarn&&earn>0?`<div style="font-size:13px;font-weight:700;color:var(--green)">${euro(earn)}</div>`:''}
+          </div>
+        </div>
+        ${e.notes?`<p class="enotes">${esc(e.notes)}</p>`:''}
+        ${e.photo?`<img class="ephoto" src="${e.photo}" onclick="openLb('${e.id}')">`:'' }
+        <div class="eacts">
+          <button class="edit-btn" onclick="openEdit('${e.id}')">✎ Bewerken</button>
+          <button class="del-btn" onclick="doDelete('${e.id}')">Verwijderen</button>
+        </div>
+      </div>`;
     }).join('');
+
   const knrList=allKlantnr();
-  const form=S.showForm?`<div class="fsec"><div class="ftitle">${S.editId?'Registratie bewerken':'Nieuwe registratie'}</div>
+  const form=S.showForm?`<div class="fsec">
+    <div class="ftitle">${S.editId?'Registratie bewerken':'Nieuwe registratie'}</div>
     <label class="flbl">Bedrijf</label>
     <input class="finput" list="cl" type="text" placeholder="Bedrijfsnaam" value="${esc(S.form.co)}" oninput="S.form.co=this.value">
     <datalist id="cl">${allCo().map(c=>`<option value="${esc(c)}">`).join('')}</datalist>
@@ -543,46 +678,102 @@ function buildSheet(){
     <label class="flbl">Notitie</label>
     <textarea class="finput" placeholder="Optionele notitie..." oninput="S.form.notes=this.value">${esc(S.form.notes)}</textarea>
     <label class="flbl">Foto</label>
-    <div class="photo-box" onclick="document.getElementById('fp').click()">${S.form.photo?`<img class="photo-prev" src="${S.form.photo}">`:`<span style="font-size:22px">📎</span><span class="photo-hint">Klik om foto toe te voegen</span>`}</div>
+    <div class="photo-box" onclick="document.getElementById('fp').click()">
+      ${S.form.photo?`<img class="photo-prev" src="${S.form.photo}">`:`<span style="font-size:22px">📎</span><span class="photo-hint">Klik om foto toe te voegen</span>`}
+    </div>
     <button class="rm-photo" onclick="rmPhoto()" style="display:${S.form.photo?'block':'none'}">✕ Foto verwijderen</button>
     <input type="file" id="fp" accept="image/*" style="display:none" onchange="onPhoto(event)">
-    <div class="fbtns"><button class="save-btn" onclick="doSave()">Opslaan</button><button class="cancel-btn" onclick="cancelForm()">Annuleren</button></div>
+    <div class="fbtns">
+      <button class="save-btn" onclick="doSave()">Opslaan</button>
+      <button class="cancel-btn" onclick="cancelForm()">Annuleren</button>
+    </div>
   </div>`:'';
-  return`<div class="sheet ${S.panel?'on':''}" id="sheet"><div class="sheet-handle"></div><div class="sheet-hdr"><div><div class="sheet-date">${d} ${MN[m]} ${y}</div><div class="sheet-sub">${th}u gewerkt${tkm?` · ${tkm} km`:''} · ${de.length} registratie${de.length!==1?'s':''}</div></div><div class="sheet-hdr-right"><button class="add-btn" onclick="openAdd()">+ Toevoegen</button><button class="x-btn" onclick="closePanel()">✕</button></div></div><div class="sheet-body">${cards}${form}</div></div>`;
+
+  return`<div class="sheet ${S.panel?'on':''}" id="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-hdr">
+      <div>
+        <div class="sheet-date">${d} ${MN[m]} ${y}</div>
+        <div class="sheet-sub">${th}u gewerkt${tkm?` · ${tkm} km`:''} · ${de.length} registratie${de.length!==1?'s':''}</div>
+      </div>
+      <div class="sheet-hdr-right">
+        <button class="add-btn" onclick="openAdd()">+ Toevoegen</button>
+        <button class="x-btn" onclick="closePanel()">✕</button>
+      </div>
+    </div>
+    <div class="sheet-body">${cards}${form}</div>
+  </div>`;
 }
 
 function buildOv(){
   const data=monthData(),keys=Object.keys(data);
-  if(!keys.length)return`<div class="ov-pane"><div class="empty" style="padding-top:60px"><div style="font-size:48px;margin-bottom:12px">📊</div>Geen registraties voor ${MN[S.m]}.</div></div>`;
+  if(!keys.length){
+    return`<div class="ov-pane"><div class="empty" style="padding-top:60px"><div style="font-size:48px;margin-bottom:12px">📊</div>Geen registraties voor ${MN[S.m]}.</div></div>`;
+  }
+
   const blocks=keys.sort((a,b)=>data[b].hrs-data[a].hrs).map(co=>{
     const{hrs,km,entries}=data[co],c=coColor(co),rate=S.rates[co];
-    const earnHrs=rate!=null?hrs*rate:null;const earnKm=km&&S.kmRate?km*S.kmRate:null;
+    const earnHrs=rate!=null?hrs*rate:null;
+    const earnKm=km&&S.kmRate?km*S.kmRate:null;
     const earnTotal=(earnHrs!=null||earnKm!=null)?((earnHrs||0)+(earnKm||0)):null;
-    return`<div class="cblock"><div class="cblock-hdr"><div class="cblock-left"><span class="cdot" style="background:${c}"></span><span class="cname">${esc(co)}</span></div><div class="cblock-center"><span class="ctotal" style="color:${c}">${hrs}u</span>${km?`<span class="ckm">🚗 ${km} km</span>`:''}${earnTotal!=null?`<span class="cearn">${euro(earnTotal)}</span>`:''}</div><button class="print-btn" onclick="openPrint('${esc(co)}')">🖨 Afdrukken</button></div>
-    ${entries.slice().sort((a,b)=>a.date.localeCompare(b.date)).map(e=>{const er=S.rates[e.co];const ee=(er?e.hrs*er:0)+(e.km&&S.kmRate?e.km*S.kmRate:0);const showEe=er!=null||(e.km&&S.kmRate);
-      return`<div class="ov-entry"><span class="ov-date">${fmtShort(e.date)}</span><span class="ov-hrs">${e.hrs}u</span><span class="ov-km">${e.km?'🚗 '+e.km:''}</span>${e.klantnr?`<span class="ov-knr">${esc(e.klantnr)}</span>`:''}<span class="ov-note">${e.notes?esc(e.notes):'<span style="color:#ccc">—</span>'}</span>${showEe&&ee>0?`<span class="ov-earn">${euro(ee)}</span>`:''}${e.photo?`<img class="ov-thumb" src="${e.photo}" onclick="openLb('${e.id}')">`:''}</div>`;
-    }).join('')}</div>`;
+    return`<div class="cblock">
+      <div class="cblock-hdr">
+        <div class="cblock-left"><span class="cdot" style="background:${c}"></span><span class="cname">${esc(co)}</span></div>
+        <div class="cblock-center">
+          <span class="ctotal" style="color:${c}">${hrs}u</span>
+          ${km?`<span class="ckm">🚗 ${km} km</span>`:''}
+          ${earnTotal!=null?`<span class="cearn">${euro(earnTotal)}</span>`:''}
+        </div>
+        <button class="print-btn" onclick="openPrint('${esc(co)}')">🖨 Afdrukken</button>
+      </div>
+      ${entries.slice().sort((a,b)=>a.date.localeCompare(b.date)).map(e=>{
+        const er=S.rates[e.co];
+        const ee=(er?e.hrs*er:0)+(e.km&&S.kmRate?e.km*S.kmRate:0);
+        const showEe=er!=null||(e.km&&S.kmRate);
+        return`<div class="ov-entry">
+          <span class="ov-date">${fmtShort(e.date)}</span>
+          <span class="ov-hrs">${e.hrs}u</span>
+          <span class="ov-km">${e.km?'🚗 '+e.km:''}</span>
+          ${e.klantnr?`<span class="ov-knr">${esc(e.klantnr)}</span>`:''}
+          <span class="ov-note">${e.notes?esc(e.notes):'<span style="color:#ccc">—</span>'}</span>
+          ${showEe&&ee>0?`<span class="ov-earn">${euro(ee)}</span>`:''}
+          ${e.photo?`<img class="ov-thumb" src="${e.photo}" onclick="openLb('${e.id}')">`:'' }
+        </div>`;
+      }).join('')}
+    </div>`;
   }).join('');
+
   const th=totalHrs(),tkm=totalKm(),te=totalEarn();
   const weeks=weeklyData();
   const weekBlock=S.showWeeks?`<div class="cblock" style="margin-bottom:14px">
-    <div class="cblock-hdr" style="background:var(--card)">
-      <div class="cblock-left"><span style="font-size:16px">📅</span><span class="cname">Weekoverzicht</span></div>
-    </div>
-    ${weeks.map(([w,v])=>`
-      <div class="ov-entry" style="padding:11px 17px">
-        <span style="font-weight:800;color:var(--accent);width:60px;flex-shrink:0;font-size:13px">Week ${w}</span>
-        <span style="color:var(--muted);font-size:13px;flex:1">${weekRange(v.entries)}</span>
-        <span style="font-weight:700;font-size:15px;color:var(--dark)">${v.hrs}u</span>
-        ${v.km?`<span style="font-size:12px;font-weight:700;color:var(--blue);margin-left:10px">🚗 ${v.km}km</span>`:''}
-      </div>`).join('')}
+    <div class="cblock-hdr"><div class="cblock-left"><span style="font-size:16px">📅</span><span class="cname">Weekoverzicht</span></div></div>
+    ${weeks.map(([w,v])=>`<div class="ov-entry" style="padding:11px 17px">
+      <span style="font-weight:800;color:var(--accent);width:60px;flex-shrink:0;font-size:13px">Week ${w}</span>
+      <span style="color:var(--muted);font-size:13px;flex:1">${weekRange(v.entries)}</span>
+      <span style="font-weight:700;font-size:15px">${v.hrs}u</span>
+      ${v.km?`<span style="font-size:12px;font-weight:700;color:var(--blue);margin-left:10px">🚗 ${v.km}km</span>`:''}
+    </div>`).join('')}
   </div>`:'';
-  return`<div class="ov-pane">${blocks}${weekBlock}<div style="display:flex;justify-content:center;margin-bottom:14px"><button onclick="toggleWeeks()" style="padding:9px 18px;border:1px solid var(--border);border-radius:20px;background:${S.showWeeks?'var(--dark)':'var(--white)'};color:${S.showWeeks?'#fff':'var(--muted)'};font-size:13px;font-weight:600;font-family:var(--font);cursor:pointer">📅 Weekoverzicht ${S.showWeeks?'verbergen':'tonen'}</button></div><div class="stat-row" style="border-color:#e8650a30;background:var(--accent-light)"><span class="stat-lbl">Totaal uren ${MN[S.m]}</span><span class="stat-num" style="color:var(--accent)">${th}u</span></div>${tkm?`<div class="stat-row" style="border-color:#b8d9ef;background:var(--blue-light)"><span class="stat-lbl">🚗 Totaal km ${MN[S.m]}</span><span class="stat-num" style="color:var(--blue)">${tkm} km</span></div>`:''}${te>0?`<div class="stat-row" style="border-color:#2d6a4f30;background:var(--green-light)"><span class="stat-lbl">💶 Totaal inkomen ${MN[S.m]}</span><span class="stat-num" style="color:var(--green)">${euro(te)}</span></div>`:''}${!hasRate()?`<div class="hint-row">Stel een uurtarief in via 💶 Tarieven<br>om je inkomen automatisch te berekenen.</div>`:''}</div>`;
+
+  return`<div class="ov-pane">
+    ${blocks}
+    ${weekBlock}
+    <div style="display:flex;justify-content:center;margin-bottom:14px">
+      <button onclick="toggleWeeks()" style="padding:9px 18px;border:1px solid var(--border);border-radius:20px;background:${S.showWeeks?'var(--dark)':'var(--white)'};color:${S.showWeeks?'#fff':'var(--muted)'};font-size:13px;font-weight:600;font-family:var(--font);cursor:pointer">
+        📅 Weekoverzicht ${S.showWeeks?'verbergen':'tonen'}
+      </button>
+    </div>
+    <div class="stat-row" style="border-color:#e8650a30;background:var(--accent-light)"><span class="stat-lbl">Totaal uren ${MN[S.m]}</span><span class="stat-num" style="color:var(--accent)">${th}u</span></div>
+    ${tkm?`<div class="stat-row" style="border-color:#b8d9ef;background:var(--blue-light)"><span class="stat-lbl">🚗 Totaal km ${MN[S.m]}</span><span class="stat-num" style="color:var(--blue)">${tkm} km</span></div>`:''}
+    ${te>0?`<div class="stat-row" style="border-color:#2d6a4f30;background:var(--green-light)"><span class="stat-lbl">💶 Totaal inkomen ${MN[S.m]}</span><span class="stat-num" style="color:var(--green)">${euro(te)}</span></div>`:''}
+    ${!hasRate()?`<div class="hint-row">Stel een uurtarief in via 💶 Tarieven<br>om je inkomen automatisch te berekenen.</div>`:''}
+  </div>`;
 }
 
 function buildPrintModal(){
   const o=S.printOpts;
-  return`<div class="modal-overlay" onclick="if(event.target===this)closePrint()"><div class="modal"><div class="modal-handle"></div>
+  return`<div class="modal-overlay" onclick="if(event.target===this)closePrint()"><div class="modal">
+    <div class="modal-handle"></div>
     <div class="modal-hdr"><div class="modal-title">🖨 Afdrukken – ${esc(S.printCo)}</div><button class="x-btn" onclick="closePrint()">✕</button></div>
     <div class="modal-body">
       <div style="font-size:14px;color:var(--muted);padding:14px 0 4px">Overzicht voor <strong>${esc(S.printCo)}</strong> – ${MN[S.m]} ${S.y}</div>
@@ -600,14 +791,18 @@ function buildPrintModal(){
       <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-sig2-active" ${o.sig2Active?'checked':''} onchange="document.getElementById('sig2-name').style.display=this.checked?'block':'none'"> Handtekening 2 toevoegen</label></div>
       <div id="sig2-name" style="display:${o.sig2Active?'block':'none'}"><div class="sig-sub"><label class="flbl" style="margin-top:0">Naam</label><input id="opt-sig2" class="finput" type="text" value="${esc(o.sig2)}"></div></div>
       <div class="modal-note">💡 Je keuzes worden onthouden voor de volgende keer.</div>
-      <div class="fbtns"><button class="save-btn" onclick="doPrint()">🖨 Openen & afdrukken</button><button class="cancel-btn" onclick="closePrint()">Annuleren</button></div>
+      <div class="fbtns">
+        <button class="save-btn" onclick="doPrint()">🖨 Openen & afdrukken</button>
+        <button class="cancel-btn" onclick="closePrint()">Annuleren</button>
+      </div>
     </div>
   </div></div>`;
 }
 
 function buildRatesModal(){
   const cos=allCo();
-  return`<div class="modal-overlay" onclick="if(event.target===this)closeRates()"><div class="modal"><div class="modal-handle"></div>
+  return`<div class="modal-overlay" onclick="if(event.target===this)closeRates()"><div class="modal">
+    <div class="modal-handle"></div>
     <div class="modal-hdr"><div class="modal-title">💶 Tarieven & huisstijl</div><button class="x-btn" onclick="closeRates()">✕</button></div>
     <div class="modal-body">
       <div class="rate-section">Per bedrijf</div>
@@ -628,16 +823,15 @@ function buildRatesModal(){
           </div>
           <div class="co-detail-row">
             <span class="co-detail-lbl">Kleur</span>
-            <div class="color-picker-wrap">
-              <input type="color" class="color-swatch color-inp" data-co="${esc(co)}" value="${c}">
-              <span class="color-hint">Wordt auto-gedetecteerd bij logo upload. Handmatig aanpassen kan ook.</span>
-            </div>
+            <input type="color" class="color-swatch color-inp" data-co="${esc(co)}" value="${c}">
+            <span class="color-hint">Auto-detecteerd bij logo upload. Handmatig aanpassen kan ook.</span>
           </div>
         </div>`;
       }).join('')}
       <div class="rate-section">Kilometertarief</div>
       <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
-        <span style="font-size:18px">🚗</span><span style="font-weight:600;font-size:15px;flex:1">Per kilometer</span>
+        <span style="font-size:18px">🚗</span>
+        <span style="font-weight:600;font-size:15px;flex:1">Per kilometer</span>
         <div class="rate-wrap"><span class="rate-sym">€</span><input id="km-rate-inp" class="rate-inp" type="number" step="0.01" min="0" placeholder="0.23" value="${S.kmRate||''}"><span class="rate-unit">/km</span></div>
       </div>
       <div class="modal-note">💡 Upload een logo om de huisstijlkleur automatisch te detecteren. Standaard belastingvrij km-tarief in NL is € 0,23 per km.</div>
@@ -646,7 +840,13 @@ function buildRatesModal(){
   </div></div>`;
 }
 
-function attachSwipe(){const sheet=document.getElementById('sheet');if(!sheet)return;let sy=0;sheet.addEventListener('touchstart',e=>{sy=e.touches[0].clientY;},{passive:true});sheet.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-sy>80)closePanel();},{passive:true});}
+function attachSwipe(){
+  const sheet=document.getElementById('sheet');if(!sheet)return;
+  let sy=0;
+  sheet.addEventListener('touchstart',e=>{sy=e.touches[0].clientY;},{passive:true});
+  sheet.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-sy>80)closePanel();},{passive:true});
+}
+
 loadData();
 </script>
 </body>

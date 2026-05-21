@@ -201,7 +201,7 @@ let S={
   loading:true,err:null,
   view:'cal',y:NOW.getFullYear(),m:NOW.getMonth(),
   sel:null,panel:false,showForm:false,editId:null,showRates:false,showPrint:false,printCo:null,showWeeks:false,
-  printOpts:{notes:true,amounts:true,uurtarief:false,sig1Active:false,sig2Active:false,sig1:'Jordy Koning',sig2:'Stage begeleider'},
+  printOpts:{notes:true,amounts:true,    uurtarief:false,weekoverzicht:false,sig1Active:false,sig2Active:false,sig1:'Jordy Koning',sig2:'Stage begeleider'},
   form:{co:'',hrs:'',km:'',klantnr:'',notes:'',photo:null,pname:''},
   entries:[],rates:{},kmRate:0,userName:'',userNum:'',logos:{},brandColors:{}
 };
@@ -437,6 +437,7 @@ function doPrint(){
     notes:document.getElementById('opt-notes')?.checked??true,
     amounts:document.getElementById('opt-amounts')?.checked??true,
     uurtarief:document.getElementById('opt-uurtarief')?.checked??false,
+    weekoverzicht:document.getElementById('opt-weekoverzicht')?.checked??false,
     sig1Active:document.getElementById('opt-sig1-active')?.checked??false,
     sig2Active:document.getElementById('opt-sig2-active')?.checked??false,
     sig1:(document.getElementById('opt-sig1')?.value||'Jordy Koning').trim(),
@@ -485,6 +486,24 @@ function buildPrintHTML(co,name,num,opts){
   const sigBlocks=[];
   if(o.sig1Active)sigBlocks.push(`<div class="sig-item"><div class="sig-line"></div><div class="sig-lbl">Akkoord ${esc(o.sig1)}</div></div>`);
   if(o.sig2Active)sigBlocks.push(`<div class="sig-item"><div class="sig-line"></div><div class="sig-lbl">Akkoord ${esc(o.sig2)}</div></div>`);
+
+  // Weekoverzicht per bedrijf
+  const weekMap={};
+  entries.forEach(e=>{
+    const w=isoWeek(e.date);
+    if(!weekMap[w])weekMap[w]={hrs:0,km:0,entries:[]};
+    weekMap[w].hrs+=e.hrs;weekMap[w].km+=e.km;weekMap[w].entries.push(e);
+  });
+  const weekRows=Object.entries(weekMap).sort((a,b)=>Number(a[0])-Number(b[0])).map(([w,v])=>{
+    const er=rate;const ee=(er?v.hrs*er:0)+(v.km&&S.kmRate?v.km*S.kmRate:0);
+    return`<tr>
+      <td style="font-weight:700;color:${c}">Week ${w}</td>
+      <td style="color:#666;font-size:13px">${weekRange(v.entries)}</td>
+      <td style="text-align:center;font-weight:700">${v.hrs}</td>
+      <td style="text-align:center;font-weight:700;color:#1d6fa5">${v.km||'—'}</td>
+      ${o.amounts&&(rate!=null||S.kmRate)?`<td style="text-align:right;font-weight:700;color:#2d6a4f">${ee>0?euro(ee):'—'}</td>`:''}
+    </tr>`;
+  }).join('');
 
   return`<!DOCTYPE html><html lang="nl"><head><meta charset="UTF-8">
   <title>Urenoverzicht ${esc(co)} – ${period}</title>
@@ -553,6 +572,15 @@ function buildPrintHTML(co,name,num,opts){
     ${o.amounts&&earnKm!=null?`<div class="tot-row"><span class="tot-lbl">Km-vergoeding (${S.kmRate} €/km × ${data.km}km)</span><span class="tot-val">${euro(earnKm)}</span></div>`:''}
     ${o.amounts&&earnTotal!=null?`<div class="tot-row earn"><span class="tot-lbl" style="font-weight:700">Totaal te ontvangen</span><span class="tot-val">${euro(earnTotal)}</span></div>`:''}
   </div>
+  ${o.weekoverzicht?`<div style="margin-top:24px">
+    <div style="font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:${c};font-weight:700;margin-bottom:10px">Weekoverzicht</div>
+    <table><thead><tr>
+      <th>Week</th><th>Periode</th>
+      <th style="text-align:center">Uren</th>
+      <th style="text-align:center">Km</th>
+      ${o.amounts&&(rate!=null||S.kmRate)?'<th style="text-align:right">Bedrag</th>':''}
+    </tr></thead><tbody>${weekRows}</tbody></table>
+  </div>`:''}
   ${sigBlocks.length?`<div class="sig-block">${sigBlocks.join('')}</div>`:''}
   <div class="footer"><span>Gegenereerd op ${today}</span><span>Werklogboek</span></div>
   </div></body></html>`;
@@ -785,6 +813,7 @@ function buildPrintModal(){
       <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-notes" ${o.notes?'checked':''}> Notities weergeven</label></div>
       <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-amounts" ${o.amounts?'checked':''}> Bedragen weergeven</label></div>
       <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-uurtarief" ${o.uurtarief?'checked':''}> Uurtarief weergeven</label></div>
+      <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-weekoverzicht" ${o.weekoverzicht?'checked':''}> Weekoverzicht per bedrijf</label></div>
       <label class="flbl" style="margin-top:20px">Handtekeningen</label>
       <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-sig1-active" ${o.sig1Active?'checked':''} onchange="document.getElementById('sig1-name').style.display=this.checked?'block':'none'"> Handtekening 1 toevoegen</label></div>
       <div id="sig1-name" style="display:${o.sig1Active?'block':'none'}"><div class="sig-sub"><label class="flbl" style="margin-top:0">Naam</label><input id="opt-sig1" class="finput" type="text" value="${esc(o.sig1)}"></div></div>

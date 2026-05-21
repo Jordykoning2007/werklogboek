@@ -184,7 +184,7 @@ let S={
   loading:true,err:null,
   view:'cal',y:NOW.getFullYear(),m:NOW.getMonth(),
   sel:null,panel:false,showForm:false,editId:null,showRates:false,
-  showPrint:false,printCo:null,
+  showPrint:false,printCo:null,showWeeks:false,
   printOpts:{notes:true,amounts:true,uurtarief:false,sig1Active:false,sig2Active:false,sig1:'Jordy Koning',sig2:'Stage begeleider'},
   form:{co:'',hrs:'',km:'',klantnr:'',notes:'',photo:null,pname:''},
   entries:[],rates:{},kmRate:0,userName:'',userNum:'',logos:{},brandColors:{}
@@ -269,7 +269,31 @@ async function extractColor(imgSrc){
   });
 }
 
-function setView(v){S.view=v;S.panel=false;S.sel=null;S.showRates=false;S.showPrint=false;R();}
+function toggleWeeks(){S.showWeeks=!S.showWeeks;R();}
+
+function isoWeek(dateStr){
+  const{y,m,d}=pd(dateStr);
+  const dt=new Date(Date.UTC(y,m,d));
+  const day=dt.getUTCDay()||7;
+  dt.setUTCDate(dt.getUTCDate()+4-day);
+  const y1=new Date(Date.UTC(dt.getUTCFullYear(),0,1));
+  return Math.ceil((((dt-y1)/86400000)+1)/7);
+}
+
+function weekRange(entries){
+  const dates=entries.map(e=>{const{y,m,d}=pd(e.date);return new Date(y,m,d);});
+  const mn=new Date(Math.min(...dates)),mx=new Date(Math.max(...dates));
+  if(mn.getMonth()===mx.getMonth())
+    return mn.getDate()===mx.getDate()?`${mn.getDate()} ${MN[mn.getMonth()].slice(0,3)}`:`${mn.getDate()}–${mx.getDate()} ${MN[mn.getMonth()].slice(0,3)}`;
+  return`${mn.getDate()} ${MN[mn.getMonth()].slice(0,3)} – ${mx.getDate()} ${MN[mx.getMonth()].slice(0,3)}`;
+}
+
+function weeklyData(){
+  const map={};
+  S.entries.filter(e=>{const{y,m}=pd(e.date);return y===S.y&&m===S.m;})
+  .forEach(e=>{const w=isoWeek(e.date);if(!map[w])map[w]={hrs:0,km:0,entries:[]};map[w].hrs+=e.hrs;map[w].km+=e.km;map[w].entries.push(e);});
+  return Object.entries(map).sort((a,b)=>Number(a[0])-Number(b[0]));
+}S.view=v;S.panel=false;S.sel=null;S.showRates=false;S.showPrint=false;R();}
 function prevM(){if(S.m===0){S.y--;S.m=11;}else S.m--;S.sel=null;S.panel=false;R();}
 function nextM(){if(S.m===11){S.y++;S.m=0;}else S.m++;S.sel=null;S.panel=false;R();}
 function pickDay(day){S.sel=fd(S.y,S.m,day);S.panel=true;S.showForm=false;S.editId=null;R();}
@@ -540,7 +564,20 @@ function buildOv(){
     }).join('')}</div>`;
   }).join('');
   const th=totalHrs(),tkm=totalKm(),te=totalEarn();
-  return`<div class="ov-pane">${blocks}<div class="stat-row" style="border-color:#e8650a30;background:var(--accent-light)"><span class="stat-lbl">Totaal uren ${MN[S.m]}</span><span class="stat-num" style="color:var(--accent)">${th}u</span></div>${tkm?`<div class="stat-row" style="border-color:#b8d9ef;background:var(--blue-light)"><span class="stat-lbl">🚗 Totaal km ${MN[S.m]}</span><span class="stat-num" style="color:var(--blue)">${tkm} km</span></div>`:''}${te>0?`<div class="stat-row" style="border-color:#2d6a4f30;background:var(--green-light)"><span class="stat-lbl">💶 Totaal inkomen ${MN[S.m]}</span><span class="stat-num" style="color:var(--green)">${euro(te)}</span></div>`:''}${!hasRate()?`<div class="hint-row">Stel een uurtarief in via 💶 Tarieven<br>om je inkomen automatisch te berekenen.</div>`:''}</div>`;
+  const weeks=weeklyData();
+  const weekBlock=S.showWeeks?`<div class="cblock" style="margin-bottom:14px">
+    <div class="cblock-hdr" style="background:var(--card)">
+      <div class="cblock-left"><span style="font-size:16px">📅</span><span class="cname">Weekoverzicht</span></div>
+    </div>
+    ${weeks.map(([w,v])=>`
+      <div class="ov-entry" style="padding:11px 17px">
+        <span style="font-weight:800;color:var(--accent);width:60px;flex-shrink:0;font-size:13px">Week ${w}</span>
+        <span style="color:var(--muted);font-size:13px;flex:1">${weekRange(v.entries)}</span>
+        <span style="font-weight:700;font-size:15px;color:var(--dark)">${v.hrs}u</span>
+        ${v.km?`<span style="font-size:12px;font-weight:700;color:var(--blue);margin-left:10px">🚗 ${v.km}km</span>`:''}
+      </div>`).join('')}
+  </div>`:'';
+  return`<div class="ov-pane">${blocks}${weekBlock}<div style="display:flex;justify-content:center;margin-bottom:14px"><button onclick="toggleWeeks()" style="padding:9px 18px;border:1px solid var(--border);border-radius:20px;background:${S.showWeeks?'var(--dark)':'var(--white)'};color:${S.showWeeks?'#fff':'var(--muted)'};font-size:13px;font-weight:600;font-family:var(--font);cursor:pointer">📅 Weekoverzicht ${S.showWeeks?'verbergen':'tonen'}</button></div><div class="stat-row" style="border-color:#e8650a30;background:var(--accent-light)"><span class="stat-lbl">Totaal uren ${MN[S.m]}</span><span class="stat-num" style="color:var(--accent)">${th}u</span></div>${tkm?`<div class="stat-row" style="border-color:#b8d9ef;background:var(--blue-light)"><span class="stat-lbl">🚗 Totaal km ${MN[S.m]}</span><span class="stat-num" style="color:var(--blue)">${tkm} km</span></div>`:''}${te>0?`<div class="stat-row" style="border-color:#2d6a4f30;background:var(--green-light)"><span class="stat-lbl">💶 Totaal inkomen ${MN[S.m]}</span><span class="stat-num" style="color:var(--green)">${euro(te)}</span></div>`:''}${!hasRate()?`<div class="hint-row">Stel een uurtarief in via 💶 Tarieven<br>om je inkomen automatisch te berekenen.</div>`:''}</div>`;
 }
 
 function buildPrintModal(){

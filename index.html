@@ -190,8 +190,6 @@ let S={
   entries:[],rates:{},kmRate:0,userName:'',userNum:'',logos:{},brandColors:{}
 };
 
-async function dbDelKey(key){const r=await fetch(`${SB_URL}/rest/v1/settings?key=eq.${encodeURIComponent(key)}`,{method:'DELETE',headers:SBH});if(!r.ok)throw new Error(await r.text());}
-
 async function loadData(){
   try{
     const[entries,settings]=await Promise.all([
@@ -200,9 +198,7 @@ async function loadData(){
     ]);
     S.entries=entries.map(e=>({...e,hrs:Number(e.hrs),km:Number(e.km||0),klantnr:e.klantnr||''}));
     const cfg=settings.find(s=>s.key==='config');
-    if(cfg){try{const c=JSON.parse(cfg.value);S.rates=c.rates||{};S.kmRate=c.kmRate||0;S.userName=c.userName||'';S.userNum=c.userNum||'';S.brandColors=c.brandColors||{};if(c.printOpts)S.printOpts={...S.printOpts,...c.printOpts};}catch{}}
-    // Logo's staan in aparte rijen
-    settings.filter(s=>s.key.startsWith('logo_')).forEach(s=>{S.logos[s.key.slice(5)]=s.value;});
+    if(cfg){try{const c=JSON.parse(cfg.value);S.rates=c.rates||{};S.kmRate=c.kmRate||0;S.userName=c.userName||'';S.userNum=c.userNum||'';S.logos=c.logos||{};S.brandColors=c.brandColors||{};if(c.printOpts)S.printOpts={...S.printOpts,...c.printOpts};}catch{}}
     S.err=null;
   }catch(e){S.err='Kon geen verbinding maken.\nCheck je internet en probeer opnieuw.';console.error(e);}
   S.loading=false;R();
@@ -210,18 +206,8 @@ async function loadData(){
 
 async function saveSettings(){
   setSyncing(true);
-  // Sla config op zonder logo's (klein bestand)
-  try{await dbUpsert('settings',{key:'config',value:JSON.stringify({rates:S.rates,kmRate:S.kmRate,userName:S.userName,userNum:S.userNum,printOpts:S.printOpts,brandColors:S.brandColors})});}
+  try{await dbUpsert('settings',{key:'config',value:JSON.stringify({rates:S.rates,kmRate:S.kmRate,userName:S.userName,userNum:S.userNum,printOpts:S.printOpts,logos:S.logos,brandColors:S.brandColors})});}
   catch(e){console.error(e);}
-  setSyncing(false);
-}
-
-async function saveLogo(co){
-  setSyncing(true);
-  try{
-    if(S.logos[co])await dbUpsert('settings',{key:`logo_${coId(co)}`,value:S.logos[co]});
-    else await dbDelKey(`logo_${coId(co)}`);
-  }catch(e){console.error(e);}
   setSyncing(false);
 }
 
@@ -346,7 +332,7 @@ async function onLogoUpload(co,ev){
   const file=ev.target.files[0];if(!file)return;
   const r=new FileReader();
   r.onload=async e=>{
-    const comp=await compressImg(e.target.result,400,160,.85);
+    const comp=await compressImg(e.target.result,200,100,.65);
     S.logos[co]=comp;
     // Auto-detecteer kleur
     const color=await extractColor(comp);
@@ -357,7 +343,7 @@ async function onLogoUpload(co,ev){
   };
   r.readAsDataURL(file);
 }
-function removeLogo(co){delete S.logos[co];saveLogo(co);R();}
+function removeLogo(co){delete S.logos[co];saveSettings();R();}
 
 function openLb(id){const e=S.entries.find(e=>e.id===id);if(!e||!e.photo)return;document.getElementById('lb-img').src=e.photo;document.getElementById('lb').classList.add('on');}
 function closeLb(){document.getElementById('lb').classList.remove('on');}

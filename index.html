@@ -16,6 +16,7 @@
       --accent-light:#fff3ec;--border:#e8e2d8;--muted:#888;
       --card:#faf8f5;--green:#2d6a4f;--green-light:#edf7f2;
       --blue:#1d6fa5;--blue-light:#e8f3fb;--purple:#7209b7;--purple-light:#f3e8ff;
+      --orange2:#c05c00;--orange2-light:#fff0e0;
       --font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
       --safe-top:env(safe-area-inset-top,20px);--safe-bottom:env(safe-area-inset-bottom,0px);
     }
@@ -28,12 +29,12 @@
     .err-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:12px;padding:32px;text-align:center}
     .err-msg{font-size:15px;color:#c0392b;line-height:1.7;white-space:pre-line}
     .retry-btn{padding:11px 22px;background:var(--accent);color:#fff;border:none;border-radius:9px;cursor:pointer;font-size:14px;font-family:var(--font);font-weight:600}
-    .toast{position:fixed;bottom:calc(var(--safe-bottom) + 14px);left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:9px 18px;border-radius:22px;font-size:13px;font-weight:600;z-index:500;opacity:0;transition:opacity .25s;pointer-events:none;white-space:nowrap}
+    .toast{position:fixed;bottom:calc(var(--safe-bottom)+14px);left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:9px 18px;border-radius:22px;font-size:13px;font-weight:600;z-index:500;opacity:0;transition:opacity .25s;pointer-events:none;white-space:nowrap}
     .toast.on{opacity:1}
     .sync-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;flex-shrink:0;box-shadow:0 0 0 2px #1a1a1a}
     .sync-dot.busy{background:#facc15;animation:pulse 1s ease-in-out infinite}
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-    .hdr{background:var(--dark);color:#f5f2ee;padding-top:calc(var(--safe-top) + 13px);padding-bottom:13px;padding-left:18px;padding-right:18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+    .hdr{background:var(--dark);color:#f5f2ee;padding-top:calc(var(--safe-top)+13px);padding-bottom:13px;padding-left:18px;padding-right:18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
     .hdr-left{display:flex;align-items:center;gap:10px}
     .logo-icon{width:38px;height:38px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
     .app-name{font-size:17px;font-weight:700;letter-spacing:-.3px}
@@ -51,7 +52,7 @@
     .cal-pane{height:100%;overflow-y:auto;padding:14px;-webkit-overflow-scrolling:touch}
     .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
     .dhdr{text-align:center;font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.5px;padding:5px 0}
-    .dcell{min-height:70px;border:1px solid var(--border);border-radius:9px;padding:7px;cursor:pointer;background:var(--white);transition:all .1s}
+    .dcell{min-height:70px;border:1px solid var(--border);border-radius:9px;padding:7px;cursor:pointer;background:var(--white)}
     .dcell.wknd{background:#faf8f5}
     .dcell.today{border-color:var(--accent);background:var(--accent-light)}
     .dcell.sel{border-color:var(--accent);background:var(--accent-light);box-shadow:0 0 0 2px #e8650a28}
@@ -82,6 +83,7 @@
     .cbadge{font-size:12px;font-weight:600;padding:3px 11px;border-radius:20px;border:1px solid;display:inline-block}
     .ekm-badge{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--blue);background:var(--blue-light);border:1px solid #b8d9ef;border-radius:20px;padding:3px 10px}
     .eknr-badge{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--purple);background:var(--purple-light);border:1px solid #d8b4fe;border-radius:20px;padding:3px 10px}
+    .emach-badge{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--orange2);background:var(--orange2-light);border:1px solid #fbbf8a;border-radius:20px;padding:3px 10px}
     .etop-right{display:flex;flex-direction:column;align-items:flex-end;gap:2px}
     .ehours{font-size:22px;font-weight:700}
     .enotes{font-size:13px;color:#555;line-height:1.6;margin-bottom:9px}
@@ -96,6 +98,11 @@
     .finput:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px #e8650a18}
     textarea.finput{height:80px;resize:vertical}
     .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .mach-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+    .mach-row .finput{flex:1}
+    .mach-row .hrs-inp{width:80px;flex:0 0 80px}
+    .mach-rm{width:32px;height:32px;border:1px solid #fcc;border-radius:7px;background:var(--white);cursor:pointer;color:#c0392b;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .add-mach-btn{padding:8px 14px;border:1px dashed var(--border);border-radius:9px;background:var(--card);cursor:pointer;font-size:13px;font-family:var(--font);color:var(--orange2);font-weight:600;width:100%;text-align:center;margin-top:4px}
     .photo-box{border:2px dashed var(--border);border-radius:9px;padding:14px;text-align:center;cursor:pointer;min-height:64px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:var(--card)}
     .photo-prev{max-height:90px;border-radius:6px;object-fit:contain}
     .photo-hint{font-size:13px;color:#aaa}
@@ -107,13 +114,12 @@
     .cblock{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--white);margin-bottom:14px}
     .cblock-hdr{padding:12px 17px;border-bottom:1px solid #f0ece6;display:flex;align-items:center;justify-content:space-between;background:var(--card);gap:10px}
     .cblock-left{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
-    .cdot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
     .cname{font-size:16px;font-weight:700}
     .cblock-center{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0}
     .ctotal{font-size:20px;font-weight:800}
     .cearn{font-size:13px;font-weight:700;color:var(--green)}
     .ckm{font-size:12px;font-weight:700;color:var(--blue)}
-    .print-btn{padding:6px 12px;border:1px solid var(--border);border-radius:8px;background:var(--white);cursor:pointer;font-size:12px;font-family:var(--font);color:#555;display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0}
+    .print-btn{padding:6px 12px;border:1px solid var(--border);border-radius:8px;background:var(--white);cursor:pointer;font-size:12px;font-family:var(--font);color:#555;white-space:nowrap;flex-shrink:0}
     .ov-entry{display:flex;align-items:center;gap:8px;padding:9px 17px;border-bottom:1px solid #f8f5f1;font-size:14px}
     .ov-date{font-weight:700;color:#888;width:52px;flex-shrink:0}
     .ov-hrs{font-weight:700;width:30px;flex-shrink:0}
@@ -148,7 +154,9 @@
     .sm-btn{padding:6px 11px;border:1px dashed var(--border);border-radius:7px;background:var(--white);cursor:pointer;font-size:12px;font-family:var(--font);color:var(--muted);white-space:nowrap}
     .sm-btn-red{padding:6px 11px;border:1px solid #fcc;border-radius:7px;background:var(--white);cursor:pointer;font-size:12px;font-family:var(--font);color:#c0392b;white-space:nowrap}
     .color-swatch{width:28px;height:28px;border-radius:6px;border:2px solid var(--border);cursor:pointer;padding:0;flex-shrink:0}
-    .color-hint{font-size:11px;color:var(--muted)}
+    .mach-list-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+    .mach-list-name{font-weight:600;font-size:15px;flex:1}
+    .add-mach-form{display:flex;gap:8px;margin-top:12px}
     .modal-note{font-size:13px;color:var(--muted);margin-top:16px;padding:12px 14px;background:var(--card);border-radius:10px;line-height:1.6}
     .no-cos{color:var(--muted);font-size:14px;text-align:center;padding:24px 0}
     .opt-row{display:flex;align-items:center;padding:11px 0;border-bottom:1px solid var(--border)}
@@ -162,33 +170,19 @@
 </head>
 <body>
 <div id="app">
-  <div style="display:flex;flex-direction:column;height:100vh">
-    <div class="spin-wrap"><div class="spin"></div><div class="spin-txt">Verbinden met cloud...</div></div>
-  </div>
+  <div class="spin-wrap"><div class="spin"></div><div class="spin-txt">Verbinden met cloud...</div></div>
 </div>
 <div class="lightbox" id="lb" onclick="closeLb()"><img id="lb-img" src="" alt="foto"></div>
 <div class="toast" id="toast"></div>
 <script>
-/* ── Supabase ── */
 const SB_URL='https://sbebkglrlopufsjixmos.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNiZWJrZ2xybG9wdWZzaml4bW9zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMjIwMTksImV4cCI6MjA5NDY5ODAxOX0.UWp0aCddXJPxOxIGXBNDm8eBvAqztCuQDbKloPa7wwE';
 const SBH={apikey:SB_KEY,Authorization:`Bearer ${SB_KEY}`,'Content-Type':'application/json'};
 
-async function dbGet(t,q=''){
-  const r=await fetch(`${SB_URL}/rest/v1/${t}?${q}`,{headers:SBH});
-  if(!r.ok)throw new Error(await r.text());
-  return r.json();
-}
-async function dbUpsert(t,d){
-  const r=await fetch(`${SB_URL}/rest/v1/${t}`,{method:'POST',headers:{...SBH,Prefer:'resolution=merge-duplicates'},body:JSON.stringify(d)});
-  if(!r.ok)throw new Error(await r.text());
-}
-async function dbDel(t,id){
-  const r=await fetch(`${SB_URL}/rest/v1/${t}?id=eq.${encodeURIComponent(id)}`,{method:'DELETE',headers:SBH});
-  if(!r.ok)throw new Error(await r.text());
-}
+async function dbGet(t,q=''){const r=await fetch(`${SB_URL}/rest/v1/${t}?${q}`,{headers:SBH});if(!r.ok)throw new Error(await r.text());return r.json();}
+async function dbUpsert(t,d){const r=await fetch(`${SB_URL}/rest/v1/${t}`,{method:'POST',headers:{...SBH,Prefer:'resolution=merge-duplicates'},body:JSON.stringify(d)});if(!r.ok)throw new Error(await r.text());}
+async function dbDel(t,id){const r=await fetch(`${SB_URL}/rest/v1/${t}?id=eq.${encodeURIComponent(id)}`,{method:'DELETE',headers:SBH});if(!r.ok)throw new Error(await r.text());}
 
-/* ── Constanten ── */
 const MN=["Januari","Februari","Maart","April","Mei","Juni","Juli","Augustus","September","Oktober","November","December"];
 const DN=["Ma","Di","Wo","Do","Vr","Za","Zo"];
 const CLR=["#e8650a","#2d6a4f","#4361ee","#9b2335","#7209b7","#0077b6","#b5838d","#457b9d","#e63946","#2a9d8f"];
@@ -196,58 +190,58 @@ const NOW=new Date();
 const todayStr=fd(NOW.getFullYear(),NOW.getMonth(),NOW.getDate());
 let syncBusy=false;
 
-/* ── State ── */
 let S={
   loading:true,err:null,
   view:'cal',y:NOW.getFullYear(),m:NOW.getMonth(),
   sel:null,panel:false,showForm:false,editId:null,showRates:false,showPrint:false,printCo:null,showWeeks:false,
-  printOpts:{notes:true,amounts:true,    uurtarief:false,weekoverzicht:false,sig1Active:false,sig2Active:false,sig1:'Jordy Koning',sig2:'Stage begeleider'},
-  form:{co:'',hrs:'',km:'',klantnr:'',notes:'',photo:null,pname:''},
-  entries:[],rates:{},kmRate:0,userName:'',userNum:'',logos:{},brandColors:{}
+  printOpts:{notes:true,amounts:true,uurtarief:false,weekoverzicht:false,sig1Active:false,sig2Active:false,sig1:'Jordy Koning',sig2:'Stage begeleider'},
+  form:{co:'',hrs:'',km:'',klantnr:'',notes:'',photo:null,pname:'',machines:[]},
+  entries:[],rates:{},kmRate:0,machineRates:{},userName:'',userNum:'',logos:{},brandColors:{}
 };
 
-/* ── Data ── */
+function parseMachines(val){
+  if(!val)return[];
+  try{return JSON.parse(val);}catch{return[];}
+}
+
 async function loadData(){
   try{
     const[entries,settings]=await Promise.all([
       dbGet('entries','select=*&order=date.asc'),
       dbGet('settings','select=*')
     ]);
-    S.entries=entries.map(e=>({...e,hrs:Number(e.hrs),km:Number(e.km||0),klantnr:e.klantnr||''}));
+    S.entries=entries.map(e=>({...e,hrs:Number(e.hrs),km:Number(e.km||0),klantnr:e.klantnr||'',machines:parseMachines(e.machines)}));
     const cfg=settings.find(s=>s.key==='config');
     if(cfg){
       try{
         const c=JSON.parse(cfg.value);
-        S.rates=c.rates||{};
-        S.kmRate=c.kmRate||0;
-        S.userName=c.userName||'';
-        S.userNum=c.userNum||'';
-        S.logos=c.logos||{};
-        S.brandColors=c.brandColors||{};
+        S.rates=c.rates||{};S.kmRate=c.kmRate||0;
+        S.machineRates=c.machineRates||{};
+        S.userName=c.userName||'';S.userNum=c.userNum||'';
+        S.logos=c.logos||{};S.brandColors=c.brandColors||{};
         if(c.printOpts)S.printOpts={...S.printOpts,...c.printOpts};
-      }catch(e){console.error('Config parse error',e);}
+      }catch(e){console.error(e);}
     }
     S.err=null;
   }catch(e){
     S.err='Kon geen verbinding maken.\nCheck je internet en probeer opnieuw.';
     console.error(e);
   }
-  S.loading=false;
-  R();
+  S.loading=false;R();
 }
 
 async function saveSettings(){
   setSyncing(true);
   try{
     await dbUpsert('settings',{key:'config',value:JSON.stringify({
-      rates:S.rates,kmRate:S.kmRate,userName:S.userName,userNum:S.userNum,
+      rates:S.rates,kmRate:S.kmRate,machineRates:S.machineRates,
+      userName:S.userName,userNum:S.userNum,
       printOpts:S.printOpts,logos:S.logos,brandColors:S.brandColors
     })});
   }catch(e){console.error(e);}
   setSyncing(false);
 }
 
-/* ── Helpers ── */
 function setSyncing(v){syncBusy=v;const d=document.querySelector('.sync-dot');if(d)d.classList.toggle('busy',v);}
 function showToast(msg){const t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2200);}
 function coId(co){let h=0;for(let i=0;i<co.length;i++)h=((h<<5)-h+co.charCodeAt(i))|0;return'co'+Math.abs(h);}
@@ -257,6 +251,7 @@ function dim(y,m){return new Date(y,m+1,0).getDate();}
 function fdm(y,m){const d=new Date(y,m,1).getDay();return d===0?6:d-1;}
 function allCo(){return[...new Set(S.entries.map(e=>e.co))].filter(Boolean);}
 function allKlantnr(){return[...new Set(S.entries.map(e=>e.klantnr).filter(Boolean))];}
+function allMachineNames(){return Object.keys(S.machineRates);}
 function coColor(c){return(S.brandColors&&S.brandColors[c])||CLR[Math.max(0,allCo().indexOf(c))%CLR.length];}
 function deForDay(ds){return S.entries.filter(e=>e.date===ds);}
 function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
@@ -264,9 +259,16 @@ function fmtShort(ds){const{m,d}=pd(ds);return`${d} ${MN[m].slice(0,3)}`;}
 function fmtLong(ds){const{y,m,d}=pd(ds);return`${d} ${MN[m]} ${y}`;}
 function euro(n){return'€\u00a0'+Number(n).toLocaleString('nl-NL',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function hexToRgb(hex){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return{r,g,b};}
-function lighten(hex,p){const{r,g,b}=hexToRgb(hex);const m=v=>Math.round(v+(255-v)*p);return`rgb(${m(r)},${m(g)},${m(b)})`;}
+function lighten(hex,p){const{r,g,b}=hexToRgb(hex);const mx=v=>Math.round(v+(255-v)*p);return`rgb(${mx(r)},${mx(g)},${mx(b)})`;}
 
-/* ── Maand/week data ── */
+function machineEarn(entry){
+  if(!entry.machines||!entry.machines.length)return 0;
+  return entry.machines.reduce((s,m)=>{
+    const rate=S.machineRates[m.name];
+    return s+(rate&&m.hrs?Number(m.hrs)*rate:0);
+  },0);
+}
+
 function monthData(){
   const map={};
   S.entries.filter(e=>{const{y,m}=pd(e.date);return y===S.y&&m===S.m;})
@@ -275,8 +277,14 @@ function monthData(){
 }
 function totalHrs(){return Object.values(monthData()).reduce((s,v)=>s+v.hrs,0);}
 function totalKm(){return S.entries.filter(e=>{const{y,m}=pd(e.date);return y===S.y&&m===S.m;}).reduce((s,e)=>s+e.km,0);}
-function totalEarn(){const d=monthData();return Object.entries(d).reduce((s,[co,v])=>s+(S.rates[co]?v.hrs*S.rates[co]:0),0)+(S.kmRate?totalKm()*S.kmRate:0);}
-function hasRate(){return allCo().some(c=>S.rates[c])||S.kmRate>0;}
+function totalEarn(){
+  const d=monthData();
+  const hourEarn=Object.entries(d).reduce((s,[co,v])=>s+(S.rates[co]?v.hrs*S.rates[co]:0),0);
+  const kmEarn=S.kmRate?totalKm()*S.kmRate:0;
+  const machEarn=S.entries.filter(e=>{const{y,m}=pd(e.date);return y===S.y&&m===S.m;}).reduce((s,e)=>s+machineEarn(e),0);
+  return hourEarn+kmEarn+machEarn;
+}
+function hasRate(){return allCo().some(c=>S.rates[c])||S.kmRate>0||Object.keys(S.machineRates).length>0;}
 
 function isoWeek(dateStr){
   const{y,m,d}=pd(dateStr);
@@ -300,24 +308,42 @@ function weeklyData(){
   return Object.entries(map).sort((a,b)=>Number(a[0])-Number(b[0]));
 }
 
-/* ── Acties ── */
 function setView(v){S.view=v;S.panel=false;S.sel=null;S.showRates=false;S.showPrint=false;R();}
 function prevM(){if(S.m===0){S.y--;S.m=11;}else S.m--;S.sel=null;S.panel=false;R();}
 function nextM(){if(S.m===11){S.y++;S.m=0;}else S.m++;S.sel=null;S.panel=false;R();}
 function pickDay(day){S.sel=fd(S.y,S.m,day);S.panel=true;S.showForm=false;S.editId=null;R();}
 function closePanel(){S.panel=false;S.sel=null;S.showForm=false;R();}
 function toggleWeeks(){S.showWeeks=!S.showWeeks;R();}
-function openAdd(){S.form={co:'',hrs:'',km:'',klantnr:'',notes:'',photo:null,pname:''};S.editId=null;S.showForm=true;R();setTimeout(()=>{const f=document.querySelector('.fsec');if(f)f.scrollIntoView({behavior:'smooth'});},80);}
-function openEdit(id){const e=S.entries.find(e=>e.id===id);if(!e)return;S.form={co:e.co,hrs:String(e.hrs),km:e.km?String(e.km):'',klantnr:e.klantnr||'',notes:e.notes||'',photo:e.photo||null,pname:e.pname||''};S.editId=id;S.showForm=true;R();}
+
+function openAdd(){
+  S.form={co:'',hrs:'',km:'',klantnr:'',notes:'',photo:null,pname:'',machines:[]};
+  S.editId=null;S.showForm=true;R();
+  setTimeout(()=>{const f=document.querySelector('.fsec');if(f)f.scrollIntoView({behavior:'smooth'});},80);
+}
+function openEdit(id){
+  const e=S.entries.find(e=>e.id===id);if(!e)return;
+  S.form={co:e.co,hrs:String(e.hrs),km:e.km?String(e.km):'',klantnr:e.klantnr||'',notes:e.notes||'',photo:e.photo||null,pname:e.pname||'',machines:(e.machines||[]).map(m=>({name:m.name,hrs:String(m.hrs)}))};
+  S.editId=id;S.showForm=true;R();
+}
 function cancelForm(){S.showForm=false;S.editId=null;R();}
 
+function addMachine(){S.form.machines=[...S.form.machines,{name:'',hrs:''}];R();}
+function removeMachine(i){S.form.machines=S.form.machines.filter((_,j)=>j!==i);R();}
+
 async function doSave(){
-  const{co,hrs,km,klantnr,notes,photo,pname}=S.form;
+  const{co,hrs,km,klantnr,notes,photo,pname,machines}=S.form;
   if(!co.trim()||!hrs){alert('Vul bedrijf en uren in.');return;}
-  const entry={id:S.editId||String(Date.now()),date:S.sel,co:co.trim(),hrs:parseFloat(hrs),km:km?parseFloat(km):0,klantnr:klantnr||'',notes:notes||'',photo:photo||null,pname:pname||''};
-  if(S.editId)S.entries=S.entries.map(e=>e.id===S.editId?entry:e);
-  else S.entries.push(entry);
-  S.showForm=false;S.editId=null;S.form={co:'',hrs:'',km:'',klantnr:'',notes:'',photo:null,pname:''};
+  const validMachines=machines.filter(m=>m.name&&m.hrs).map(m=>({name:m.name,hrs:parseFloat(m.hrs)}));
+  const entry={
+    id:S.editId||String(Date.now()),date:S.sel,co:co.trim(),
+    hrs:parseFloat(hrs),km:km?parseFloat(km):0,klantnr:klantnr||'',
+    notes:notes||'',photo:photo||null,pname:pname||'',
+    machines:JSON.stringify(validMachines)
+  };
+  const entryForState={...entry,machines:validMachines};
+  if(S.editId)S.entries=S.entries.map(e=>e.id===S.editId?entryForState:e);
+  else S.entries.push(entryForState);
+  S.showForm=false;S.editId=null;S.form={co:'',hrs:'',km:'',klantnr:'',notes:'',photo:null,pname:'',machines:[]};
   R();
   setSyncing(true);
   try{await dbUpsert('entries',entry);showToast('✓ Opgeslagen');}
@@ -327,15 +353,13 @@ async function doSave(){
 
 async function doDelete(id){
   if(!confirm('Verwijderen?'))return;
-  S.entries=S.entries.filter(e=>e.id!==id);
-  R();
+  S.entries=S.entries.filter(e=>e.id!==id);R();
   setSyncing(true);
   try{await dbDel('entries',id);showToast('✓ Verwijderd');}
   catch(e){alert('Fout bij verwijderen.');console.error(e);}
   setSyncing(false);
 }
 
-/* ── Afbeeldingen ── */
 function compressImg(dataUrl,mw,mh,q){
   return new Promise(res=>{
     const img=new Image();
@@ -361,7 +385,9 @@ async function extractColor(imgSrc){
         const map={};
         for(let i=0;i<d.length;i+=4){
           const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3];
-          if(a<100||r>235&&g>235&&b>235||r<20&&g<20&&b<20)continue;
+          if(a<100)continue;
+          if(r>235&&g>235&&b>235)continue;
+          if(r<20&&g<20&&b<20)continue;
           if(Math.max(r,g,b)-Math.min(r,g,b)<45)continue;
           const k=`${Math.round(r/28)*28},${Math.round(g/28)*28},${Math.round(b/28)*28}`;
           map[k]=(map[k]||0)+1;
@@ -370,7 +396,7 @@ async function extractColor(imgSrc){
         if(!top){res(null);return;}
         const[r,g,b]=top[0].split(',').map(Number);
         res('#'+[r,g,b].map(v=>Math.min(255,v).toString(16).padStart(2,'0')).join(''));
-      }catch{res(null);}
+      }catch(err){res(null);}
     };
     img.onerror=()=>res(null);
     img.src=imgSrc;
@@ -384,12 +410,17 @@ function onPhoto(ev){
     const comp=await compressImg(e.target.result,900,900,.72);
     S.form.photo=comp;S.form.pname=file.name;
     const box=document.querySelector('.photo-box');
-    if(box)box.innerHTML=`<img class="photo-prev" src="${comp}">`;
+    if(box)box.innerHTML='<img class="photo-prev" src="'+comp+'">';
     const rb=document.querySelector('.rm-photo');if(rb)rb.style.display='block';
   };
   r.readAsDataURL(file);
 }
-function rmPhoto(){S.form.photo=null;S.form.pname='';const box=document.querySelector('.photo-box');if(box)box.innerHTML=`<span style="font-size:22px">📎</span><span class="photo-hint">Klik om foto toe te voegen</span>`;const rb=document.querySelector('.rm-photo');if(rb)rb.style.display='none';}
+function rmPhoto(){
+  S.form.photo=null;S.form.pname='';
+  const box=document.querySelector('.photo-box');
+  if(box)box.innerHTML='<span style="font-size:22px">📎</span><span class="photo-hint">Klik om foto toe te voegen</span>';
+  const rb=document.querySelector('.rm-photo');if(rb)rb.style.display='none';
+}
 
 async function onLogoUpload(co,ev){
   const file=ev.target.files[0];if(!file)return;
@@ -399,9 +430,7 @@ async function onLogoUpload(co,ev){
     S.logos[co]=comp;
     const color=await extractColor(comp);
     if(color)S.brandColors[co]=color;
-    saveSettings();
-    showToast('✓ Logo opgeslagen');
-    R();
+    saveSettings();showToast('✓ Logo opgeslagen');R();
   };
   r.readAsDataURL(file);
 }
@@ -409,13 +438,17 @@ function removeLogo(co){delete S.logos[co];saveSettings();R();}
 function openLb(id){const e=S.entries.find(e=>e.id===id);if(!e||!e.photo)return;document.getElementById('lb-img').src=e.photo;document.getElementById('lb').classList.add('on');}
 function closeLb(){document.getElementById('lb').classList.remove('on');}
 
-/* ── Tarieven ── */
 function openRates(){S.showRates=true;S.showPrint=false;R();}
 function closeRates(){
   document.querySelectorAll('.rate-inp').forEach(inp=>{
     const co=inp.dataset.co;if(!co)return;
     const val=parseFloat(inp.value);
     if(!isNaN(val)&&val>0)S.rates[co]=val;else delete S.rates[co];
+  });
+  document.querySelectorAll('.mach-rate-inp').forEach(inp=>{
+    const name=inp.dataset.machine;if(!name)return;
+    const val=parseFloat(inp.value);
+    if(!isNaN(val)&&val>=0)S.machineRates[name]=val;
   });
   document.querySelectorAll('.color-inp').forEach(inp=>{
     const co=inp.dataset.co;if(co)S.brandColors[co]=inp.value;
@@ -425,7 +458,20 @@ function closeRates(){
   S.showRates=false;R();saveSettings();
 }
 
-/* ── Afdrukken ── */
+function addMachineToList(){
+  const inp=document.getElementById('new-machine-name');
+  const name=inp?inp.value.trim():'';
+  if(!name){alert('Vul een naam in.');return;}
+  if(S.machineRates[name]!==undefined){alert('Machine bestaat al.');return;}
+  S.machineRates[name]=0;
+  saveSettings();R();
+}
+function deleteMachineFromList(name){
+  if(!confirm(`Machine "${name}" verwijderen?`))return;
+  delete S.machineRates[name];
+  saveSettings();R();
+}
+
 function openPrint(co){S.printCo=co;S.showPrint=true;S.showRates=false;R();}
 function closePrint(){S.showPrint=false;S.printCo=null;R();}
 
@@ -460,413 +506,424 @@ function buildPrintHTML(co,name,num,opts){
   const rate=S.rates[co];
   const earnHrs=rate!=null?data.hrs*rate:null;
   const earnKm=data.km&&S.kmRate?data.km*S.kmRate:null;
-  const earnTotal=(earnHrs!=null||earnKm!=null)?((earnHrs||0)+(earnKm||0)):null;
+  const earnMach=entries.reduce((s,e)=>s+machineEarn(e),0);
+  const earnTotal=((earnHrs||0)+(earnKm||0)+earnMach)||null;
   const c=coColor(co);
   const cLight=lighten(c,.88);
   const cMid=lighten(c,.6);
-  const period=`${MN[S.m]} ${S.y}`;
+  const period=MN[S.m]+' '+S.y;
   const today=new Date().toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'});
-  const showEarnCol=o.amounts&&(rate!=null||S.kmRate>0);
+  const showEarnCol=o.amounts&&(rate!=null||S.kmRate>0||earnMach>0);
   const hasKlantnr=entries.some(e=>e.klantnr);
   const logo=S.logos[co]||null;
 
   const rows=entries.map(e=>{
     const er=S.rates[e.co];
-    const ee=(er?e.hrs*er:0)+(e.km&&S.kmRate?e.km*S.kmRate:0);
-    return`<tr>
-      <td>${fmtLong(e.date)}</td>
-      ${hasKlantnr?`<td style="color:#7209b7;font-weight:600;font-size:13px">${e.klantnr||'—'}</td>`:''}
-      <td style="text-align:center;font-weight:700">${e.hrs}</td>
-      <td style="text-align:center;font-weight:700;color:#1d6fa5">${e.km||'—'}</td>
-      ${o.notes?`<td style="color:#555;font-size:13px">${e.notes?esc(e.notes):'—'}</td>`:''}
-      ${showEarnCol?`<td style="text-align:right;font-weight:700;color:#2d6a4f">${ee>0?euro(ee):'—'}</td>`:''}
-    </tr>`;
+    const ee=(er?e.hrs*er:0)+(e.km&&S.kmRate?e.km*S.kmRate:0)+machineEarn(e);
+    const machStr=(e.machines&&e.machines.length)?e.machines.map(m=>{
+      const mr=S.machineRates[m.name];
+      return '🔧 '+m.name+': '+m.hrs+'u'+(mr?' ('+euro(m.hrs*mr)+')':'');
+    }).join(', '):'';
+    return '<tr>'
+      +'<td>'+fmtLong(e.date)+(machStr?'<br><span style="font-size:12px;color:#888">'+esc(machStr)+'</span>':'')+'</td>'
+      +(hasKlantnr?'<td style="color:#7209b7;font-weight:600;font-size:13px">'+(e.klantnr||'—')+'</td>':'')
+      +'<td style="text-align:center;font-weight:700">'+e.hrs+'</td>'
+      +'<td style="text-align:center;font-weight:700;color:#1d6fa5">'+(e.km||'—')+'</td>'
+      +(o.notes?'<td style="color:#555;font-size:13px">'+(e.notes?esc(e.notes):'—')+'</td>':'')
+      +(showEarnCol?'<td style="text-align:right;font-weight:700;color:#2d6a4f">'+(ee>0?euro(ee):'—')+'</td>':'')
+      +'</tr>';
   }).join('');
 
   const sigBlocks=[];
-  if(o.sig1Active)sigBlocks.push(`<div class="sig-item"><div class="sig-line"></div><div class="sig-lbl">Akkoord ${esc(o.sig1)}</div></div>`);
-  if(o.sig2Active)sigBlocks.push(`<div class="sig-item"><div class="sig-line"></div><div class="sig-lbl">Akkoord ${esc(o.sig2)}</div></div>`);
+  if(o.sig1Active)sigBlocks.push('<div class="sig-item"><div class="sig-line"></div><div class="sig-lbl">Akkoord '+esc(o.sig1)+'</div></div>');
+  if(o.sig2Active)sigBlocks.push('<div class="sig-item"><div class="sig-line"></div><div class="sig-lbl">Akkoord '+esc(o.sig2)+'</div></div>');
 
-  // Weekoverzicht per bedrijf
   const weekMap={};
   entries.forEach(e=>{
     const w=isoWeek(e.date);
-    if(!weekMap[w])weekMap[w]={hrs:0,km:0,entries:[]};
-    weekMap[w].hrs+=e.hrs;weekMap[w].km+=e.km;weekMap[w].entries.push(e);
+    if(!weekMap[w])weekMap[w]={hrs:0,km:0,mach:0,entries:[]};
+    weekMap[w].hrs+=e.hrs;weekMap[w].km+=e.km;weekMap[w].mach+=machineEarn(e);weekMap[w].entries.push(e);
   });
-  const weekRows=Object.entries(weekMap).sort((a,b)=>Number(a[0])-Number(b[0])).map(([w,v])=>{
-    const er=rate;const ee=(er?v.hrs*er:0)+(v.km&&S.kmRate?v.km*S.kmRate:0);
-    return`<tr>
-      <td style="font-weight:700;color:${c}">Week ${w}</td>
-      <td style="color:#666;font-size:13px">${weekRange(v.entries)}</td>
-      <td style="text-align:center;font-weight:700">${v.hrs}</td>
-      <td style="text-align:center;font-weight:700;color:#1d6fa5">${v.km||'—'}</td>
-      ${o.amounts&&(rate!=null||S.kmRate)?`<td style="text-align:right;font-weight:700;color:#2d6a4f">${ee>0?euro(ee):'—'}</td>`:''}
-    </tr>`;
+  const weekRows=Object.entries(weekMap).sort((a,b)=>Number(a[0])-Number(b[0])).map(function(wv){
+    const w=wv[0],v=wv[1];
+    const er=rate;const ee=(er?v.hrs*er:0)+(v.km&&S.kmRate?v.km*S.kmRate:0)+v.mach;
+    return '<tr>'
+      +'<td style="font-weight:700;color:'+c+'">Week '+w+'</td>'
+      +'<td style="color:#666;font-size:13px">'+weekRange(v.entries)+'</td>'
+      +'<td style="text-align:center;font-weight:700">'+v.hrs+'</td>'
+      +'<td style="text-align:center;font-weight:700;color:#1d6fa5">'+(v.km||'—')+'</td>'
+      +(showEarnCol?'<td style="text-align:right;font-weight:700;color:#2d6a4f">'+(ee>0?euro(ee):'—')+'</td>':'')
+      +'</tr>';
   }).join('');
 
-  return`<!DOCTYPE html><html lang="nl"><head><meta charset="UTF-8">
-  <title>Urenoverzicht ${esc(co)} – ${period}</title>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:Arial,Helvetica,sans-serif;color:#1a1a1a;background:#fff}
-    @page{margin:18mm 20mm}
-    @media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
-    .wrap{max-width:780px;margin:0 auto;padding:32px 0}
-    .hdr{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:20px;border-bottom:3px solid ${c};margin-bottom:28px}
-    .hdr-left{display:flex;flex-direction:column;gap:8px}
-    .logo-img{max-height:56px;max-width:200px;object-fit:contain}
-    .co-name{font-size:${logo?'17px':'26px'};font-weight:800;color:${c};letter-spacing:-.4px}
-    .period{font-size:14px;color:#888;margin-top:2px}
-    .rate-pill{display:inline-block;background:${cLight};color:${c};border:1px solid ${cMid};border-radius:20px;padding:3px 12px;font-size:12px;font-weight:700;margin-top:4px}
-    .hdr-right{text-align:right}
-    .info-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:#aaa;font-weight:700}
-    .info-val{font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:6px}
-    table{width:100%;border-collapse:collapse;margin-bottom:24px;font-size:14px}
-    thead tr{background:${cLight}}
-    th{padding:10px 12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:${c};font-weight:700;border-bottom:2px solid ${cMid}}
-    td{padding:10px 12px;border-bottom:1px solid #f0ece6;vertical-align:top}
-    tr:last-child td{border-bottom:none}
-    tr:nth-child(even){background:${cLight}}
-    .totals{border:1px solid ${cMid};border-radius:10px;padding:18px 20px;background:${cLight};margin-top:8px}
-    .tot-title{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:${c};font-weight:700;margin-bottom:12px}
-    .tot-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid ${cMid};font-size:14px}
-    .tot-row:last-child{border-bottom:none;padding-top:10px;margin-top:4px}
-    .tot-row.big .tot-val{font-size:20px;font-weight:800;color:${c}}
-    .tot-row.earn .tot-val{color:#2d6a4f;font-weight:800}
-    .tot-lbl{color:#555;font-weight:500}
-    .tot-val{font-weight:700}
-    .sig-block{margin-top:48px;display:flex;gap:48px}
-    .sig-item{flex:1}
-    .sig-line{border-bottom:2px solid ${cMid};margin-bottom:8px;height:40px}
-    .sig-lbl{font-size:12px;color:${c};font-weight:700}
-    .footer{margin-top:36px;padding-top:14px;border-top:2px solid ${cLight};display:flex;justify-content:space-between;font-size:11px;color:#aaa}
-  </style></head><body><div class="wrap">
-  <div class="hdr">
-    <div class="hdr-left">
-      ${logo?`<img class="logo-img" src="${logo}" alt="${esc(co)}">`:'' }
-      <div>
-        <div class="co-name">${esc(co)}</div>
-        <div class="period">Urenoverzicht – ${period}</div>
-        ${o.uurtarief&&rate?`<div class="rate-pill">Uurtarief: ${euro(rate)}/u</div>`:''}
-      </div>
-    </div>
-    <div class="hdr-right">
-      <div class="info-lbl">Naam</div><div class="info-val">${esc(name)}</div>
-      ${num?`<div class="info-lbl">Personeelsnummer</div><div class="info-val">${esc(num)}</div>`:''}
-    </div>
-  </div>
-  <table><thead><tr>
-    <th>Datum</th>
-    ${hasKlantnr?'<th>Klant/Werknr.</th>':''}
-    <th style="text-align:center">Uren</th>
-    <th style="text-align:center">Km</th>
-    ${o.notes?'<th>Notitie</th>':''}
-    ${showEarnCol?'<th style="text-align:right">Bedrag</th>':''}
-  </tr></thead><tbody>${rows}</tbody></table>
-  <div class="totals">
-    <div class="tot-title">Totaaloverzicht ${period}</div>
-    <div class="tot-row big"><span class="tot-lbl">Totaal uren</span><span class="tot-val">${data.hrs} uur</span></div>
-    ${data.km?`<div class="tot-row"><span class="tot-lbl">Totaal kilometers</span><span class="tot-val" style="color:#1d6fa5">${data.km} km</span></div>`:''}
-    ${o.amounts&&earnHrs!=null?`<div class="tot-row"><span class="tot-lbl">Uren (${rate} €/u × ${data.hrs}u)</span><span class="tot-val">${euro(earnHrs)}</span></div>`:''}
-    ${o.amounts&&earnKm!=null?`<div class="tot-row"><span class="tot-lbl">Km-vergoeding (${S.kmRate} €/km × ${data.km}km)</span><span class="tot-val">${euro(earnKm)}</span></div>`:''}
-    ${o.amounts&&earnTotal!=null?`<div class="tot-row earn"><span class="tot-lbl" style="font-weight:700">Totaal te ontvangen</span><span class="tot-val">${euro(earnTotal)}</span></div>`:''}
-  </div>
-  ${o.weekoverzicht?`<div style="margin-top:24px">
-    <div style="font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:${c};font-weight:700;margin-bottom:10px">Weekoverzicht</div>
-    <table><thead><tr>
-      <th>Week</th><th>Periode</th>
-      <th style="text-align:center">Uren</th>
-      <th style="text-align:center">Km</th>
-      ${o.amounts&&(rate!=null||S.kmRate)?'<th style="text-align:right">Bedrag</th>':''}
-    </tr></thead><tbody>${weekRows}</tbody></table>
-  </div>`:''}
-  ${sigBlocks.length?`<div class="sig-block">${sigBlocks.join('')}</div>`:''}
-  <div class="footer"><span>Gegenereerd op ${today}</span><span>Werklogboek</span></div>
-  </div></body></html>`;
+  return '<!DOCTYPE html><html lang="nl"><head><meta charset="UTF-8">'
+    +'<title>Urenoverzicht '+esc(co)+' - '+period+'</title>'
+    +'<style>'
+    +'*{box-sizing:border-box;margin:0;padding:0}'
+    +'body{font-family:Arial,Helvetica,sans-serif;color:#1a1a1a;background:#fff}'
+    +'@page{margin:18mm 20mm}'
+    +'@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}'
+    +'.wrap{max-width:780px;margin:0 auto;padding:32px 0}'
+    +'.hdr{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:20px;border-bottom:3px solid '+c+';margin-bottom:28px}'
+    +'.hdr-left{display:flex;flex-direction:column;gap:8px}'
+    +'.logo-img{max-height:56px;max-width:200px;object-fit:contain}'
+    +'.co-name{font-size:'+(logo?'17px':'26px')+';font-weight:800;color:'+c+';letter-spacing:-.4px}'
+    +'.period{font-size:14px;color:#888;margin-top:2px}'
+    +'.rate-pill{display:inline-block;background:'+cLight+';color:'+c+';border:1px solid '+cMid+';border-radius:20px;padding:3px 12px;font-size:12px;font-weight:700;margin-top:4px}'
+    +'.hdr-right{text-align:right}'
+    +'.info-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:#aaa;font-weight:700}'
+    +'.info-val{font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:6px}'
+    +'table{width:100%;border-collapse:collapse;margin-bottom:24px;font-size:14px}'
+    +'thead tr{background:'+cLight+'}'
+    +'th{padding:10px 12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:'+c+';font-weight:700;border-bottom:2px solid '+cMid+'}'
+    +'td{padding:10px 12px;border-bottom:1px solid #f0ece6;vertical-align:top}'
+    +'tr:last-child td{border-bottom:none}'
+    +'tr:nth-child(even){background:'+cLight+'}'
+    +'.totals{border:1px solid '+cMid+';border-radius:10px;padding:18px 20px;background:'+cLight+';margin-top:8px}'
+    +'.tot-title{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:'+c+';font-weight:700;margin-bottom:12px}'
+    +'.tot-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid '+cMid+';font-size:14px}'
+    +'.tot-row:last-child{border-bottom:none;padding-top:10px;margin-top:4px}'
+    +'.tot-row.big .tot-val{font-size:20px;font-weight:800;color:'+c+'}'
+    +'.tot-row.earn .tot-val{color:#2d6a4f;font-weight:800}'
+    +'.tot-lbl{color:#555;font-weight:500}'
+    +'.tot-val{font-weight:700}'
+    +'.week-title{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:'+c+';font-weight:700;margin:24px 0 10px}'
+    +'.sig-block{margin-top:48px;display:flex;gap:48px}'
+    +'.sig-item{flex:1}'
+    +'.sig-line{border-bottom:2px solid '+cMid+';margin-bottom:8px;height:40px}'
+    +'.sig-lbl{font-size:12px;color:'+c+';font-weight:700}'
+    +'.footer{margin-top:36px;padding-top:14px;border-top:2px solid '+cLight+';display:flex;justify-content:space-between;font-size:11px;color:#aaa}'
+    +'</style></head><body><div class="wrap">'
+    +'<div class="hdr">'
+    +'<div class="hdr-left">'
+    +(logo?'<img class="logo-img" src="'+logo+'" alt="'+esc(co)+'">':'')
+    +'<div>'
+    +'<div class="co-name">'+esc(co)+'</div>'
+    +'<div class="period">Urenoverzicht - '+period+'</div>'
+    +(o.uurtarief&&rate?'<div class="rate-pill">Uurtarief: '+euro(rate)+'/u</div>':'')
+    +'</div></div>'
+    +'<div class="hdr-right">'
+    +'<div class="info-lbl">Naam</div><div class="info-val">'+esc(name)+'</div>'
+    +(num?'<div class="info-lbl">Personeelsnummer</div><div class="info-val">'+esc(num)+'</div>':'')
+    +'</div></div>'
+    +'<table><thead><tr>'
+    +'<th>Datum</th>'
+    +(hasKlantnr?'<th>Klant/Werknr.</th>':'')
+    +'<th style="text-align:center">Uren</th>'
+    +'<th style="text-align:center">Km</th>'
+    +(o.notes?'<th>Notitie</th>':'')
+    +(showEarnCol?'<th style="text-align:right">Bedrag</th>':'')
+    +'</tr></thead><tbody>'+rows+'</tbody></table>'
+    +'<div class="totals">'
+    +'<div class="tot-title">Totaaloverzicht '+period+'</div>'
+    +'<div class="tot-row big"><span class="tot-lbl">Totaal uren</span><span class="tot-val">'+data.hrs+' uur</span></div>'
+    +(data.km?'<div class="tot-row"><span class="tot-lbl">Totaal kilometers</span><span class="tot-val" style="color:#1d6fa5">'+data.km+' km</span></div>':'')
+    +(o.amounts&&earnHrs!=null?'<div class="tot-row"><span class="tot-lbl">Uren ('+rate+' \u20ac/u \u00d7 '+data.hrs+'u)</span><span class="tot-val">'+euro(earnHrs)+'</span></div>':'')
+    +(o.amounts&&earnKm!=null?'<div class="tot-row"><span class="tot-lbl">Km-vergoeding ('+S.kmRate+' \u20ac/km \u00d7 '+data.km+'km)</span><span class="tot-val">'+euro(earnKm)+'</span></div>':'')
+    +(o.amounts&&earnMach>0?'<div class="tot-row"><span class="tot-lbl">Machines</span><span class="tot-val">'+euro(earnMach)+'</span></div>':'')
+    +(o.amounts&&earnTotal?'<div class="tot-row earn"><span class="tot-lbl" style="font-weight:700">Totaal te ontvangen</span><span class="tot-val">'+euro(earnTotal)+'</span></div>':'')
+    +'</div>'
+    +(o.weekoverzicht&&weekRows?'<div class="week-title">Weekoverzicht</div><table><thead><tr><th>Week</th><th>Periode</th><th style="text-align:center">Uren</th><th style="text-align:center">Km</th>'+(showEarnCol?'<th style="text-align:right">Bedrag</th>':'')+'</tr></thead><tbody>'+weekRows+'</tbody></table>':'')
+    +(sigBlocks.length?'<div class="sig-block">'+sigBlocks.join('')+'</div>':'')
+    +'<div class="footer"><span>Gegenereerd op '+today+'</span><span>Werklogboek</span></div>'
+    +'</div></body></html>';
 }
 
-/* ── Render ── */
-function R(){
-  document.getElementById('app').innerHTML=buildApp();
-  attachSwipe();
-}
+function R(){document.getElementById('app').innerHTML=buildApp();attachSwipe();}
 
 function buildApp(){
-  if(S.loading){
-    return`<div class="spin-wrap"><div class="spin"></div><div class="spin-txt">Verbinden met cloud...</div></div>`;
-  }
-  if(S.err){
-    return`<div class="err-wrap"><div style="font-size:48px">⚠️</div><div class="err-msg">${esc(S.err)}</div><button class="retry-btn" onclick="S.loading=true;R();loadData()">Opnieuw proberen</button></div>`;
-  }
+  if(S.loading)return '<div class="spin-wrap"><div class="spin"></div><div class="spin-txt">Verbinden met cloud...</div></div>';
+  if(S.err)return '<div class="err-wrap"><div style="font-size:48px">\u26a0\ufe0f</div><div class="err-msg">'+esc(S.err)+'</div><button class="retry-btn" onclick="S.loading=true;R();loadData()">Opnieuw proberen</button></div>';
   return buildHdr()+buildMnav()
-    +`<div class="main">${S.view==='cal'?buildCal():buildOv()}</div>`
+    +'<div class="main">'+(S.view==='cal'?buildCal():buildOv())+'</div>'
     +(S.view==='cal'?buildSheet():'')
-    +(S.view==='cal'?`<div class="backdrop ${S.panel?'on':''}" onclick="closePanel()"></div>`:'')
+    +(S.view==='cal'?'<div class="backdrop '+(S.panel?'on':'')+'" onclick="closePanel()"></div>':'')
     +(S.showRates?buildRatesModal():'')
     +(S.showPrint?buildPrintModal():'');
 }
 
 function buildHdr(){
-  return`<header class="hdr">
-    <div class="hdr-left">
-      <div class="logo-icon">⏱</div>
-      <div>
-        <div class="app-name">Werklogboek</div>
-        <div class="app-sub"><span class="sync-dot${syncBusy?' busy':''}"></span>${syncBusy?'Opslaan...':'Gesynchroniseerd'}</div>
-      </div>
-    </div>
-    <div class="hdr-right">
-      <button class="rates-btn" onclick="openRates()">💶 Tarieven</button>
-      <div class="tabs">
-        <button class="tab ${S.view==='cal'?'on':''}" onclick="setView('cal')">Kalender</button>
-        <button class="tab ${S.view==='ov'?'on':''}" onclick="setView('ov')">Overzicht</button>
-      </div>
-    </div>
-  </header>`;
+  return '<header class="hdr">'
+    +'<div class="hdr-left">'
+    +'<div class="logo-icon">\u23f1</div>'
+    +'<div><div class="app-name">Werklogboek</div>'
+    +'<div class="app-sub"><span class="sync-dot'+(syncBusy?' busy':'')+'"></span>'+(syncBusy?'Opslaan...':'Gesynchroniseerd')+'</div>'
+    +'</div></div>'
+    +'<div class="hdr-right">'
+    +'<button class="rates-btn" onclick="openRates()">\ud83d\udcb6 Tarieven</button>'
+    +'<div class="tabs">'
+    +'<button class="tab '+(S.view==='cal'?'on':'')+'" onclick="setView(\'cal\')">Kalender</button>'
+    +'<button class="tab '+(S.view==='ov'?'on':'')+'" onclick="setView(\'ov\')">Overzicht</button>'
+    +'</div></div></header>';
 }
 
 function buildMnav(){
-  return`<div class="mnav">
-    <button class="nbtn" onclick="prevM()">‹</button>
-    <div class="mtitle">${MN[S.m]} ${S.y}</div>
-    <button class="nbtn" onclick="nextM()">›</button>
-    ${S.view==='ov'?`<div class="total-badge">${totalHrs()}u</div>`:''}
-  </div>`;
+  return '<div class="mnav">'
+    +'<button class="nbtn" onclick="prevM()">\u2039</button>'
+    +'<div class="mtitle">'+MN[S.m]+' '+S.y+'</div>'
+    +'<button class="nbtn" onclick="nextM()">\u203a</button>'
+    +(S.view==='ov'?'<div class="total-badge">'+totalHrs()+'u</div>':'')
+    +'</div>';
 }
 
 function buildCal(){
   const d=dim(S.y,S.m),f=fdm(S.y,S.m);
-  let h=DN.map(n=>`<div class="dhdr">${n}</div>`).join('');
+  let h=DN.map(n=>'<div class="dhdr">'+n+'</div>').join('');
   for(let i=0;i<f;i++)h+='<div></div>';
   for(let day=1;day<=d;day++){
     const ds=fd(S.y,S.m,day),de=deForDay(ds);
     const th=de.reduce((s,e)=>s+e.hrs,0),tkm=de.reduce((s,e)=>s+e.km,0);
     const isT=ds===todayStr,isSel=ds===S.sel,dow=(f+day-1)%7,isW=dow===5||dow===6;
     const cos=[...new Set(de.map(e=>e.co))];
-    h+=`<div class="dcell${isW?' wknd':''}${isT?' today':''}${isSel?' sel':''}" onclick="pickDay(${day})">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <span class="dnum${isT?' today':''}">${day}</span>
-        ${th?`<span class="dhours">${th}u</span>`:''}
-      </div>
-      ${tkm?`<div class="dkm">🚗 ${tkm}km</div>`:''}
-      ${cos.length?`<div class="ddots">${cos.slice(0,2).map(c=>`<div class="ddot-row"><span class="dot" style="background:${coColor(c)}"></span><span class="dlabel">${esc(c)}</span></div>`).join('')}</div>`:''}
-    </div>`;
+    h+='<div class="dcell'+(isW?' wknd':'')+(isT?' today':'')+(isSel?' sel':'')+'" onclick="pickDay('+day+')">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start">'
+      +'<span class="dnum'+(isT?' today':'')+'">'+day+'</span>'
+      +(th?'<span class="dhours">'+th+'u</span>':'')
+      +'</div>'
+      +(tkm?'<div class="dkm">\ud83d\ude97 '+tkm+'km</div>':'')
+      +(cos.length?'<div class="ddots">'+cos.slice(0,2).map(c=>'<div class="ddot-row"><span class="dot" style="background:'+coColor(c)+'"></span><span class="dlabel">'+esc(c)+'</span></div>').join('')+'</div>':'')
+      +'</div>';
   }
-  return`<div class="cal-pane"><div class="cal-grid">${h}</div></div>`;
+  return '<div class="cal-pane"><div class="cal-grid">'+h+'</div></div>';
 }
 
 function buildSheet(){
-  if(!S.sel)return`<div class="sheet" id="sheet"></div>`;
+  if(!S.sel)return '<div class="sheet" id="sheet"></div>';
   const{y,m,d}=pd(S.sel);
   const de=deForDay(S.sel);
   const th=de.reduce((s,e)=>s+e.hrs,0),tkm=de.reduce((s,e)=>s+e.km,0);
+
   const cards=de.length===0&&!S.showForm
-    ?`<div class="empty">📝<br>Nog geen registraties.<br>Klik op '+ Toevoegen'.</div>`
+    ?'<div class="empty">\ud83d\udcdd<br>Nog geen registraties.<br>Klik op \'+ Toevoegen\'.</div>'
     :de.map(e=>{
       const rate=S.rates[e.co];
-      const earn=(rate?e.hrs*rate:0)+(e.km&&S.kmRate?e.km*S.kmRate:0);
-      const showEarn=(rate!=null)||(e.km&&S.kmRate);
-      return`<div class="ecard">
-        <div class="etop">
-          <div class="etop-left">
-            <span class="cbadge" style="background:${coColor(e.co)}18;color:${coColor(e.co)};border-color:${coColor(e.co)}30">${esc(e.co)}</span>
-            <div class="etop-badges">
-              ${e.klantnr?`<span class="eknr-badge">🔢 ${esc(e.klantnr)}</span>`:''}
-              ${e.km?`<span class="ekm-badge">🚗 ${e.km} km</span>`:''}
-            </div>
-          </div>
-          <div class="etop-right">
-            <span class="ehours">${e.hrs}u</span>
-            ${showEarn&&earn>0?`<div style="font-size:13px;font-weight:700;color:var(--green)">${euro(earn)}</div>`:''}
-          </div>
-        </div>
-        ${e.notes?`<p class="enotes">${esc(e.notes)}</p>`:''}
-        ${e.photo?`<img class="ephoto" src="${e.photo}" onclick="openLb('${e.id}')">`:'' }
-        <div class="eacts">
-          <button class="edit-btn" onclick="openEdit('${e.id}')">✎ Bewerken</button>
-          <button class="del-btn" onclick="doDelete('${e.id}')">Verwijderen</button>
-        </div>
-      </div>`;
+      const mEarn=machineEarn(e);
+      const earn=(rate?e.hrs*rate:0)+(e.km&&S.kmRate?e.km*S.kmRate:0)+mEarn;
+      const showEarn=(rate!=null)||(e.km&&S.kmRate)||mEarn>0;
+      const machBadges=(e.machines&&e.machines.length)?e.machines.map(m=>'<span class="emach-badge">\ud83d\udd27 '+esc(m.name)+' '+m.hrs+'u</span>').join(''):'';
+      return '<div class="ecard">'
+        +'<div class="etop">'
+        +'<div class="etop-left">'
+        +'<span class="cbadge" style="background:'+coColor(e.co)+'18;color:'+coColor(e.co)+';border-color:'+coColor(e.co)+'30">'+esc(e.co)+'</span>'
+        +'<div class="etop-badges">'
+        +(e.klantnr?'<span class="eknr-badge">\ud83d\udd22 '+esc(e.klantnr)+'</span>':'')
+        +(e.km?'<span class="ekm-badge">\ud83d\ude97 '+e.km+' km</span>':'')
+        +machBadges
+        +'</div></div>'
+        +'<div class="etop-right">'
+        +'<span class="ehours">'+e.hrs+'u</span>'
+        +(showEarn&&earn>0?'<div style="font-size:13px;font-weight:700;color:var(--green)">'+euro(earn)+'</div>':'')
+        +'</div></div>'
+        +(e.notes?'<p class="enotes">'+esc(e.notes)+'</p>':'')
+        +(e.photo?'<img class="ephoto" src="'+e.photo+'" onclick="openLb(\''+e.id+'\')">':'')
+        +'<div class="eacts">'
+        +'<button class="edit-btn" onclick="openEdit(\''+e.id+'\'">\u270e Bewerken</button>'
+        +'<button class="del-btn" onclick="doDelete(\''+e.id+'\')">Verwijderen</button>'
+        +'</div></div>';
     }).join('');
 
   const knrList=allKlantnr();
-  const form=S.showForm?`<div class="fsec">
-    <div class="ftitle">${S.editId?'Registratie bewerken':'Nieuwe registratie'}</div>
-    <label class="flbl">Bedrijf</label>
-    <input class="finput" list="cl" type="text" placeholder="Bedrijfsnaam" value="${esc(S.form.co)}" oninput="S.form.co=this.value">
-    <datalist id="cl">${allCo().map(c=>`<option value="${esc(c)}">`).join('')}</datalist>
-    <label class="flbl">Klant / Werknummer <span style="font-weight:400;color:#bbb">(optioneel)</span></label>
-    <input class="finput" list="knrl" type="text" placeholder="Bijv. KL-1234" value="${esc(S.form.klantnr)}" oninput="S.form.klantnr=this.value">
-    <datalist id="knrl">${knrList.map(k=>`<option value="${esc(k)}">`).join('')}</datalist>
-    <div class="row2">
-      <div><label class="flbl">Uren</label><input class="finput" type="number" step="0.5" min="0" placeholder="7.5" value="${esc(S.form.hrs)}" oninput="S.form.hrs=this.value"></div>
-      <div><label class="flbl">Kilometers</label><input class="finput" type="number" step="1" min="0" placeholder="42" value="${esc(S.form.km)}" oninput="S.form.km=this.value"></div>
-    </div>
-    <label class="flbl">Notitie</label>
-    <textarea class="finput" placeholder="Optionele notitie..." oninput="S.form.notes=this.value">${esc(S.form.notes)}</textarea>
-    <label class="flbl">Foto</label>
-    <div class="photo-box" onclick="document.getElementById('fp').click()">
-      ${S.form.photo?`<img class="photo-prev" src="${S.form.photo}">`:`<span style="font-size:22px">📎</span><span class="photo-hint">Klik om foto toe te voegen</span>`}
-    </div>
-    <button class="rm-photo" onclick="rmPhoto()" style="display:${S.form.photo?'block':'none'}">✕ Foto verwijderen</button>
-    <input type="file" id="fp" accept="image/*" style="display:none" onchange="onPhoto(event)">
-    <div class="fbtns">
-      <button class="save-btn" onclick="doSave()">Opslaan</button>
-      <button class="cancel-btn" onclick="cancelForm()">Annuleren</button>
-    </div>
-  </div>`:'';
+  const machNames=allMachineNames();
+  const machRows=S.form.machines.map((m,i)=>
+    '<div class="mach-row">'
+    +'<input class="finput" list="ml" placeholder="Machine naam" value="'+esc(m.name)+'" oninput="S.form.machines['+i+'].name=this.value">'
+    +'<input class="finput hrs-inp" type="number" step="0.5" min="0" placeholder="Uren" value="'+esc(m.hrs)+'" oninput="S.form.machines['+i+'].hrs=this.value">'
+    +'<button class="mach-rm" onclick="removeMachine('+i+')">\u2715</button>'
+    +'</div>'
+  ).join('');
 
-  return`<div class="sheet ${S.panel?'on':''}" id="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-hdr">
-      <div>
-        <div class="sheet-date">${d} ${MN[m]} ${y}</div>
-        <div class="sheet-sub">${th}u gewerkt${tkm?` · ${tkm} km`:''} · ${de.length} registratie${de.length!==1?'s':''}</div>
-      </div>
-      <div class="sheet-hdr-right">
-        <button class="add-btn" onclick="openAdd()">+ Toevoegen</button>
-        <button class="x-btn" onclick="closePanel()">✕</button>
-      </div>
-    </div>
-    <div class="sheet-body">${cards}${form}</div>
-  </div>`;
+  const form=S.showForm
+    ?'<div class="fsec">'
+    +'<div class="ftitle">'+(S.editId?'Registratie bewerken':'Nieuwe registratie')+'</div>'
+    +'<label class="flbl">Bedrijf</label>'
+    +'<input class="finput" list="cl" type="text" placeholder="Bedrijfsnaam" value="'+esc(S.form.co)+'" oninput="S.form.co=this.value">'
+    +'<datalist id="cl">'+allCo().map(c=>'<option value="'+esc(c)+'">').join('')+'</datalist>'
+    +'<label class="flbl">Klant / Werknummer <span style="font-weight:400;color:#bbb">(optioneel)</span></label>'
+    +'<input class="finput" list="knrl" type="text" placeholder="Bijv. KL-1234" value="'+esc(S.form.klantnr)+'" oninput="S.form.klantnr=this.value">'
+    +'<datalist id="knrl">'+knrList.map(k=>'<option value="'+esc(k)+'">').join('')+'</datalist>'
+    +'<div class="row2">'
+    +'<div><label class="flbl">Uren</label><input class="finput" type="number" step="0.5" min="0" placeholder="7.5" value="'+esc(S.form.hrs)+'" oninput="S.form.hrs=this.value"></div>'
+    +'<div><label class="flbl">Kilometers</label><input class="finput" type="number" step="1" min="0" placeholder="42" value="'+esc(S.form.km)+'" oninput="S.form.km=this.value"></div>'
+    +'</div>'
+    +(machNames.length?
+      '<label class="flbl">Machines <span style="font-weight:400;color:#bbb">(optioneel)</span></label>'
+      +machRows
+      +'<datalist id="ml">'+machNames.map(n=>'<option value="'+esc(n)+'">').join('')+'</datalist>'
+      +'<button class="add-mach-btn" onclick="addMachine()">\ud83d\udd27 + Machine toevoegen</button>'
+    :'')
+    +'<label class="flbl">Notitie</label>'
+    +'<textarea class="finput" placeholder="Optionele notitie..." oninput="S.form.notes=this.value">'+esc(S.form.notes)+'</textarea>'
+    +'<label class="flbl">Foto</label>'
+    +'<div class="photo-box" onclick="document.getElementById(\'fp\').click()">'
+    +(S.form.photo?'<img class="photo-prev" src="'+S.form.photo+'">'
+      :'<span style="font-size:22px">\ud83d\udcce</span><span class="photo-hint">Klik om foto toe te voegen</span>')
+    +'</div>'
+    +'<button class="rm-photo" onclick="rmPhoto()" style="display:'+(S.form.photo?'block':'none')+'">\u2715 Foto verwijderen</button>'
+    +'<input type="file" id="fp" accept="image/*" style="display:none" onchange="onPhoto(event)">'
+    +'<div class="fbtns">'
+    +'<button class="save-btn" onclick="doSave()">Opslaan</button>'
+    +'<button class="cancel-btn" onclick="cancelForm()">Annuleren</button>'
+    +'</div></div>'
+    :'';
+
+  return '<div class="sheet '+(S.panel?'on':'')+'" id="sheet">'
+    +'<div class="sheet-handle"></div>'
+    +'<div class="sheet-hdr">'
+    +'<div><div class="sheet-date">'+d+' '+MN[m]+' '+y+'</div>'
+    +'<div class="sheet-sub">'+th+'u gewerkt'+(tkm?' \u00b7 '+tkm+' km':'')+' \u00b7 '+de.length+' registratie'+(de.length!==1?'s':'')+'</div></div>'
+    +'<div class="sheet-hdr-right">'
+    +'<button class="add-btn" onclick="openAdd()">+ Toevoegen</button>'
+    +'<button class="x-btn" onclick="closePanel()">\u2715</button>'
+    +'</div></div>'
+    +'<div class="sheet-body">'+cards+form+'</div>'
+    +'</div>';
 }
 
 function buildOv(){
   const data=monthData(),keys=Object.keys(data);
-  if(!keys.length){
-    return`<div class="ov-pane"><div class="empty" style="padding-top:60px"><div style="font-size:48px;margin-bottom:12px">📊</div>Geen registraties voor ${MN[S.m]}.</div></div>`;
-  }
+  if(!keys.length)return '<div class="ov-pane"><div class="empty" style="padding-top:60px"><div style="font-size:48px;margin-bottom:12px">\ud83d\udcca</div>Geen registraties voor '+MN[S.m]+'.</div></div>';
 
   const blocks=keys.sort((a,b)=>data[b].hrs-data[a].hrs).map(co=>{
     const{hrs,km,entries}=data[co],c=coColor(co),rate=S.rates[co];
-    const earnHrs=rate!=null?hrs*rate:null;
-    const earnKm=km&&S.kmRate?km*S.kmRate:null;
-    const earnTotal=(earnHrs!=null||earnKm!=null)?((earnHrs||0)+(earnKm||0)):null;
-    return`<div class="cblock">
-      <div class="cblock-hdr">
-        <div class="cblock-left"><span class="cdot" style="background:${c}"></span><span class="cname">${esc(co)}</span></div>
-        <div class="cblock-center">
-          <span class="ctotal" style="color:${c}">${hrs}u</span>
-          ${km?`<span class="ckm">🚗 ${km} km</span>`:''}
-          ${earnTotal!=null?`<span class="cearn">${euro(earnTotal)}</span>`:''}
-        </div>
-        <button class="print-btn" onclick="openPrint('${esc(co)}')">🖨 Afdrukken</button>
-      </div>
-      ${entries.slice().sort((a,b)=>a.date.localeCompare(b.date)).map(e=>{
+    const earnHrs=rate!=null?hrs*rate:0;
+    const earnKm=km&&S.kmRate?km*S.kmRate:0;
+    const earnMach=entries.reduce((s,e)=>s+machineEarn(e),0);
+    const earnTotal=earnHrs+earnKm+earnMach;
+    return '<div class="cblock">'
+      +'<div class="cblock-hdr">'
+      +'<div class="cblock-left"><span class="dot" style="background:'+c+';width:12px;height:12px;border-radius:50%;flex-shrink:0"></span><span class="cname">'+esc(co)+'</span></div>'
+      +'<div class="cblock-center"><span class="ctotal" style="color:'+c+'">'+hrs+'u</span>'
+      +(km?'<span class="ckm">\ud83d\ude97 '+km+' km</span>':'')
+      +(earnTotal>0?'<span class="cearn">'+euro(earnTotal)+'</span>':'')
+      +'</div>'
+      +'<button class="print-btn" onclick="openPrint(\''+esc(co)+'\')">\ud83d\udda8 Afdrukken</button>'
+      +'</div>'
+      +entries.slice().sort((a,b)=>a.date.localeCompare(b.date)).map(e=>{
         const er=S.rates[e.co];
-        const ee=(er?e.hrs*er:0)+(e.km&&S.kmRate?e.km*S.kmRate:0);
-        const showEe=er!=null||(e.km&&S.kmRate);
-        return`<div class="ov-entry">
-          <span class="ov-date">${fmtShort(e.date)}</span>
-          <span class="ov-hrs">${e.hrs}u</span>
-          <span class="ov-km">${e.km?'🚗 '+e.km:''}</span>
-          ${e.klantnr?`<span class="ov-knr">${esc(e.klantnr)}</span>`:''}
-          <span class="ov-note">${e.notes?esc(e.notes):'<span style="color:#ccc">—</span>'}</span>
-          ${showEe&&ee>0?`<span class="ov-earn">${euro(ee)}</span>`:''}
-          ${e.photo?`<img class="ov-thumb" src="${e.photo}" onclick="openLb('${e.id}')">`:'' }
-        </div>`;
-      }).join('')}
-    </div>`;
+        const mEarn=machineEarn(e);
+        const ee=(er?e.hrs*er:0)+(e.km&&S.kmRate?e.km*S.kmRate:0)+mEarn;
+        const showEe=er!=null||(e.km&&S.kmRate)||mEarn>0;
+        return '<div class="ov-entry">'
+          +'<span class="ov-date">'+fmtShort(e.date)+'</span>'
+          +'<span class="ov-hrs">'+e.hrs+'u</span>'
+          +'<span class="ov-km">'+(e.km?'\ud83d\ude97 '+e.km:'')+'</span>'
+          +(e.klantnr?'<span class="ov-knr">'+esc(e.klantnr)+'</span>':'')
+          +'<span class="ov-note">'+(e.notes?esc(e.notes):'<span style="color:#ccc">\u2014</span>')+'</span>'
+          +(showEe&&ee>0?'<span class="ov-earn">'+euro(ee)+'</span>':'')
+          +(e.photo?'<img class="ov-thumb" src="'+e.photo+'" onclick="openLb(\''+e.id+'\')">':'')
+          +'</div>';
+      }).join('')
+      +'</div>';
   }).join('');
 
   const th=totalHrs(),tkm=totalKm(),te=totalEarn();
   const weeks=weeklyData();
-  const weekBlock=S.showWeeks?`<div class="cblock" style="margin-bottom:14px">
-    <div class="cblock-hdr"><div class="cblock-left"><span style="font-size:16px">📅</span><span class="cname">Weekoverzicht</span></div></div>
-    ${weeks.map(([w,v])=>`<div class="ov-entry" style="padding:11px 17px">
-      <span style="font-weight:800;color:var(--accent);width:60px;flex-shrink:0;font-size:13px">Week ${w}</span>
-      <span style="color:var(--muted);font-size:13px;flex:1">${weekRange(v.entries)}</span>
-      <span style="font-weight:700;font-size:15px">${v.hrs}u</span>
-      ${v.km?`<span style="font-size:12px;font-weight:700;color:var(--blue);margin-left:10px">🚗 ${v.km}km</span>`:''}
-    </div>`).join('')}
-  </div>`:'';
+  const weekBlock=S.showWeeks
+    ?'<div class="cblock" style="margin-bottom:14px">'
+    +'<div class="cblock-hdr"><div class="cblock-left"><span style="font-size:16px">\ud83d\udcc5</span><span class="cname">Weekoverzicht</span></div></div>'
+    +weeks.map(wv=>{
+      const w=wv[0],v=wv[1];
+      return '<div class="ov-entry" style="padding:11px 17px">'
+        +'<span style="font-weight:800;color:var(--accent);width:60px;flex-shrink:0;font-size:13px">Week '+w+'</span>'
+        +'<span style="color:var(--muted);font-size:13px;flex:1">'+weekRange(v.entries)+'</span>'
+        +'<span style="font-weight:700;font-size:15px">'+v.hrs+'u</span>'
+        +(v.km?'<span style="font-size:12px;font-weight:700;color:var(--blue);margin-left:10px">\ud83d\ude97 '+v.km+'km</span>':'')
+        +'</div>';
+    }).join('')
+    +'</div>'
+    :'';
 
-  return`<div class="ov-pane">
-    ${blocks}
-    ${weekBlock}
-    <div style="display:flex;justify-content:center;margin-bottom:14px">
-      <button onclick="toggleWeeks()" style="padding:9px 18px;border:1px solid var(--border);border-radius:20px;background:${S.showWeeks?'var(--dark)':'var(--white)'};color:${S.showWeeks?'#fff':'var(--muted)'};font-size:13px;font-weight:600;font-family:var(--font);cursor:pointer">
-        📅 Weekoverzicht ${S.showWeeks?'verbergen':'tonen'}
-      </button>
-    </div>
-    <div class="stat-row" style="border-color:#e8650a30;background:var(--accent-light)"><span class="stat-lbl">Totaal uren ${MN[S.m]}</span><span class="stat-num" style="color:var(--accent)">${th}u</span></div>
-    ${tkm?`<div class="stat-row" style="border-color:#b8d9ef;background:var(--blue-light)"><span class="stat-lbl">🚗 Totaal km ${MN[S.m]}</span><span class="stat-num" style="color:var(--blue)">${tkm} km</span></div>`:''}
-    ${te>0?`<div class="stat-row" style="border-color:#2d6a4f30;background:var(--green-light)"><span class="stat-lbl">💶 Totaal inkomen ${MN[S.m]}</span><span class="stat-num" style="color:var(--green)">${euro(te)}</span></div>`:''}
-    ${!hasRate()?`<div class="hint-row">Stel een uurtarief in via 💶 Tarieven<br>om je inkomen automatisch te berekenen.</div>`:''}
-  </div>`;
+  return '<div class="ov-pane">'+blocks+weekBlock
+    +'<div style="display:flex;justify-content:center;margin-bottom:14px">'
+    +'<button onclick="toggleWeeks()" style="padding:9px 18px;border:1px solid var(--border);border-radius:20px;background:'+(S.showWeeks?'var(--dark)':'var(--white)')+';color:'+(S.showWeeks?'#fff':'var(--muted)')+';font-size:13px;font-weight:600;font-family:var(--font);cursor:pointer">'
+    +'\ud83d\udcc5 Weekoverzicht '+(S.showWeeks?'verbergen':'tonen')
+    +'</button></div>'
+    +'<div class="stat-row" style="border-color:#e8650a30;background:var(--accent-light)"><span class="stat-lbl">Totaal uren '+MN[S.m]+'</span><span class="stat-num" style="color:var(--accent)">'+th+'u</span></div>'
+    +(tkm?'<div class="stat-row" style="border-color:#b8d9ef;background:var(--blue-light)"><span class="stat-lbl">\ud83d\ude97 Totaal km '+MN[S.m]+'</span><span class="stat-num" style="color:var(--blue)">'+tkm+' km</span></div>':'')
+    +(te>0?'<div class="stat-row" style="border-color:#2d6a4f30;background:var(--green-light)"><span class="stat-lbl">\ud83d\udcb6 Totaal inkomen '+MN[S.m]+'</span><span class="stat-num" style="color:var(--green)">'+euro(te)+'</span></div>':'')
+    +(!hasRate()?'<div class="hint-row">Stel een uurtarief in via \ud83d\udcb6 Tarieven<br>om je inkomen automatisch te berekenen.</div>':'')
+    +'</div>';
 }
 
 function buildPrintModal(){
   const o=S.printOpts;
-  return`<div class="modal-overlay" onclick="if(event.target===this)closePrint()"><div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-hdr"><div class="modal-title">🖨 Afdrukken – ${esc(S.printCo)}</div><button class="x-btn" onclick="closePrint()">✕</button></div>
-    <div class="modal-body">
-      <div style="font-size:14px;color:var(--muted);padding:14px 0 4px">Overzicht voor <strong>${esc(S.printCo)}</strong> – ${MN[S.m]} ${S.y}</div>
-      <label class="flbl" style="margin-top:16px">Jouw naam</label>
-      <input id="print-name" class="finput" type="text" placeholder="Voor- en achternaam" value="${esc(S.userName)}">
-      <label class="flbl">Personeelsnummer <span style="font-weight:400;color:#bbb">(optioneel)</span></label>
-      <input id="print-num" class="finput" type="text" placeholder="Bijv. 12345" value="${esc(S.userNum)}">
-      <label class="flbl" style="margin-top:20px">Wat wil je weergeven?</label>
-      <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-notes" ${o.notes?'checked':''}> Notities weergeven</label></div>
-      <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-amounts" ${o.amounts?'checked':''}> Bedragen weergeven</label></div>
-      <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-uurtarief" ${o.uurtarief?'checked':''}> Uurtarief weergeven</label></div>
-      <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-weekoverzicht" ${o.weekoverzicht?'checked':''}> Weekoverzicht per bedrijf</label></div>
-      <label class="flbl" style="margin-top:20px">Handtekeningen</label>
-      <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-sig1-active" ${o.sig1Active?'checked':''} onchange="document.getElementById('sig1-name').style.display=this.checked?'block':'none'"> Handtekening 1 toevoegen</label></div>
-      <div id="sig1-name" style="display:${o.sig1Active?'block':'none'}"><div class="sig-sub"><label class="flbl" style="margin-top:0">Naam</label><input id="opt-sig1" class="finput" type="text" value="${esc(o.sig1)}"></div></div>
-      <div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-sig2-active" ${o.sig2Active?'checked':''} onchange="document.getElementById('sig2-name').style.display=this.checked?'block':'none'"> Handtekening 2 toevoegen</label></div>
-      <div id="sig2-name" style="display:${o.sig2Active?'block':'none'}"><div class="sig-sub"><label class="flbl" style="margin-top:0">Naam</label><input id="opt-sig2" class="finput" type="text" value="${esc(o.sig2)}"></div></div>
-      <div class="modal-note">💡 Je keuzes worden onthouden voor de volgende keer.</div>
-      <div class="fbtns">
-        <button class="save-btn" onclick="doPrint()">🖨 Openen & afdrukken</button>
-        <button class="cancel-btn" onclick="closePrint()">Annuleren</button>
-      </div>
-    </div>
-  </div></div>`;
+  return '<div class="modal-overlay" onclick="if(event.target===this)closePrint()"><div class="modal">'
+    +'<div class="modal-handle"></div>'
+    +'<div class="modal-hdr"><div class="modal-title">\ud83d\udda8 Afdrukken - '+esc(S.printCo)+'</div><button class="x-btn" onclick="closePrint()">\u2715</button></div>'
+    +'<div class="modal-body">'
+    +'<div style="font-size:14px;color:var(--muted);padding:14px 0 4px">Overzicht voor <strong>'+esc(S.printCo)+'</strong> - '+MN[S.m]+' '+S.y+'</div>'
+    +'<label class="flbl" style="margin-top:16px">Jouw naam</label>'
+    +'<input id="print-name" class="finput" type="text" placeholder="Voor- en achternaam" value="'+esc(S.userName)+'">'
+    +'<label class="flbl">Personeelsnummer <span style="font-weight:400;color:#bbb">(optioneel)</span></label>'
+    +'<input id="print-num" class="finput" type="text" placeholder="Bijv. 12345" value="'+esc(S.userNum)+'">'
+    +'<label class="flbl" style="margin-top:20px">Wat wil je weergeven?</label>'
+    +'<div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-notes" '+(o.notes?'checked':'')+'>  Notities weergeven</label></div>'
+    +'<div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-amounts" '+(o.amounts?'checked':'')+'>  Bedragen weergeven</label></div>'
+    +'<div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-uurtarief" '+(o.uurtarief?'checked':'')+'>  Uurtarief weergeven</label></div>'
+    +'<div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-weekoverzicht" '+(o.weekoverzicht?'checked':'')+'>  Weekoverzicht per bedrijf</label></div>'
+    +'<label class="flbl" style="margin-top:20px">Handtekeningen</label>'
+    +'<div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-sig1-active" '+(o.sig1Active?'checked':'')+' onchange="document.getElementById(\'sig1-name\').style.display=this.checked?\'block\':\'none\'">  Handtekening 1 toevoegen</label></div>'
+    +'<div id="sig1-name" style="display:'+(o.sig1Active?'block':'none')+'"><div class="sig-sub"><label class="flbl" style="margin-top:0">Naam</label><input id="opt-sig1" class="finput" type="text" value="'+esc(o.sig1)+'"></div></div>'
+    +'<div class="opt-row"><label class="opt-lbl"><input type="checkbox" id="opt-sig2-active" '+(o.sig2Active?'checked':'')+' onchange="document.getElementById(\'sig2-name\').style.display=this.checked?\'block\':\'none\'">  Handtekening 2 toevoegen</label></div>'
+    +'<div id="sig2-name" style="display:'+(o.sig2Active?'block':'none')+'"><div class="sig-sub"><label class="flbl" style="margin-top:0">Naam</label><input id="opt-sig2" class="finput" type="text" value="'+esc(o.sig2)+'"></div></div>'
+    +'<div class="modal-note">\ud83d\udca1 Je keuzes worden onthouden voor de volgende keer.</div>'
+    +'<div class="fbtns">'
+    +'<button class="save-btn" onclick="doPrint()">\ud83d\udda8 Openen & afdrukken</button>'
+    +'<button class="cancel-btn" onclick="closePrint()">Annuleren</button>'
+    +'</div></div></div></div>';
 }
 
 function buildRatesModal(){
   const cos=allCo();
-  return`<div class="modal-overlay" onclick="if(event.target===this)closeRates()"><div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-hdr"><div class="modal-title">💶 Tarieven & huisstijl</div><button class="x-btn" onclick="closeRates()">✕</button></div>
-    <div class="modal-body">
-      <div class="rate-section">Per bedrijf</div>
-      ${cos.length===0?`<div class="no-cos">Voeg eerst registraties toe.</div>`:cos.map(co=>{
+  const machNames=allMachineNames();
+  return '<div class="modal-overlay" onclick="if(event.target===this)closeRates()"><div class="modal">'
+    +'<div class="modal-handle"></div>'
+    +'<div class="modal-hdr"><div class="modal-title">\ud83d\udcb6 Tarieven & huisstijl</div><button class="x-btn" onclick="closeRates()">\u2715</button></div>'
+    +'<div class="modal-body">'
+    +'<div class="rate-section">Per bedrijf</div>'
+    +(cos.length===0?'<div class="no-cos">Voeg eerst registraties toe.</div>'
+      :cos.map(co=>{
         const id=coId(co);const c=coColor(co);const hasLogo=!!S.logos[co];
-        return`<div class="co-card">
-          <div class="co-card-top">
-            <span class="dot" style="background:${c};width:12px;height:12px;border-radius:50%;flex-shrink:0"></span>
-            <span class="co-card-name">${esc(co)}</span>
-            <div class="rate-wrap"><span class="rate-sym">€</span><input class="rate-inp" type="number" step="0.50" min="0" placeholder="0.00" data-co="${esc(co)}" value="${S.rates[co]||''}"><span class="rate-unit">/u</span></div>
-          </div>
-          <div class="co-detail-row">
-            <span class="co-detail-lbl">Logo</span>
-            ${hasLogo?`<img class="logo-preview" src="${S.logos[co]}">`:'' }
-            <button class="sm-btn" onclick="document.getElementById('lf-${id}').click()">📷 ${hasLogo?'Wijzigen':'Uploaden'}</button>
-            ${hasLogo?`<button class="sm-btn-red" onclick="removeLogo('${esc(co)}')">✕</button>`:''}
-            <input type="file" id="lf-${id}" accept="image/*" style="display:none" onchange="onLogoUpload('${esc(co)}',event)">
-          </div>
-          <div class="co-detail-row">
-            <span class="co-detail-lbl">Kleur</span>
-            <input type="color" class="color-swatch color-inp" data-co="${esc(co)}" value="${c}">
-            <span class="color-hint">Auto-detecteerd bij logo upload. Handmatig aanpassen kan ook.</span>
-          </div>
-        </div>`;
-      }).join('')}
-      <div class="rate-section">Kilometertarief</div>
-      <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
-        <span style="font-size:18px">🚗</span>
-        <span style="font-weight:600;font-size:15px;flex:1">Per kilometer</span>
-        <div class="rate-wrap"><span class="rate-sym">€</span><input id="km-rate-inp" class="rate-inp" type="number" step="0.01" min="0" placeholder="0.23" value="${S.kmRate||''}"><span class="rate-unit">/km</span></div>
-      </div>
-      <div class="modal-note">💡 Upload een logo om de huisstijlkleur automatisch te detecteren. Standaard belastingvrij km-tarief in NL is € 0,23 per km.</div>
-      <div style="margin-top:16px;padding-bottom:8px"><button class="save-btn" onclick="closeRates()">Opslaan & sluiten</button></div>
-    </div>
-  </div></div>`;
+        return '<div class="co-card">'
+          +'<div class="co-card-top">'
+          +'<span class="dot" style="background:'+c+';width:12px;height:12px;border-radius:50%;flex-shrink:0"></span>'
+          +'<span class="co-card-name">'+esc(co)+'</span>'
+          +'<div class="rate-wrap"><span class="rate-sym">\u20ac</span>'
+          +'<input class="rate-inp" type="number" step="0.50" min="0" placeholder="0.00" data-co="'+esc(co)+'" value="'+(S.rates[co]||'')+'"><span class="rate-unit">/u</span></div>'
+          +'</div>'
+          +'<div class="co-detail-row"><span class="co-detail-lbl">Logo</span>'
+          +(hasLogo?'<img class="logo-preview" src="'+S.logos[co]+'">':'')
+          +'<button class="sm-btn" onclick="document.getElementById(\'lf-'+id+'\').click()">\ud83d\udcf7 '+(hasLogo?'Wijzigen':'Uploaden')+'</button>'
+          +(hasLogo?'<button class="sm-btn-red" onclick="removeLogo(\''+esc(co)+'\')">\u2715</button>':'')
+          +'<input type="file" id="lf-'+id+'" accept="image/*" style="display:none" onchange="onLogoUpload(\''+esc(co)+'\',event)">'
+          +'</div>'
+          +'<div class="co-detail-row"><span class="co-detail-lbl">Kleur</span>'
+          +'<input type="color" class="color-swatch color-inp" data-co="'+esc(co)+'" value="'+c+'">'
+          +'<span class="color-hint">Auto-detecteerd bij logo upload.</span>'
+          +'</div></div>';
+      }).join(''))
+    +'<div class="rate-section">Machines</div>'
+    +(machNames.length===0?'<div style="font-size:13px;color:var(--muted);padding:8px 0">Nog geen machines. Voeg er hieronder een toe.</div>'
+      :machNames.map(name=>'<div class="mach-list-row">'
+        +'<span class="mach-list-name">\ud83d\udd27 '+esc(name)+'</span>'
+        +'<div class="rate-wrap"><span class="rate-sym">\u20ac</span>'
+        +'<input class="rate-inp mach-rate-inp" type="number" step="0.50" min="0" placeholder="0.00" data-machine="'+esc(name)+'" value="'+(S.machineRates[name]||'')+'"><span class="rate-unit">/u</span></div>'
+        +'<button class="sm-btn-red" onclick="deleteMachineFromList(\''+esc(name)+'\')">\u2715</button>'
+        +'</div>'
+      ).join(''))
+    +'<div class="add-mach-form">'
+    +'<input id="new-machine-name" class="finput" type="text" placeholder="Naam nieuwe machine (bijv. Graafmachine)">'
+    +'<button class="add-btn" onclick="addMachineToList()">+ Toevoegen</button>'
+    +'</div>'
+    +'<div class="rate-section">Kilometertarief</div>'
+    +'<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">'
+    +'<span style="font-size:18px">\ud83d\ude97</span>'
+    +'<span style="font-weight:600;font-size:15px;flex:1">Per kilometer</span>'
+    +'<div class="rate-wrap"><span class="rate-sym">\u20ac</span><input id="km-rate-inp" class="rate-inp" type="number" step="0.01" min="0" placeholder="0.23" value="'+(S.kmRate||'')+'"><span class="rate-unit">/km</span></div>'
+    +'</div>'
+    +'<div class="modal-note">\ud83d\udca1 Machines voeg je toe via de + knop. Het tarief per machine wordt automatisch berekend bij elke registratie.</div>'
+    +'<div style="margin-top:16px;padding-bottom:8px"><button class="save-btn" onclick="closeRates()">Opslaan & sluiten</button></div>'
+    +'</div></div></div>';
 }
 
 function attachSwipe(){
